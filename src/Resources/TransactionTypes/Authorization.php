@@ -1,23 +1,34 @@
 <?php
 /**
- * Description
+ * This represents the authorization transaction.
  *
- * @license Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  * @copyright Copyright © 2016-present heidelpay GmbH. All rights reserved.
  *
  * @link  http://dev.heidelpay.com/
  *
- * @author  Simon Gabriel <development@heidelpay.de>
+ * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpay/${Package}
+ * @package  heidelpay/mgw_sdk/transaction_types
  */
-namespace heidelpay\NmgPhpSdk\Resources\TransactionTypes;
+namespace heidelpay\MgwPhpSdk\Resources\TransactionTypes;
 
-use heidelpay\NmgPhpSdk\Resources\Payment;
-use heidelpay\NmgPhpSdk\Exceptions\MissingResourceException;
-use heidelpay\NmgPhpSdk\Interfaces\HeidelpayResourceInterface;
-use heidelpay\NmgPhpSdk\Interfaces\PaymentTypeInterface;
-use heidelpay\NmgPhpSdk\Traits\HasCancellationsTrait;
+use heidelpay\MgwPhpSdk\Resources\Payment;
+use heidelpay\MgwPhpSdk\Exceptions\MissingResourceException;
+use heidelpay\MgwPhpSdk\Interfaces\HeidelpayResourceInterface;
+use heidelpay\MgwPhpSdk\Interfaces\PaymentTypeInterface;
+use heidelpay\MgwPhpSdk\Traits\HasCancellationsTrait;
 
 class Authorization extends AbstractTransactionType
 {
@@ -41,7 +52,7 @@ class Authorization extends AbstractTransactionType
      * @param string $currency
      * @param string $returnUrl
      */
-    public function __construct($amount, $currency, $returnUrl)
+    public function __construct($amount = null, $currency = null, $returnUrl = null)
     {
         $this->setAmount($amount);
         $this->setCurrency($currency);
@@ -61,9 +72,9 @@ class Authorization extends AbstractTransactionType
 
     /**
      * @param float $amount
-     * @return HeidelpayResourceInterface
+     * @return self
      */
-    public function setAmount(float $amount): HeidelpayResourceInterface
+    public function setAmount($amount): self
     {
         $this->amount = $amount;
         return $this;
@@ -81,7 +92,7 @@ class Authorization extends AbstractTransactionType
      * @param string $currency
      * @return HeidelpayResourceInterface
      */
-    public function setCurrency(string $currency): HeidelpayResourceInterface
+    public function setCurrency($currency): HeidelpayResourceInterface
     {
         $this->currency = $currency;
         return $this;
@@ -99,7 +110,7 @@ class Authorization extends AbstractTransactionType
      * @param string $returnUrl
      * @return HeidelpayResourceInterface
      */
-    public function setReturnUrl(string $returnUrl): HeidelpayResourceInterface
+    public function setReturnUrl($returnUrl): HeidelpayResourceInterface
     {
         $this->returnUrl = $returnUrl;
         return $this;
@@ -154,7 +165,7 @@ class Authorization extends AbstractTransactionType
     /**
      * {@inheritDoc}
      */
-    protected function handleResponse(\stdClass $response)
+    public function handleResponse(\stdClass $response)
     {
         /** @var Payment $payment */
         $payment = $this->getPayment();
@@ -177,11 +188,6 @@ class Authorization extends AbstractTransactionType
      */
     public function cancel(): Cancellation
     {
-        $cancellation = new Cancellation();
-        $this->addCancellation($cancellation);
-        $cancellation->setPayment($this->getPayment());
-        $cancellation->create();
-
-        return $cancellation;
+        return $this->getHeidelpayObject()->cancelAuthorization($this);
     }
 }

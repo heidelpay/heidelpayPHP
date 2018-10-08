@@ -1,6 +1,6 @@
 <?php
 /**
- * This interface defines the methods for a resource with amount properties.
+ * This trait adds the value property to a class.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,37 +20,35 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpay/mgw_sdk/interfaces
+ * @package  heidelpay/mgw_sdk/traits
  */
-namespace heidelpay\MgwPhpSdk\Interfaces;
+namespace heidelpay\MgwPhpSdk\Traits;
 
-interface AmountsInterface
+use heidelpay\MgwPhpSdk\Constants\Calculation;
+
+trait HasValueHelper
 {
     /**
-     * Return the total amount.
+     * Returns true if amount1 is greater than or equal to amount2.
      *
-     * @return float
+     * @param float $amount1
+     * @param float $amount2
+     * @return bool
      */
-    public function getTotal(): float;
+    private function amountIsGreaterThanOrEqual($amount1, $amount2): bool
+    {
+        $diff = $amount1 - $amount2;
+        return $diff > 0.0 || $this->equalsZero($diff);
+    }
 
     /**
-     * Return the remaining amount.
+     * Returns true if the given amount is smaller than EPSILON.
      *
-     * @return float
+     * @param float $amount
+     * @return bool
      */
-    public function getRemaining(): float;
-
-    /**
-     * Return the charged amount.
-     *
-     * @return float
-     */
-    public function getCharged(): float;
-
-    /**
-     * Return the canceled amount.
-     *
-     * @return float
-     */
-    public function getCanceled(): float;
+    private function equalsZero(float $amount): bool
+    {
+        return (abs($amount) < Calculation::EPSILON);
+    }
 }

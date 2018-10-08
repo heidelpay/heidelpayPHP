@@ -1,23 +1,34 @@
 <?php
 /**
- * Description
+ * This defines a base class for all payment types e.g. Card, GiroPay, etc.
  *
- * @license Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  * @copyright Copyright © 2016-present heidelpay GmbH. All rights reserved.
  *
  * @link  http://dev.heidelpay.com/
  *
- * @author  Simon Gabriel <development@heidelpay.de>
+ * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpay/${Package}
+ * @package  heidelpay/mgw_sdk/payment_types
  */
-namespace heidelpay\NmgPhpSdk\Resources\PaymentTypes;
+namespace heidelpay\MgwPhpSdk\Resources\PaymentTypes;
 
-use heidelpay\NmgPhpSdk\Resources\AbstractHeidelpayResource;
-use heidelpay\NmgPhpSdk\Exceptions\IllegalTransactionTypeException;
-use heidelpay\NmgPhpSdk\Resources\TransactionTypes\Authorization;
-use heidelpay\NmgPhpSdk\Resources\TransactionTypes\Charge;
-use heidelpay\NmgPhpSdk\Interfaces\PaymentTypeInterface;
+use heidelpay\MgwPhpSdk\Resources\AbstractHeidelpayResource;
+use heidelpay\MgwPhpSdk\Exceptions\IllegalTransactionTypeException;
+use heidelpay\MgwPhpSdk\Resources\TransactionTypes\Authorization;
+use heidelpay\MgwPhpSdk\Resources\TransactionTypes\Charge;
+use heidelpay\MgwPhpSdk\Interfaces\PaymentTypeInterface;
 
 abstract class BasePaymentType extends AbstractHeidelpayResource implements PaymentTypeInterface
 {
@@ -44,19 +55,19 @@ abstract class BasePaymentType extends AbstractHeidelpayResource implements Paym
             throw new IllegalTransactionTypeException('charge');
         }
 
-        return $this->getHeidelpayObject()->charge($this, $amount, $currency, $returnUrl, $customer);
+        return $this->getHeidelpayObject()->charge($amount, $currency, $this, $returnUrl, $customer);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function authorize($amount, $currency, $returnUrl): Authorization
+    public function authorize($amount, $currency, $returnUrl, $customer = null): Authorization
     {
         if (!$this->isAuthorizable()) {
             throw new IllegalTransactionTypeException('authorize');
         }
 
-        return $this->getHeidelpayObject()->authorize($this, $amount, $currency, $returnUrl);
+        return $this->getHeidelpayObject()->authorize($amount, $currency, $this, $returnUrl, $customer);
     }
 
     //</editor-fold>

@@ -2,19 +2,46 @@
 /**
  * This represents the card payment type which supports credit card as well as debit card payments.
  *
- * @license Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  * @copyright Copyright © 2016-present heidelpay GmbH. All rights reserved.
  *
  * @link  http://dev.heidelpay.com/
  *
- * @author  Simon Gabriel <development@heidelpay.de>
- *
- * @package  heidelpay/PaymentTypes
+ * @author  Simon Gabriel <development@heidelpay.com>
+ * @package  heidelpay/mgw_sdk/payment_types
  */
-namespace heidelpay\NmgPhpSdk\Resources\PaymentTypes;
+namespace heidelpay\MgwPhpSdk\Resources\PaymentTypes;
 
 class Card extends BasePaymentType
 {
+    /**
+     * Card constructor.
+     * @param string $number
+     * @param string $expiryDate
+     */
+    public function __construct($number, $expiryDate)
+    {
+        $this->setAuthorizable(true)
+            ->setChargeable(true);
+
+        $this->setNumber($number);
+        $this->setExpiryDate($expiryDate);
+
+        parent::__construct();
+    }
+
+    //<editor-fold desc="Properties">
     /** @var string $number */
     protected $number;
 
@@ -29,51 +56,6 @@ class Card extends BasePaymentType
 
     /** @var string $brand */
     private $brand = '';
-
-    /**
-     * Card constructor.
-     * @param string $number
-     * @param string $expiryDate
-     */
-    public function __construct($number, $expiryDate)
-    {
-        $this->setAuthorizable(true)
-             ->setChargeable(true);
-
-        $this->setNumber($number);
-        $this->setExpiryDate($expiryDate);
-
-        parent::__construct();
-    }
-
-    //<editor-fold desc="Overridable Methods">
-    /**
-     * {@inheritDoc}
-     */
-    protected function handleResponse(\stdClass $response)
-    {
-        $isError = isset($response->isError) && $response->isError;
-        if ($isError) {
-            return;
-        }
-
-        if (isset($response->cvc)) {
-            $this->setCvc($response->cvc);
-        }
-        if (isset($response->number)) {
-            $this->setNumber($response->number);
-        }
-        if (isset($response->expiryDate)) {
-            $this->setExpiryDate($response->expiryDate);
-        }
-        if (isset($response->brand)) {
-            $this->setBrand($response->brand);
-        }
-
-        parent::handleResponse($response);
-    }
-
-    //</editor-fold>
 
     //<editor-fold desc="Getters/Setters">
     /**
@@ -166,10 +148,11 @@ class Card extends BasePaymentType
      * @param string $brand
      * @return Card
      */
-    private function setBrand(string $brand): Card
+    protected function setBrand(string $brand): Card
     {
         $this->brand = $brand;
         return $this;
     }
+    //</editor-fold>
     //</editor-fold>
 }

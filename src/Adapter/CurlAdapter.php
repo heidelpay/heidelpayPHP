@@ -1,28 +1,39 @@
 <?php
 /**
- * Standard curl adapter
+ * By default this adapter will be used for communication however a custom adapter implementing the
+ * HttpAdapterInterface can be used.
  *
- * You can use this adapter for your project or you can
- * create one based on a standard library like zend-http
- * or guzzlehttp.
+ * @license
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * @license Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
- * @copyright Copyright © 2016-present heidelpay GmbH. All rights reserved.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ * @copyright Copyright © 2018 Heidelpay GmbH
  *
  * @link  http://dev.heidelpay.com/heidelpay-php-payment-api/
  *
- * @author  Jens Richter
+ * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  Heidelpay
- * @subpackage PhpPaymentApi
- * @category PhpPaymentApi
+ * @package  heidelpay/mgw_sdk/adapter
  */
-namespace heidelpay\NmgPhpSdk\Adapter;
+namespace heidelpay\MgwPhpSdk\Adapter;
 
-use heidelpay\NmgPhpSdk\Resources\AbstractHeidelpayResource;
-use heidelpay\NmgPhpSdk\Exceptions\HeidelpayApiException;
-use heidelpay\NmgPhpSdk\Parameters;
+use heidelpay\MgwPhpSdk\Heidelpay;
+use heidelpay\MgwPhpSdk\Resources\AbstractHeidelpayResource;
+use heidelpay\MgwPhpSdk\Exceptions\HeidelpayApiException;
 
 class CurlAdapter implements HttpAdapterInterface
 {
@@ -50,7 +61,7 @@ class CurlAdapter implements HttpAdapterInterface
 
         $request = $this->initCurlRequest($uri, $heidelpayResource, $httpMethod);
 
-        if (Parameters::DEBUG) {
+        if (Heidelpay::DEBUG_MODE) {
             echo 'Curl ' . $httpMethod . '-Request: ' . $uri . "\n";
         }
 
@@ -69,8 +80,8 @@ class CurlAdapter implements HttpAdapterInterface
      */
     private function handleErrors($info, $response)
     {
-        if ($info >= 400) {
-            $responseArray = json_decode($response);
+        $responseArray = json_decode($response);
+        if ($info >= 400 || isset($responseArray->errors)) {
             $merchantMessage = $customerMessage = $code = '';
 
             if (isset($responseArray->errors[0])) {
@@ -109,7 +120,7 @@ class CurlAdapter implements HttpAdapterInterface
         curl_setopt($request, CURLOPT_HTTPHEADER, array(
             'Authorization: ' . 'Basic ' . base64_encode($heidelpayResource->getHeidelpayObject()->getKey() . ':'), // basic auth with key as user and empty password
             'Content-Type: application/json',
-            'SDK-VERSION: ' . Parameters::VERSION
+            'SDK-VERSION: ' . Heidelpay::SDK_VERSION
 //            'CUSTOMER-LANGUAGE: en_US', // heidelpay constructor // header object?
 //            'CHECKOUT-ID: checkout-5aba2fad0ab154.88150279', // heidelpay constructor
 //            'SHOP-SYSTEM: Shopware - 5.2.2', // heidelpay constructor

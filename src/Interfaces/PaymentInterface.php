@@ -1,59 +1,31 @@
 <?php
 /**
- * Description
+ * This interface defines the methods for the Payment class.
  *
- * @license Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  * @copyright Copyright © 2016-present heidelpay GmbH. All rights reserved.
  *
  * @link  http://dev.heidelpay.com/
  *
- * @author  Simon Gabriel <development@heidelpay.de>
+ * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpay/${Package}
+ * @package  heidelpay/mgw_sdk/interfaces
  */
-namespace heidelpay\NmgPhpSdk\Interfaces;
-
-use heidelpay\NmgPhpSdk\Resources\TransactionTypes\Authorization;
-use heidelpay\NmgPhpSdk\Resources\TransactionTypes\Charge;
+namespace heidelpay\MgwPhpSdk\Interfaces;
 
 interface PaymentInterface extends AmountsInterface
 {
-    //<editor-fold desc="Transactions">
-    /**
-     * @param float $amount
-     * @param string $currency
-     * @param string $returnUrl
-     * @return Charge
-     */
-    public function charge($amount = null, $currency = null, $returnUrl = null): Charge;
-
-    /**
-     * Performs a full charge on the payment.
-     * Works only if an authorization has been performed prior to this call.
-     *
-     * @return Charge
-     */
-    public function fullCharge(): Charge;
-
-    /**
-     * @param float $amount
-     * @param string $currency
-     * @param string $returnUrl
-     * @return Authorization
-     */
-    public function authorize($amount, $currency, $returnUrl): Authorization;
-
-    /**
-     * @param float $amount
-     */
-    public function cancel($amount = null);
-
-    /**
-     * Cancel all charges in the payment.
-     */
-    public function cancelAllCharges();
-    //</editor-fold>
-
     //<editor-fold desc="Payment state">
     /**
      * Return true if the state is pending.

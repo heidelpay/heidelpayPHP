@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains definitions of the allowed salutations.
+ * This file contains definitions of the available transaction types.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,12 @@
  *
  * @package  heidelpay/mgw_sdk/constants
  */
+
 namespace heidelpay\MgwPhpSdk\Constants;
 
-class Salutation
+class TransactionTypes
 {
-    const MR = 'mr';
-    const MRS = 'mrs';
-    const UNKNOWN = 'unknown';
+    const AUTHORIZATION = 'authorize';
+    const CHARGE = 'charge';
+    const CANCEL = 'cancel';
 }
