@@ -80,7 +80,7 @@ trait CustomerFixtureTrait
         return CustomerFactory::createNotRegisteredB2bCustomer(
             'Max',
             'Mustermann',
-            '2001-12-12',
+            '2000-12-12',
             $this->getBillingAddress(),
             'test@test.de',
             'heidelpay GmbH',
