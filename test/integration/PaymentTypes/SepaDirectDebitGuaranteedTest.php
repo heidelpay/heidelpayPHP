@@ -141,4 +141,86 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
     }
 
     //</editor-fold>
+
+    //<editor-fold desc="registered B2B customer">
+
+    /**
+     * Verify direct debit guaranteed can be charged with registered B2B customer.
+     *
+     * @test
+     *
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
+     */
+    public function directDebitGuaranteedShouldAllowChargeWitRegB2bCustomer()
+    {
+        $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setBic('COBADEFFXXX')->setHolder('Max Mustermann');
+        $this->heidelpay->createPaymentType($directDebitGuaranteed);
+
+        $customer = $this->getMaximalRegisteredB2bCustomer()->setShippingAddress($this->getBillingAddress());
+        $charge   = $directDebitGuaranteed->charge(100.0, 'EUR', self::RETURN_URL, $customer);
+        $this->assertTransactionResourceHasBeenCreated($charge);
+    }
+
+    /**
+     * Verify ddg will throw error if addresses do not match.
+     *
+     * @test
+     *
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
+     */
+    public function ddgShouldThrowErrorOnRegisteredB2bChargeIfAddressesDoNotMatch()
+    {
+        $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setBic('COBADEFFXXX');
+        $this->heidelpay->createPaymentType($directDebitGuaranteed);
+
+        $this->expectException(HeidelpayApiException::class);
+        $this->expectExceptionCode(ApiResponseCodes::API_ERROR_ADDRESSES_DO_NOT_MATCH);
+
+        $customer = $this->getMaximalRegisteredB2bCustomer()->setShippingAddress($this->getBillingAddress());
+        $directDebitGuaranteed->charge(100.0, 'EUR', self::RETURN_URL, $customer);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="registered B2B customer">
+
+    /**
+     * Verify direct debit guaranteed can be charged with registered B2B customer.
+     *
+     * @test
+     *
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
+     */
+    public function directDebitGuaranteedShouldAllowChargeWitNotRegB2bCustomer()
+    {
+        $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setBic('COBADEFFXXX')->setHolder('Max Mustermann');
+        $this->heidelpay->createPaymentType($directDebitGuaranteed);
+
+        $customer = $this->getMaximalNotRegisteredB2bCustomer()->setShippingAddress($this->getBillingAddress());
+        $charge   = $directDebitGuaranteed->charge(100.0, 'EUR', self::RETURN_URL, $customer);
+        $this->assertTransactionResourceHasBeenCreated($charge);
+    }
+
+    /**
+     * Verify ddg will throw error if addresses do not match.
+     *
+     * @test
+     *
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
+     */
+    public function ddgShouldThrowErrorOnNotRegisteredB2bChargeIfAddressesDoNotMatch()
+    {
+        $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setBic('COBADEFFXXX');
+        $this->heidelpay->createPaymentType($directDebitGuaranteed);
+
+        $this->expectException(HeidelpayApiException::class);
+        $this->expectExceptionCode(ApiResponseCodes::API_ERROR_ADDRESSES_DO_NOT_MATCH);
+
+        $customer = $this->getMaximalNotRegisteredB2bCustomer()->setShippingAddress($this->getBillingAddress());
+        $directDebitGuaranteed->charge(100.0, 'EUR', self::RETURN_URL, $customer);
+    }
+    //</editor-fold>
 }
