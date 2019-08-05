@@ -181,6 +181,7 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
         $customer = $this->getMaximalRegisteredB2bCustomer()->setShippingAddress($this->getBillingAddress());
         $directDebitGuaranteed->charge(100.0, 'EUR', self::RETURN_URL, $customer);
     }
+
     //</editor-fold>
 
     //<editor-fold desc="registered B2B customer">
@@ -222,5 +223,6 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
         $customer = $this->getMaximalNotRegisteredB2bCustomer()->setShippingAddress($this->getBillingAddress());
         $directDebitGuaranteed->charge(100.0, 'EUR', self::RETURN_URL, $customer);
     }
+
     //</editor-fold>
 }
