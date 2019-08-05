@@ -137,10 +137,12 @@ class WebhookTest extends BasePaymentTest
      * @throws Exception
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function webhookCreateShouldThrowErrorWhenEventIsAlreadyRegistered()
     {
-        $url     = $this->generateUniqueUrl();
+        $url = $this->generateUniqueUrl();
         $this->heidelpay->createWebhook($url, WebhookEvents::ALL);
 
         $this->expectException(HeidelpayApiException::class);
@@ -191,14 +193,15 @@ class WebhookTest extends BasePaymentTest
      *
      * @test
      *
-     * @depends webhookResourceCanBeRegisteredAndFetched
-     *
      * @throws Exception
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
     public function allWebhooksShouldBeRemovableAtOnce()
     {
+        // --- Register all webhooks ---
+        $this->heidelpay->createWebhook($this->generateUniqueUrl(), WebhookEvents::ALL);
+
         // --- Verify webhooks have been registered ---
         $webhooks = $this->heidelpay->fetchAllWebhooks();
         $this->assertGreaterThan(0, count($webhooks));
@@ -213,7 +216,6 @@ class WebhookTest extends BasePaymentTest
      * Verify setting multiple events at once.
      *
      * @test
-     * @depends allWebhooksShouldBeRemovableAtOnce
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException

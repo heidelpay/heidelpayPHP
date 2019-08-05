@@ -59,12 +59,10 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
      *
      * @test
      *
-     * @return SepaDirectDebitGuaranteed
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function sepaDirectDebitGuaranteedShouldBeCreatable(): SepaDirectDebitGuaranteed
+    public function sepaDirectDebitGuaranteedShouldBeCreatable()
     {
         /** @var SepaDirectDebitGuaranteed $directDebitGuaranteed */
         $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setHolder('John Doe')->setBic('COBADEFFXXX');
@@ -75,8 +73,6 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
         /** @var SepaDirectDebitGuaranteed $fetchedDirectDebitGuaranteed */
         $fetchedDirectDebitGuaranteed = $this->heidelpay->fetchPaymentType($directDebitGuaranteed->getId());
         $this->assertEquals($directDebitGuaranteed->expose(), $fetchedDirectDebitGuaranteed->expose());
-
-        return $fetchedDirectDebitGuaranteed;
     }
 
     /**
@@ -84,19 +80,25 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
      *
      * @test
      *
-     * @param SepaDirectDebitGuaranteed $directDebitGuaranteed
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends sepaDirectDebitGuaranteedShouldBeCreatable
+     *
+     * @group robustness
      */
-    public function directDebitGuaranteedShouldProhibitAuthorization(SepaDirectDebitGuaranteed $directDebitGuaranteed)
+    public function directDebitGuaranteedShouldProhibitAuthorization()
     {
+        /** @var SepaDirectDebitGuaranteed $directDebitGuaranteed */
+        $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setHolder('John Doe')->setBic('COBADEFFXXX');
+        $directDebitGuaranteed = $this->heidelpay->createPaymentType($directDebitGuaranteed);
+        $this->assertNotNull($directDebitGuaranteed->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
         $this->heidelpay->authorize(1.0, 'EUR', $directDebitGuaranteed, self::RETURN_URL);
     }
+
+    //<editor-fold desc="B2C">
 
     /**
      * Verify direct debit guaranteed can be charged.
@@ -123,6 +125,8 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function ddgShouldThrowErrorIfAddressesDoNotMatch()
     {
@@ -135,4 +139,6 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
         $customer = $this->getMaximumCustomerInclShippingAddress();
         $directDebitGuaranteed->charge(100.0, 'EUR', self::RETURN_URL, $customer);
     }
+
+    //</editor-fold>
 }

@@ -136,6 +136,8 @@ class PaymentTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function fullCancelOnAuthorizeShouldThrowExceptionIfAlreadyCanceled()
     {
@@ -246,6 +248,8 @@ class PaymentTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function chargePaymentShouldThrowErrorOnNonPaymentId()
     {
@@ -261,6 +265,8 @@ class PaymentTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function apiShouldReturnErrorIfOrderIdAlreadyExists()
     {

@@ -26,9 +26,7 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
-use heidelpayPHP\Resources\AbstractHeidelpayResource;
 use heidelpayPHP\Resources\PaymentTypes\Prepayment;
-use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
 use RuntimeException;
 
@@ -37,13 +35,11 @@ class PrepaymentTest extends BasePaymentTest
     /**
      * Verify Prepayment can be created and fetched.
      *
-     * @return Prepayment
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      * @test
      */
-    public function prepaymentShouldBeCreatableAndFetchable(): AbstractHeidelpayResource
+    public function prepaymentShouldBeCreatableAndFetchable()
     {
         $prepayment = $this->heidelpay->createPaymentType(new Prepayment());
         $this->assertInstanceOf(Prepayment::class, $prepayment);
@@ -52,8 +48,6 @@ class PrepaymentTest extends BasePaymentTest
         $fetchedPrepayment = $this->heidelpay->fetchPaymentType($prepayment->getId());
         $this->assertInstanceOf(Prepayment::class, $fetchedPrepayment);
         $this->assertEquals($prepayment->expose(), $fetchedPrepayment->expose());
-
-        return $fetchedPrepayment;
     }
 
     /**
@@ -61,17 +55,13 @@ class PrepaymentTest extends BasePaymentTest
      *
      * @test
      *
-     * @depends prepaymentShouldBeCreatableAndFetchable
-     *
-     * @param Prepayment $prepayment
-     *
-     * @return Charge
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function prepaymentTypeShouldBeChargeable(Prepayment $prepayment): Charge
+    public function prepaymentTypeShouldBeChargeable()
     {
+        /** @var Prepayment $prepayment */
+        $prepayment = $this->heidelpay->createPaymentType(new Prepayment());
         $charge = $prepayment->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotNull($charge->getId());
@@ -79,8 +69,6 @@ class PrepaymentTest extends BasePaymentTest
         $this->assertNotEmpty($charge->getBic());
         $this->assertNotEmpty($charge->getHolder());
         $this->assertNotEmpty($charge->getDescriptor());
-
-        return $charge;
     }
 
     /**
@@ -88,15 +76,17 @@ class PrepaymentTest extends BasePaymentTest
      *
      * @test
      *
-     * @depends prepaymentShouldBeCreatableAndFetchable
-     *
-     * @param Prepayment $prepayment
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
-    public function prepaymentTypeShouldNotBeAuthorizable(Prepayment $prepayment)
+    public function prepaymentTypeShouldNotBeAuthorizable()
     {
+        $prepayment = $this->heidelpay->createPaymentType(new Prepayment());
+        $this->assertInstanceOf(Prepayment::class, $prepayment);
+        $this->assertNotEmpty($prepayment->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
@@ -108,15 +98,20 @@ class PrepaymentTest extends BasePaymentTest
      *
      * @test
      *
-     * @depends prepaymentTypeShouldBeChargeable
-     *
-     * @param Charge $charge
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
-    public function prepaymentTypeShouldNotBeShippable(Charge $charge)
+    public function prepaymentTypeShouldNotBeShippable()
     {
+        /** @var Prepayment $prepayment */
+        $prepayment = $this->heidelpay->createPaymentType(new Prepayment());
+        $this->assertInstanceOf(Prepayment::class, $prepayment);
+        $this->assertNotEmpty($prepayment->getId());
+
+        $charge = $prepayment->charge(100.0, 'EUR', self::RETURN_URL);
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_SHIP_NOT_ALLOWED);
 
@@ -128,15 +123,15 @@ class PrepaymentTest extends BasePaymentTest
      *
      * @test
      *
-     * @depends prepaymentShouldBeCreatableAndFetchable
-     *
-     * @param Prepayment $prepayment
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function prepaymentChargeCanBeCanceled(Prepayment $prepayment)
+    public function prepaymentChargeCanBeCanceled()
     {
+        /** @var Prepayment $prepayment */
+        $prepayment = $this->heidelpay->createPaymentType(new Prepayment());
+        $this->assertNotEmpty($prepayment->getId());
+
         $charge = $prepayment->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertPending($charge);
         $cancellation = $charge->cancel();

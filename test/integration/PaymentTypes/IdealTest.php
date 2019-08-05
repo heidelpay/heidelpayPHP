@@ -37,19 +37,15 @@ class IdealTest extends BasePaymentTest
      *
      * @test
      *
-     * @return Ideal
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function idealShouldBeCreatable(): Ideal
+    public function idealShouldBeCreatable()
     {
         /** @var Ideal $ideal */
         $ideal = $this->heidelpay->createPaymentType((new Ideal())->setBic('RABONL2U'));
         $this->assertInstanceOf(Ideal::class, $ideal);
         $this->assertNotNull($ideal->getId());
-
-        return $ideal;
     }
 
     /**
@@ -57,14 +53,18 @@ class IdealTest extends BasePaymentTest
      *
      * @test
      *
-     * @param Ideal $ideal
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends idealShouldBeCreatable
+     *
+     * @group robustness
      */
-    public function idealShouldThrowExceptionOnAuthorize(Ideal $ideal)
+    public function idealShouldThrowExceptionOnAuthorize()
     {
+        /** @var Ideal $ideal */
+        $ideal = $this->heidelpay->createPaymentType((new Ideal())->setBic('RABONL2U'));
+        $this->assertInstanceOf(Ideal::class, $ideal);
+        $this->assertNotNull($ideal->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
@@ -75,15 +75,14 @@ class IdealTest extends BasePaymentTest
      * Verify that ideal payment type is chargeable.
      *
      * @test
-     * @depends idealShouldBeCreatable
-     *
-     * @param Ideal $ideal
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function idealShouldBeChargeable(Ideal $ideal)
+    public function idealShouldBeChargeable()
     {
+        /** @var Ideal $ideal */
+        $ideal = $this->heidelpay->createPaymentType((new Ideal())->setBic('RABONL2U'));
         $charge = $ideal->charge(1.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotNull($charge->getId());
@@ -97,15 +96,14 @@ class IdealTest extends BasePaymentTest
      * Verify ideal payment type can be fetched.
      *
      * @test
-     * @depends idealShouldBeCreatable
-     *
-     * @param Ideal $ideal
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function idealTypeCanBeFetched(Ideal $ideal)
+    public function idealTypeCanBeFetched()
     {
+        /** @var Ideal $ideal */
+        $ideal = $this->heidelpay->createPaymentType((new Ideal())->setBic('RABONL2U'));
         $fetchedIdeal = $this->heidelpay->fetchPaymentType($ideal->getId());
         $this->assertInstanceOf(Ideal::class, $fetchedIdeal);
         $this->assertEquals($ideal->getId(), $fetchedIdeal->getId());

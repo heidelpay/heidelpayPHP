@@ -48,6 +48,7 @@ class CardTest extends BasePaymentTest
      * @throws RuntimeException
      *
      * @group skip
+     * @group robustness
      */
     public function createCardWithMerchantNotPCIDSSCompliantShouldThrowException()
     {
@@ -266,6 +267,8 @@ class CardTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function exceptionShouldBeThrownWhenChargingMoreThenAuthorized()
     {

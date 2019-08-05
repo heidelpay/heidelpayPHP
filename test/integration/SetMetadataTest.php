@@ -141,6 +141,8 @@ class SetMetadataTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function emptyMetaDataShouldLeadToError()
     {

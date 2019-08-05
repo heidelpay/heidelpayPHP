@@ -56,6 +56,8 @@ class KeyTest extends BasePaymentTest
      * @param string $key
      *
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function invalidKeysShouldResultInException($key)
     {

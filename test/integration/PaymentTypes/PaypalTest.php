@@ -60,15 +60,14 @@ class PaypalTest extends BasePaymentTest
      * Verify paypal can authorize.
      *
      * @test
-     * @depends paypalShouldBeCreatableAndFetchable
-     *
-     * @param Paypal $paypal
      *
      * @throws RuntimeException
      * @throws HeidelpayApiException
      */
-    public function paypalShouldBeAuthorizable(Paypal $paypal)
+    public function paypalShouldBeAuthorizable()
     {
+        /** @var Paypal $paypal */
+        $paypal = $this->heidelpay->createPaymentType(new Paypal());
         $authorization = $paypal->authorize(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($authorization);
         $this->assertNotEmpty($authorization->getId());
@@ -83,15 +82,14 @@ class PaypalTest extends BasePaymentTest
      * Verify paypal can charge.
      *
      * @test
-     * @depends paypalShouldBeCreatableAndFetchable
-     *
-     * @param Paypal $paypal
      *
      * @throws RuntimeException
      * @throws HeidelpayApiException
      */
-    public function paypalShouldBeChargeable(Paypal $paypal)
+    public function paypalShouldBeChargeable()
     {
+        /** @var Paypal $paypal */
+        $paypal = $this->heidelpay->createPaymentType(new Paypal());
         $charge = $paypal->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotEmpty($charge->getId());

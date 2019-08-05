@@ -28,7 +28,6 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
-use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
 use RuntimeException;
 
@@ -60,17 +59,13 @@ class SepaDirectDebitTest extends BasePaymentTest
      *
      * @test
      *
-     * @return SepaDirectDebit
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function sepaDirectDebitShouldBeCreatable(): SepaDirectDebit
+    public function sepaDirectDebitShouldBeCreatable()
     {
         /** @var SepaDirectDebit $directDebit */
-        $directDebit = (new SepaDirectDebit('DE89370400440532013000'))
-            ->setHolder('Max Mustermann')
-            ->setBic('COBADEFFXXX');
+        $directDebit = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
         $directDebit = $this->heidelpay->createPaymentType($directDebit);
         $this->assertInstanceOf(SepaDirectDebit::class, $directDebit);
         $this->assertNotNull($directDebit->getId());
@@ -78,8 +73,6 @@ class SepaDirectDebitTest extends BasePaymentTest
         /** @var SepaDirectDebit $fetchedDirectDebit */
         $fetchedDirectDebit = $this->heidelpay->fetchPaymentType($directDebit->getId());
         $this->assertEquals($directDebit->expose(), $fetchedDirectDebit->expose());
-
-        return $fetchedDirectDebit;
     }
 
     /**
@@ -87,14 +80,17 @@ class SepaDirectDebitTest extends BasePaymentTest
      *
      * @test
      *
-     * @param SepaDirectDebit $directDebit
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends sepaDirectDebitShouldBeCreatable
+     *
+     * @group robustness
      */
-    public function authorizeShouldThrowException(SepaDirectDebit $directDebit)
+    public function authorizeShouldThrowException()
     {
+        /** @var SepaDirectDebit $directDebit */
+        $directDebit = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
+        $directDebit = $this->heidelpay->createPaymentType($directDebit);
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
@@ -104,16 +100,15 @@ class SepaDirectDebitTest extends BasePaymentTest
     /**
      * @test
      *
-     * @param SepaDirectDebit $directDebit
-     *
-     * @return Charge
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends sepaDirectDebitShouldBeCreatable
      */
-    public function directDebitShouldBeChargeable(SepaDirectDebit $directDebit): Charge
+    public function directDebitShouldBeChargeable()
     {
+        /** @var SepaDirectDebit $directDebit */
+        $directDebit = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
+        $directDebit = $this->heidelpay->createPaymentType($directDebit);
+
         $charge = $directDebit->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotNull($charge->getId());
@@ -126,14 +121,15 @@ class SepaDirectDebitTest extends BasePaymentTest
      *
      * @test
      *
-     * @param Charge $charge
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends directDebitShouldBeChargeable
      */
-    public function directDebitChargeShouldBeRefundable(Charge $charge)
+    public function directDebitChargeShouldBeRefundable()
     {
+        /** @var SepaDirectDebit $directDebit */
+        $directDebit = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
+        $directDebit = $this->heidelpay->createPaymentType($directDebit);
+        $charge = $directDebit->charge(100.0, 'EUR', self::RETURN_URL);
         $cancellation = $charge->cancel();
         $this->assertNotNull($cancellation);
         $this->assertNotNull($cancellation->getId());

@@ -109,6 +109,8 @@ class BasketTest extends BasePaymentTest
      * @throws AssertionFailedError
      * @throws Exception
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function basketItemWithInvalidUrlWillThrowAnError($expectException, $imageUrl, $exceptionCode = null)
     {

@@ -28,7 +28,6 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Alipay;
-use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
 use RuntimeException;
 
@@ -39,12 +38,10 @@ class AlipayTest extends BasePaymentTest
      *
      * @test
      *
-     * @return Alipay
-     *
      * @throws RuntimeException
      * @throws HeidelpayApiException
      */
-    public function alipayShouldBeCreatableAndFetchable(): Alipay
+    public function alipayShouldBeCreatableAndFetchable()
     {
         $alipay = $this->heidelpay->createPaymentType(new Alipay());
         $this->assertInstanceOf(Alipay::class, $alipay);
@@ -54,8 +51,6 @@ class AlipayTest extends BasePaymentTest
         $fetchedAlipay = $this->heidelpay->fetchPaymentType($alipay->getId());
         $this->assertInstanceOf(Alipay::class, $fetchedAlipay);
         $this->assertEquals($alipay->expose(), $fetchedAlipay->expose());
-
-        return $fetchedAlipay;
     }
 
     /**
@@ -63,22 +58,17 @@ class AlipayTest extends BasePaymentTest
      *
      * @test
      *
-     * @param Alipay $alipay
-     *
-     * @return Charge
-     *
      * @throws RuntimeException
      * @throws HeidelpayApiException
-     * @depends alipayShouldBeCreatableAndFetchable
      */
-    public function alipayShouldBeAbleToCharge(Alipay $alipay): Charge
+    public function alipayShouldBeAbleToCharge()
     {
+        /** @var Alipay $alipay */
+        $alipay = $this->heidelpay->createPaymentType(new Alipay());
         $charge = $alipay->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotEmpty($charge->getId());
         $this->assertNotEmpty($charge->getRedirectUrl());
-
-        return $charge;
     }
 
     /**
@@ -86,14 +76,17 @@ class AlipayTest extends BasePaymentTest
      *
      * @test
      *
-     * @param Alipay $alipay
-     *
      * @throws RuntimeException
      * @throws HeidelpayApiException
-     * @depends alipayShouldBeCreatableAndFetchable
+     *
+     * @group robustness
      */
-    public function alipayShouldNotBeAuthorizable(Alipay $alipay)
+    public function alipayShouldNotBeAuthorizable()
     {
+        $alipay = $this->heidelpay->createPaymentType(new Alipay());
+        $this->assertInstanceOf(Alipay::class, $alipay);
+        $this->assertNotNull($alipay->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 

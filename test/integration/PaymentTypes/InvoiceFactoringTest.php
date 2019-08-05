@@ -28,7 +28,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Constants\CancelReasonCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceFactoring;
-use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
@@ -41,12 +40,10 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @return InvoiceFactoring
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function invoiceFactoringTypeShouldBeCreatableAndFetchable(): InvoiceFactoring
+    public function invoiceFactoringTypeShouldBeCreatableAndFetchable()
     {
         /** @var InvoiceFactoring $invoice */
         $invoice = $this->heidelpay->createPaymentType(new InvoiceFactoring());
@@ -56,8 +53,6 @@ class InvoiceFactoringTest extends BasePaymentTest
         $fetchedInvoice = $this->heidelpay->fetchPaymentType($invoice->getId());
         $this->assertInstanceOf(InvoiceFactoring::class, $fetchedInvoice);
         $this->assertEquals($invoice->getId(), $fetchedInvoice->getId());
-
-        return $invoice;
     }
 
     /**
@@ -65,14 +60,18 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @param InvoiceFactoring $invoice
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends invoiceFactoringTypeShouldBeCreatableAndFetchable
+     *
+     * @group robustness
      */
-    public function verifyInvoiceIsNotAuthorizable(InvoiceFactoring $invoice)
+    public function verifyInvoiceIsNotAuthorizable()
     {
+        /** @var InvoiceFactoring $invoice */
+        $invoice = $this->heidelpay->createPaymentType(new InvoiceFactoring());
+        $this->assertInstanceOf(InvoiceFactoring::class, $invoice);
+        $this->assertNotNull($invoice->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
@@ -83,15 +82,19 @@ class InvoiceFactoringTest extends BasePaymentTest
      * Verify Invoice Factoring needs a customer object
      *
      * @test
-     * @depends invoiceFactoringTypeShouldBeCreatableAndFetchable
-     *
-     * @param InvoiceFactoring $invoiceFactoring
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
-    public function invoiceFactoringShouldRequiresCustomer(InvoiceFactoring $invoiceFactoring)
+    public function invoiceFactoringShouldRequiresCustomer()
     {
+        /** @var InvoiceFactoring $invoiceFactoring */
+        $invoiceFactoring = $this->heidelpay->createPaymentType(new InvoiceFactoring());
+        $this->assertInstanceOf(InvoiceFactoring::class, $invoiceFactoring);
+        $this->assertNotNull($invoiceFactoring->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_IVF_REQUIRES_CUSTOMER);
         $this->heidelpay->charge(1.0, 'EUR', $invoiceFactoring, self::RETURN_URL);
@@ -101,15 +104,19 @@ class InvoiceFactoringTest extends BasePaymentTest
      * Verify Invoice Factoring is chargeable.
      *
      * @test
-     * @depends invoiceFactoringTypeShouldBeCreatableAndFetchable
-     *
-     * @param InvoiceFactoring $invoiceFactoring
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
-    public function invoiceFactoringRequiresBasket(InvoiceFactoring $invoiceFactoring)
+    public function invoiceFactoringRequiresBasket()
     {
+        /** @var InvoiceFactoring $invoiceFactoring */
+        $invoiceFactoring = $this->heidelpay->createPaymentType(new InvoiceFactoring());
+        $this->assertInstanceOf(InvoiceFactoring::class, $invoiceFactoring);
+        $this->assertNotNull($invoiceFactoring->getId());
+
         $customer = $this->getMaximumCustomer();
         $customer->setShippingAddress($customer->getBillingAddress());
 
@@ -123,18 +130,15 @@ class InvoiceFactoringTest extends BasePaymentTest
      * Verify Invoice Factoring is chargeable.
      *
      * @test
-     * @depends invoiceFactoringTypeShouldBeCreatableAndFetchable
-     *
-     * @param InvoiceFactoring $invoiceFactoring
-     *
-     * @return Charge
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      * @throws AssertionFailedError
      */
-    public function invoiceFactoringShouldBeChargeable(InvoiceFactoring $invoiceFactoring): Charge
+    public function invoiceFactoringShouldBeChargeable()
     {
+        /** @var InvoiceFactoring $invoiceFactoring */
+        $invoiceFactoring = $this->heidelpay->createPaymentType(new InvoiceFactoring());
         $customer = $this->getMaximumCustomer();
         $customer->setShippingAddress($customer->getBillingAddress());
 
@@ -154,8 +158,6 @@ class InvoiceFactoringTest extends BasePaymentTest
         $this->assertNotEmpty($charge->getBic());
         $this->assertNotEmpty($charge->getHolder());
         $this->assertNotEmpty($charge->getDescriptor());
-
-        return $charge;
     }
 
     /**
@@ -166,6 +168,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      * @throws HeidelpayApiException
      * @throws RuntimeException
      * @throws Exception
+     *
+     * @group robustness
      */
     public function verifyInvoiceFactoringIsNotShippableWoInvoiceIdOnHeidelpayObject()
     {
@@ -203,6 +207,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      * @throws HeidelpayApiException
      * @throws RuntimeException
      * @throws Exception
+     *
+     * @group robustness
      */
     public function verifyInvoiceFactoringIsNotShippableWoInvoiceIdOnPaymentObject()
     {
@@ -346,14 +352,19 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @param Charge $charge
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends invoiceFactoringShouldBeChargeable
      */
-    public function verifyInvoiceChargeCanBeCanceled(Charge $charge)
+    public function verifyInvoiceChargeCanBeCanceled()
     {
+        /** @var InvoiceFactoring $invoice */
+        $invoice = $this->heidelpay->createPaymentType(new InvoiceFactoring());
+
+        $customer = $this->getMaximumCustomer();
+        $customer->setShippingAddress($customer->getBillingAddress());
+        $basket = $this->createBasket();
+        $charge = $invoice->charge(100.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+
         $cancellation = $charge->cancel($charge->getAmount(), CancelReasonCodes::REASON_CODE_CANCEL);
         $this->assertNotNull($cancellation);
         $this->assertNotNull($cancellation->getId());
@@ -364,14 +375,23 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @param Charge $charge
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends invoiceFactoringShouldBeChargeable
+     *
+     * @group robustness
      */
-    public function verifyInvoiceChargeCanNotBeCancelledWoAmount(Charge $charge)
+    public function verifyInvoiceChargeCanNotBeCancelledWoAmount()
     {
+        /** @var InvoiceFactoring $invoice */
+        $invoice = $this->heidelpay->createPaymentType(new InvoiceFactoring());
+        $this->assertInstanceOf(InvoiceFactoring::class, $invoice);
+        $this->assertNotNull($invoice->getId());
+
+        $customer = $this->getMaximumCustomer();
+        $customer->setShippingAddress($customer->getBillingAddress());
+        $basket = $this->createBasket();
+        $charge = $invoice->charge(100.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_AMOUNT_IS_MISSING);
         $charge->cancel();
@@ -382,14 +402,24 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @param Charge $charge
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends invoiceFactoringShouldBeChargeable
+     *
+     * @group robustness
      */
-    public function verifyInvoiceChargeCanNotBeCancelledWoReasonCode(Charge $charge)
+    public function verifyInvoiceChargeCanNotBeCancelledWoReasonCode()
     {
+        /** @var InvoiceFactoring $invoice */
+        $invoice = $this->heidelpay->createPaymentType(new InvoiceFactoring());
+        $this->assertInstanceOf(InvoiceFactoring::class, $invoice);
+        $this->assertNotNull($invoice->getId());
+
+        $customer = $this->getMaximumCustomer();
+        $customer->setShippingAddress($customer->getBillingAddress());
+
+        $basket = $this->createBasket();
+        $charge = $invoice->charge(100.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_CANCEL_REASON_CODE_IS_MISSING);
         $charge->cancel(100.0);

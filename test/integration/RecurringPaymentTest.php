@@ -41,6 +41,8 @@ class RecurringPaymentTest extends BasePaymentTest
      * @throws RuntimeException
      * @throws Exception
      * @throws HeidelpayApiException
+     *
+     * @group robustness
      */
     public function exceptionShouldBeThrownIfTheObjectIsNotAResource()
     {

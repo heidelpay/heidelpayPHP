@@ -91,15 +91,13 @@ class CustomerTest extends BasePaymentTest
     }
 
     /**
-     * @param Customer $customer
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
-    public function customerCanBeFetchedById(Customer $customer)
+    public function customerCanBeFetchedById()
     {
+        $customer = $this->heidelpay->createCustomer($this->getMaximumCustomer());
         $fetchedCustomer = $this->heidelpay->fetchCustomer($customer->getId());
         $this->assertEquals($customer->getId(), $fetchedCustomer->getId());
     }
@@ -107,7 +105,6 @@ class CustomerTest extends BasePaymentTest
     /**
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
     public function customerCanBeFetchedByCustomerId()
@@ -121,30 +118,27 @@ class CustomerTest extends BasePaymentTest
     }
 
     /**
-     * @param Customer $customer
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
-    public function customerCanBeFetchedByObject(Customer $customer)
+    public function customerCanBeFetchedByObject()
     {
+        $customer = $this->heidelpay->createCustomer($this->getMaximumCustomer());
         $customerToFetch = (new Customer())->setId($customer->getId());
         $fetchedCustomer = $this->heidelpay->fetchCustomer($customerToFetch);
         $this->assertEquals($customer->getId(), $fetchedCustomer->getId());
     }
 
     /**
-     * @param Customer $customer
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
-    public function customerCanBeFetchedByObjectWithData(Customer $customer)
+    public function customerCanBeFetchedByObjectWithData()
     {
+        $customer = $this->heidelpay->createCustomer($this->getMaximumCustomer());
+
         $customerToFetch = $this->getMinimalCustomer()->setId($customer->getId());
         $this->assertNotEquals($customer->getFirstname(), $customerToFetch->getFirstname());
 
@@ -232,16 +226,14 @@ class CustomerTest extends BasePaymentTest
     /**
      * Customer can be updated.
      *
-     * @depends maxCustomerCanBeCreatedAndFetched
      * @test
-     *
-     * @param Customer $customer
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function customerShouldBeUpdatable(Customer $customer)
+    public function customerShouldBeUpdatable()
     {
+        $customer = $this->heidelpay->createCustomer($this->getMaximumCustomer());
         $this->assertEquals($customer->getFirstname(), 'Peter');
         $customer->setFirstname('Not Peter');
         $this->heidelpay->updateCustomer($customer);
@@ -256,16 +248,17 @@ class CustomerTest extends BasePaymentTest
     /**
      * Customer can be deleted.
      *
-     * @depends maxCustomerCanBeCreatedAndFetched
      * @test
-     *
-     * @param Customer $customer
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
-    public function customerShouldBeDeletableById(Customer $customer)
+    public function customerShouldBeDeletableById()
     {
+        $customer = $this->getMaximumCustomer();
+        $this->heidelpay->createCustomer($customer);
         $this->assertNotNull($customer);
         $this->assertNotNull($customer->getId());
 
@@ -283,6 +276,8 @@ class CustomerTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function customerShouldBeDeletableByObject()
     {
@@ -306,6 +301,8 @@ class CustomerTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function apiShouldReturnErrorIfCustomerAlreadyExists()
     {

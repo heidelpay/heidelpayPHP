@@ -27,7 +27,6 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
-use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Przelewy24;
 use heidelpayPHP\test\BasePaymentTest;
 use RuntimeException;
@@ -39,13 +38,12 @@ class Przelewy24Test extends BasePaymentTest
      *
      * @test
      *
-     * @return BasePaymentType
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function przelewy24ShouldBeCreatableAndFetchable(): BasePaymentType
+    public function przelewy24ShouldBeCreatableAndFetchable()
     {
+        /** @var Przelewy24 $przelewy24 */
         $przelewy24 = $this->heidelpay->createPaymentType(new Przelewy24());
         $this->assertInstanceOf(Przelewy24::class, $przelewy24);
         $this->assertNotEmpty($przelewy24->getId());
@@ -54,23 +52,20 @@ class Przelewy24Test extends BasePaymentTest
         $this->assertInstanceOf(Przelewy24::class, $fetchedPrzelewy24);
         $this->assertNotSame($przelewy24, $fetchedPrzelewy24);
         $this->assertEquals($przelewy24->expose(), $fetchedPrzelewy24->expose());
-
-        return $fetchedPrzelewy24;
     }
 
     /**
      * Verify przelewy24 can authorize.
      *
      * @test
-     * @depends przelewy24ShouldBeCreatableAndFetchable
-     *
-     * @param Przelewy24 $przelewy24
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function przelewy24ShouldBeChargeable(Przelewy24 $przelewy24)
+    public function przelewy24ShouldBeChargeable()
     {
+        /** @var Przelewy24 $przelewy24 */
+        $przelewy24 = $this->heidelpay->createPaymentType(new Przelewy24());
         $charge = $przelewy24->charge(100.0, 'PLN', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotEmpty($charge->getId());
@@ -85,15 +80,18 @@ class Przelewy24Test extends BasePaymentTest
      * Verify przelewy24 can not be authorized.
      *
      * @test
-     * @depends przelewy24ShouldBeCreatableAndFetchable
-     *
-     * @param Przelewy24 $przelewy24
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
-    public function przelewy24ShouldNotBeAuthorizable(Przelewy24 $przelewy24)
+    public function przelewy24ShouldNotBeAuthorizable()
     {
+        $przelewy24 = $this->heidelpay->createPaymentType(new Przelewy24());
+        $this->assertInstanceOf(Przelewy24::class, $przelewy24);
+        $this->assertNotEmpty($przelewy24->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
@@ -111,6 +109,8 @@ class Przelewy24Test extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function przelewy24ShouldThrowExceptionIfCurrencyIsNotSupported($currencyCode)
     {

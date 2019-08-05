@@ -27,7 +27,6 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\PIS;
-use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
 use RuntimeException;
 
@@ -38,13 +37,12 @@ class PISTest extends BasePaymentTest
      *
      * @test
      *
-     * @return PIS
-     *
      * @throws RuntimeException
      * @throws HeidelpayApiException
      */
-    public function pisShouldBeCreatableAndFetchable(): PIS
+    public function pisShouldBeCreatableAndFetchable()
     {
+        /** @var PIS $pis */
         $pis = $this->heidelpay->createPaymentType(new PIS());
         $this->assertInstanceOf(PIS::class, $pis);
         $this->assertNotNull($pis->getId());
@@ -53,8 +51,6 @@ class PISTest extends BasePaymentTest
         $fetchedPIS = $this->heidelpay->fetchPaymentType($pis->getId());
         $this->assertInstanceOf(PIS::class, $fetchedPIS);
         $this->assertEquals($pis->expose(), $fetchedPIS->expose());
-
-        return $fetchedPIS;
     }
 
     /**
@@ -62,22 +58,17 @@ class PISTest extends BasePaymentTest
      *
      * @test
      *
-     * @param PIS $pis
-     *
-     * @return Charge
-     *
      * @throws RuntimeException
      * @throws HeidelpayApiException
-     * @depends pisShouldBeCreatableAndFetchable
      */
-    public function pisShouldBeAbleToCharge(PIS $pis): Charge
+    public function pisShouldBeAbleToCharge()
     {
+        /** @var PIS $pis */
+        $pis = $this->heidelpay->createPaymentType(new PIS());
         $charge = $pis->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotEmpty($charge->getId());
         $this->assertNotEmpty($charge->getRedirectUrl());
-
-        return $charge;
     }
 
     /**
@@ -85,14 +76,17 @@ class PISTest extends BasePaymentTest
      *
      * @test
      *
-     * @param PIS $pis
-     *
      * @throws RuntimeException
      * @throws HeidelpayApiException
-     * @depends pisShouldBeCreatableAndFetchable
+     *
+     * @group robustness
      */
-    public function pisShouldNotBeAuthorizable(PIS $pis)
+    public function pisShouldNotBeAuthorizable()
     {
+        $pis = $this->heidelpay->createPaymentType(new PIS());
+        $this->assertInstanceOf(PIS::class, $pis);
+        $this->assertNotNull($pis->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 

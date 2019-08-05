@@ -55,6 +55,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function verifyInvoiceIsNotAuthorizable()
     {
@@ -90,6 +92,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
+     *
+     * @group robustness
      */
     public function verifyInvoiceIsNotShippable()
     {

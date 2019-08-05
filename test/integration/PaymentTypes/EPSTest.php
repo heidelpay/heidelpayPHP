@@ -39,12 +39,10 @@ class EPSTest extends BasePaymentTest
      *
      * @test
      *
-     * @return EPS
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function epsShouldBeCreatable(): EPS
+    public function epsShouldBeCreatable()
     {
         // Without BIC
         /** @var EPS $eps */
@@ -57,8 +55,6 @@ class EPSTest extends BasePaymentTest
         $eps = $this->heidelpay->createPaymentType((new EPS())->setBic(self::TEST_BIC));
         $this->assertInstanceOf(EPS::class, $eps);
         $this->assertNotNull($eps->getId());
-
-        return $eps;
     }
 
     /**
@@ -66,14 +62,18 @@ class EPSTest extends BasePaymentTest
      *
      * @test
      *
-     * @param EPS $eps
-     *
      * @throws HeidelpayApiException
      * @throws RuntimeException
-     * @depends epsShouldBeCreatable
+     *
+     * @group robustness
      */
-    public function epsShouldThrowExceptionOnAuthorize(EPS $eps)
+    public function epsShouldThrowExceptionOnAuthorize()
     {
+        /** @var EPS $eps */
+        $eps = $this->heidelpay->createPaymentType((new EPS())->setBic(self::TEST_BIC));
+        $this->assertInstanceOf(EPS::class, $eps);
+        $this->assertNotNull($eps->getId());
+
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
@@ -84,15 +84,14 @@ class EPSTest extends BasePaymentTest
      * Verify that eps payment type is chargeable.
      *
      * @test
-     * @depends epsShouldBeCreatable
-     *
-     * @param EPS $eps
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function epsShouldBeChargeable(EPS $eps)
+    public function epsShouldBeChargeable()
     {
+        /** @var EPS $eps */
+        $eps = $this->heidelpay->createPaymentType(new EPS());
         $charge = $eps->charge(1.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
         $this->assertNotNull($charge->getId());
@@ -108,15 +107,15 @@ class EPSTest extends BasePaymentTest
      * Verify eps payment type can be fetched.
      *
      * @test
-     * @depends epsShouldBeCreatable
-     *
-     * @param EPS $eps
      *
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function epsTypeCanBeFetched(EPS $eps)
+    public function epsTypeCanBeFetched()
     {
+        // Without BIC
+        /** @var EPS $eps */
+        $eps = $this->heidelpay->createPaymentType(new EPS());
         $fetchedEPS = $this->heidelpay->fetchPaymentType($eps->getId());
         $this->assertInstanceOf(EPS::class, $fetchedEPS);
         $this->assertEquals($eps->expose(), $fetchedEPS->expose());
