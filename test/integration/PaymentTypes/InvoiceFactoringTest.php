@@ -313,7 +313,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer = $this->getMaximumCustomer();
         $customer->setShippingAddress($customer->getBillingAddress());
         $basket = $this->createBasket();
-        $charge = $invoice->charge(100.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoice->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
 
         $cancellation = $charge->cancel($charge->getAmount(), CancelReasonCodes::REASON_CODE_CANCEL);
         $this->assertNotNull($cancellation);
@@ -340,7 +340,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer = $this->getMaximumCustomer();
         $customer->setShippingAddress($customer->getBillingAddress());
         $basket = $this->createBasket();
-        $charge = $invoice->charge(100.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoice->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
 
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_AMOUNT_IS_MISSING);
@@ -368,7 +368,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer->setShippingAddress($customer->getBillingAddress());
 
         $basket = $this->createBasket();
-        $charge = $invoice->charge(100.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoice->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
 
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_CANCEL_REASON_CODE_IS_MISSING);
