@@ -27,11 +27,13 @@ namespace heidelpayPHP\Resources\TransactionTypes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Traits\HasCancellations;
+use heidelpayPHP\Traits\HasInvoiceId;
 use RuntimeException;
 
 class Authorization extends AbstractTransactionType
 {
     use HasCancellations;
+    use HasInvoiceId;
 
     /** @var float $amount */
     protected $amount = 0.0;
@@ -44,6 +46,9 @@ class Authorization extends AbstractTransactionType
 
     /** @var bool $card3ds */
     protected $card3ds;
+
+    /** @var string $paymentReference */
+    protected $paymentReference;
 
     /**
      * Authorization constructor.
@@ -78,8 +83,22 @@ class Authorization extends AbstractTransactionType
      */
     public function setAmount($amount): self
     {
-        $this->amount = $amount;
+        $this->amount = $amount !== null ? round($amount, 4) : null;
         return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getCancelledAmount()
+    {
+        $amount = 0.0;
+        foreach ($this->getCancellations() as $cancellation) {
+            /** @var Cancellation $cancellation */
+            $amount += $cancellation->getAmount();
+        }
+
+        return $amount;
     }
 
     /**
@@ -136,6 +155,25 @@ class Authorization extends AbstractTransactionType
     public function setCard3ds($card3ds): Authorization
     {
         $this->card3ds = $card3ds;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPaymentReference()
+    {
+        return $this->paymentReference;
+    }
+
+    /**
+     * @param $paymentReference
+     *
+     * @return Authorization
+     */
+    public function setPaymentReference($paymentReference): Authorization
+    {
+        $this->paymentReference = $paymentReference;
         return $this;
     }
 

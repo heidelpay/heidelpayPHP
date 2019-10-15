@@ -24,8 +24,12 @@
  */
 namespace heidelpayPHP\Resources\TransactionTypes;
 
+use heidelpayPHP\Traits\HasInvoiceId;
+
 class Payout extends AbstractTransactionType
 {
+    use HasInvoiceId;
+
     /** @var float|null $amount */
     protected $amount;
 
@@ -34,6 +38,9 @@ class Payout extends AbstractTransactionType
 
     /** @var string|null $returnUrl */
     protected $returnUrl;
+
+    /** @var string $paymentReference */
+    protected $paymentReference;
 
     /**
      * Payout constructor.
@@ -68,7 +75,7 @@ class Payout extends AbstractTransactionType
      */
     public function setAmount($amount): self
     {
-        $this->amount = $amount;
+        $this->amount = $amount !== null ? round($amount, 4) : null;
         return $this;
     }
 
@@ -107,6 +114,25 @@ class Payout extends AbstractTransactionType
     public function setReturnUrl($returnUrl): Payout
     {
         $this->returnUrl = $returnUrl;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPaymentReference()
+    {
+        return $this->paymentReference;
+    }
+
+    /**
+     * @param $paymentReference
+     *
+     * @return Payout
+     */
+    public function setPaymentReference($paymentReference): Payout
+    {
+        $this->paymentReference = $paymentReference;
         return $this;
     }
 

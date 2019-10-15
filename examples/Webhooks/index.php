@@ -100,15 +100,6 @@ function printInfo($title, $text)
             $heidelpay = new Heidelpay(HEIDELPAY_PHP_PAYMENT_API_PRIVATE_KEY);
             $heidelpay->setDebugMode(true)->setDebugHandler(new ExampleDebugHandler());
 
-            try {
-                $heidelpay->deleteAllWebhooks();
-                printSuccess(
-                    'De-registered all existing events for this private key',
-                    'Unsubscribed all events registered for the private key: "' . HEIDELPAY_PHP_PAYMENT_API_PRIVATE_KEY . '".'
-                );
-            } catch (HeidelpayApiException $e) {
-            }
-
             $webhooks = $heidelpay->registerMultipleWebhooks(CONTROLLER_URL, [WebhookEvents::ALL]);
 
             foreach ($webhooks as $webhook) {

@@ -131,6 +131,7 @@ class BasketTest extends BasePaymentTest
         } catch (HeidelpayApiException $e) {
             $this->assertTrue($expectException);
             $this->assertEquals($exceptionCode, $e->getCode());
+            $this->assertNotNull($e->getErrorId());
         }
     }
 
@@ -142,7 +143,7 @@ class BasketTest extends BasePaymentTest
      * @throws HeidelpayApiException
      * @throws RuntimeException
      */
-    public function basketShouldBeUpdatateable()
+    public function basketShouldBeUpdateable()
     {
         $orderId = $this->generateRandomId();
         $basket  = new Basket($orderId, 123.4, 'EUR', []);
@@ -186,7 +187,7 @@ class BasketTest extends BasePaymentTest
 
         /** @var Paypal $paypal */
         $paypal = $this->heidelpay->createPaymentType(new Paypal());
-        $authorize = $paypal->authorize(10.0, 'EUR', 'https://heidelpay.com', null, null, null, $basket);
+        $authorize = $paypal->authorize(123.4, 'EUR', 'https://heidelpay.com', null, null, null, $basket);
 
         $fetchedPayment = $this->heidelpay->fetchPayment($authorize->getPaymentId());
         $this->assertEquals($basket->expose(), $fetchedPayment->getBasket()->expose());
@@ -209,7 +210,7 @@ class BasketTest extends BasePaymentTest
         $this->heidelpay->createPaymentType($sdd);
 
         $customer = $this->getMaximumCustomerInclShippingAddress()->setShippingAddress($this->getBillingAddress());
-        $charge   = $sdd->charge(100.0, 'EUR', self::RETURN_URL, $customer, null, null, $basket);
+        $charge   = $sdd->charge(123.4, 'EUR', self::RETURN_URL, $customer, null, null, $basket);
 
         $fetchedPayment = $this->heidelpay->fetchPayment($charge->getPaymentId());
         $this->assertEquals($basket->expose(), $fetchedPayment->getBasket()->expose());
@@ -234,7 +235,7 @@ class BasketTest extends BasePaymentTest
 
         /** @var Paypal $paypal */
         $paypal = $this->heidelpay->createPaymentType(new Paypal());
-        $authorize = $paypal->authorize(10.0, 'EUR', 'https://heidelpay.com', null, null, null, $basket);
+        $authorize = $paypal->authorize(123.4, 'EUR', 'https://heidelpay.com', null, null, null, $basket);
         $this->assertNotEmpty($basket->getId());
 
         $fetchedPayment = $this->heidelpay->fetchPayment($authorize->getPaymentId());
@@ -261,7 +262,7 @@ class BasketTest extends BasePaymentTest
 
         /** @var Paypal $paypal */
         $paypal = $this->heidelpay->createPaymentType(new Paypal());
-        $charge = $paypal->charge(10.0, 'EUR', 'https://heidelpay.com', null, null, null, $basket);
+        $charge = $paypal->charge(123.4, 'EUR', 'https://heidelpay.com', null, null, null, $basket);
         $this->assertNotEmpty($basket->getId());
 
         $fetchedPayment = $this->heidelpay->fetchPayment($charge->getPaymentId());
