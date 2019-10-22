@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [1.2.4.0][1.2.4.0]
 
 ### Removed
-*   Moved to a dedicated repository [heidelpay/heidelpayPHP-examples](https://github.com/heidelpay/heidelpayPHP-examples).
+*   Moved examples to a dedicated repository [heidelpay/heidelpayPHP-examples](https://github.com/heidelpay/heidelpayPHP-examples).
 
 ### Added
 *   Add currency property to `Cancellation` class.
