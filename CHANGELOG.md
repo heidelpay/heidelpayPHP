@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.4.0][1.2.4.0]
+
+### Removed
+*   Moved examples to a dedicated repository [heidelpay/heidelpayPHP-examples](https://github.com/heidelpay/heidelpayPHP-examples).
+
+### Added
+*   Add currency property to `Cancellation` class.
+
 ## [1.2.3.0][1.2.3.0]
 
 ### Added
@@ -14,7 +22,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   Added properties to keypair resource.
 
 ### Fixed
-*   Problem with HeidelpayApiException.
+*   A problem with HeidelpayApiException.
+*   A problem which resulted in an error when trying to create a `customer` implicitly with a transaction when its `customerId` was set. 
 
 ### Changed
 *   Replaced unreliable `Payment::cancel()` method with `Payment::cancelAmount()` which takes multiple cancellation scenarios into account.
@@ -298,3 +307,4 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [1.2.1.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.0.0..1.2.1.0
 [1.2.2.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.1.0..1.2.2.0
 [1.2.3.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.2.0..1.2.3.0
+[1.2.4.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.3.0..1.2.4.0

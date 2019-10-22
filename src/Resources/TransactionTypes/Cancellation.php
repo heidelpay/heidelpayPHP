@@ -31,6 +31,9 @@ class Cancellation extends AbstractTransactionType
     /** @var float $amount */
     protected $amount;
 
+    /** @var string $currency */
+    private $currency;
+
     /** @var string $reasonCode */
     protected $reasonCode;
 
@@ -75,6 +78,24 @@ class Cancellation extends AbstractTransactionType
     public function setAmount($amount): Cancellation
     {
         $this->amount = $amount !== null ? round($amount, 4) : null;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     * @return Cancellation
+     */
+    protected function setCurrency(string $currency): Cancellation
+    {
+        $this->currency = $currency;
         return $this;
     }
 
