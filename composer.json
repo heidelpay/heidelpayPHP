@@ -23,8 +23,7 @@
   },
   "autoload": {
     "psr-4": {
-      "heidelpayPHP\\": "src",
-      "heidelpayPHP\\examples\\": "examples"
+      "heidelpayPHP\\": "src"
     }
   },
   "autoload-dev": {
