@@ -19,7 +19,8 @@
     "friendsofphp/php-cs-fixer": "^2.0"
   },
   "suggest": {
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "heidelpay/heidelpay-php-examples": "*"
   },
   "autoload": {
     "psr-4": {
