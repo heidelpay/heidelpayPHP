@@ -91,6 +91,7 @@ class Cancellation extends AbstractTransactionType
 
     /**
      * @param string $currency
+     *
      * @return Cancellation
      */
     protected function setCurrency(string $currency): Cancellation
