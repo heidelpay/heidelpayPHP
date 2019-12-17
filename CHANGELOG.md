@@ -3,13 +3,58 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.2.4.0][1.2.4.0]
-
-### Removed
-*   Moved examples to a dedicated repository [heidelpay/heidelpayPHP-examples](https://github.com/heidelpay/heidelpayPHP-examples).
+## [1.2.6.0][1.2.6.0]
 
 ### Added
+*   Example for Payment Type `Przelewy24`.
 *   Add currency property to `Cancellation` class.
+
+### Fixed
+*   A bug which led to an error when trying to cancel the initial transaction of a charged invoice.
+*   Several minor issues.
+
+### Changed
+*   Refactor travis config.
+*   Refactor heidelpay facade to implement service interfaces.
+*   Move payment cancel methods to cancel service. 
+*   Cleanup doc comments.
+*   Refactor unit tests.
+*   Refactor access modifiers of setters intended for system access only.
+
+### Remove
+*   Move method doc blocks to service interfaces.
+*   Remove dead code.
+
+## [1.2.5.0][1.2.5.0]
+
+### Added
+*   Hire purchase direct debit payment type (FlexiPay® Rate) including example implementation.
+*   Additional parameters from payment type to transactions.
+*   Facade method to update payment type.
+*   Property `invoiceId` to `Payment` class.
+*   Added card details to `Card` payment type.
+*   Property `card3ds` to `Paypage`.
+*   Geolocation to `Customer` resource.
+*   Property `effectiveInterestRate` to `PayPage` to enable `HirePurchase` payment types.
+
+### Changed
+*   Refactor invoice guaranteed tests to make them independent from each other.
+*   Response Code for basket item image extension error has been deprecated since it has been removed from the API.
+*   Refactored cancellation feature to support FlexiPay® Rate cancel.
+*   Remove trailing slash from routes.
+*   Float values are now rounded with 4 decimal places when exposed to the API. The value of the local object will be updated as well.
+
+### Removed
+*   Unused Constants.
+*   Obsolete/dead code.
+
+### Fixed
+*   Several minor issues.
+
+## [1.2.4.0][1.2.4.0]
+
+### Added
+*   It is now possible to exclude payment types from the Paypage.
 
 ## [1.2.3.0][1.2.3.0]
 
@@ -65,6 +110,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   SAQ-A test due to lack of a corresponding key.
 
 ## [1.2.0.0][1.2.0.0]
+
+### This update contains breaking changes and you might have to update your implementation
 
 ### Changed
 *   Refactored all examples.
@@ -175,7 +222,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [1.1.0.0][1.1.0.0]
 
-###### This update contains breaking changes and you will most certainly have to update your implementation
+### This update contains breaking changes and you might have to update your implementation
 
 ### Changed
 *   Payment types `Prepayment`, `Invoice` and `Invoice guaranteed` can no longer perform the authorize transaction but only direct charge.
@@ -308,3 +355,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 [1.2.2.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.1.0..1.2.2.0
 [1.2.3.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.2.0..1.2.3.0
 [1.2.4.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.3.0..1.2.4.0
+[1.2.5.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.4.0..1.2.5.0
+[1.2.6.0]: https://github.com/heidelpay/heidelpayPHP/compare/1.2.5.0..1.2.6.0

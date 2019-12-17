@@ -20,7 +20,7 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpayPHP/transaction_types
+ * @package  heidelpayPHP\TransactionTypes
  */
 namespace heidelpayPHP\Resources\TransactionTypes;
 
@@ -154,8 +154,8 @@ abstract class AbstractTransactionType extends AbstractHeidelpayResource
     /**
      * {@inheritDoc}
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function handleResponse(stdClass $response, $method = HttpAdapterInterface::REQUEST_GET)
     {
@@ -168,7 +168,7 @@ abstract class AbstractTransactionType extends AbstractHeidelpayResource
         }
 
         if (isset($response->redirectUrl)) {
-            $payment->setRedirectUrl($response->redirectUrl);
+            $payment->handleResponse((object)['redirectUrl' => $response->redirectUrl]);
         }
 
         if ($method !== HttpAdapterInterface::REQUEST_GET) {
@@ -208,8 +208,8 @@ abstract class AbstractTransactionType extends AbstractHeidelpayResource
      * Updates the referenced payment object if it exists and if this is not the payment object itself.
      * This is called from the crud methods to update the payments state whenever anything happens.
      *
-     * @throws RuntimeException
-     * @throws HeidelpayApiException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function fetchPayment()
     {

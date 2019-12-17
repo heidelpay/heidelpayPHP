@@ -20,7 +20,7 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpayPHP/test/integration/payment_types
+ * @package  heidelpayPHP\test\integration\PaymentTypes
  */
 namespace heidelpayPHP\test\integration\PaymentTypes;
 
@@ -37,8 +37,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function invoiceTypeShouldBeCreatable()
     {
@@ -53,8 +53,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      *
      * @group robustness
      */
@@ -73,8 +73,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function verifyInvoiceIsChargeable()
     {
@@ -90,8 +90,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      *
      * @group robustness
      */
@@ -118,8 +118,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function verifyInvoiceChargeCanBeCanceled()
     {
@@ -128,7 +128,35 @@ class InvoiceTest extends BasePaymentTest
         $charge = $invoice->charge(1.0, 'EUR', self::RETURN_URL);
         $cancellation = $charge->cancel();
         $this->assertNotNull($cancellation);
-        $this->assertNotNull($cancellation->getId());#
+        $this->assertNotNull($cancellation->getId());
+        $payment = $cancellation->getPayment();
+        $this->assertTrue($payment->isCanceled());
+    }
+
+    /**
+     * Verify invoice charge can be canceled.
+     *
+     * @test
+     *
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     */
+    public function verifyInvoiceChargeCanBePartlyCanceled()
+    {
+        /** @var Invoice $invoice */
+        $invoice = $this->heidelpay->createPaymentType(new Invoice());
+        $charge = $invoice->charge(1.0, 'EUR', self::RETURN_URL);
+        $cancellation = $charge->cancel(0.5);
+        $this->assertNotNull($cancellation);
+        $this->assertNotNull($cancellation->getId());
+        $payment = $cancellation->getPayment();
+        $this->assertTrue($payment->isPending());
+
+        $cancellation2 = $charge->cancel(0.5);
+        $this->assertNotNull($cancellation2);
+        $this->assertNotNull($cancellation2->getId());
+        $payment2 = $cancellation2->getPayment();
+        $this->assertTrue($payment2->isCanceled());
     }
 
     /**
@@ -136,8 +164,8 @@ class InvoiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function invoiceTypeCanBeFetched()
     {

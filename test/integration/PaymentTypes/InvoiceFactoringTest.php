@@ -20,7 +20,7 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpayPHP/test/integration/payment_types
+ * @package  heidelpayPHP\test\integration\PaymentTypes
  */
 namespace heidelpayPHP\test\integration\PaymentTypes;
 
@@ -40,8 +40,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function invoiceFactoringTypeShouldBeCreatableAndFetchable()
     {
@@ -60,8 +60,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      *
      * @group robustness
      */
@@ -83,8 +83,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      *
      * @group robustness
      */
@@ -105,8 +105,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      *
      * @group robustness
      */
@@ -131,8 +131,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @throws AssertionFailedError
      */
     public function invoiceFactoringShouldBeChargeable()
@@ -143,7 +143,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer->setShippingAddress($customer->getBillingAddress());
 
         $basket = $this->createBasket();
-        $charge = $invoiceFactoring->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoiceFactoring->charge(119.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
         $this->assertNotNull($charge);
         $this->assertNotEmpty($charge->getId());
         $this->assertNotEmpty($charge->getIban());
@@ -157,8 +157,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @throws Exception
      *
      * @group robustness
@@ -174,7 +174,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer->setShippingAddress($customer->getBillingAddress());
 
         $basket = $this->createBasket();
-        $charge = $invoiceFactoring->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoiceFactoring->charge(119.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
 
         // perform shipment
         $payment = $charge->getPayment();
@@ -188,8 +188,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @throws Exception
      *
      * @group robustness
@@ -205,7 +205,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer->setShippingAddress($customer->getBillingAddress());
 
         $basket = $this->createBasket();
-        $charge = $invoiceFactoring->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoiceFactoring->charge(119.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
 
         // perform shipment
         $payment = $charge->getPayment();
@@ -219,8 +219,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function verifyInvoiceFactoringShipmentWithInvoiceIdOnHeidelpayObject()
     {
@@ -233,7 +233,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer->setShippingAddress($customer->getBillingAddress());
 
         $basket = $this->createBasket();
-        $charge = $invoiceFactoring->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoiceFactoring->charge(119.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
 
         // perform shipment
         $payment   = $charge->getPayment();
@@ -248,8 +248,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function verifyInvoiceFactoringShipmentWithInvoiceIdOnPaymentObject()
     {
@@ -262,7 +262,7 @@ class InvoiceFactoringTest extends BasePaymentTest
         $customer->setShippingAddress($customer->getBillingAddress());
 
         $basket = $this->createBasket();
-        $charge = $invoiceFactoring->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
+        $charge = $invoiceFactoring->charge(119.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket);
 
         $payment   = $charge->getPayment();
         $invoiceId = substr(str_replace(['0.',' '], '', microtime(false)), 0, 16);
@@ -276,8 +276,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function verifyInvoiceFactoringShipmentWithPreSetInvoiceId()
     {
@@ -289,7 +289,7 @@ class InvoiceFactoringTest extends BasePaymentTest
 
         $basket = $this->createBasket();
         $invoiceId = substr(str_replace(['0.',' '], '', microtime(false)), 0, 16);
-        $charge = $invoiceFactoring->charge(123.4, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket, null, $invoiceId);
+        $charge = $invoiceFactoring->charge(119.0, 'EUR', self::RETURN_URL, $customer, $basket->getOrderId(), null, $basket, null, $invoiceId);
 
         $payment   = $charge->getPayment();
         $shipment  = $this->heidelpay->ship($payment);
@@ -302,8 +302,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function verifyInvoiceChargeCanBeCanceled()
     {
@@ -325,8 +325,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      *
      * @group robustness
      */
@@ -352,8 +352,8 @@ class InvoiceFactoringTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      *
      * @group robustness
      */

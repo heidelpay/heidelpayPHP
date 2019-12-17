@@ -20,7 +20,7 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpayPHP/transaction_types
+ * @package  heidelpayPHP\TransactionTypes
  */
 namespace heidelpayPHP\Resources\TransactionTypes;
 
@@ -126,13 +126,13 @@ class Payout extends AbstractTransactionType
     }
 
     /**
-     * @param $paymentReference
+     * @param $referenceText
      *
      * @return Payout
      */
-    public function setPaymentReference($paymentReference): Payout
+    public function setPaymentReference($referenceText): Payout
     {
-        $this->paymentReference = $paymentReference;
+        $this->paymentReference = $referenceText;
         return $this;
     }
 

@@ -20,7 +20,7 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpayPHP/transaction_types
+ * @package  heidelpayPHP\TransactionTypes
  */
 namespace heidelpayPHP\Resources\TransactionTypes;
 
@@ -49,6 +49,15 @@ class Authorization extends AbstractTransactionType
 
     /** @var string $paymentReference */
     protected $paymentReference;
+
+    /** @var string $externalOrderId*/
+    private $externalOrderId;
+
+    /** @var string $zgReferenceId*/
+    private $zgReferenceId;
+
+    /** @var string $PDFLink*/
+    private $PDFLink;
 
     /**
      * Authorization constructor.
@@ -177,6 +186,63 @@ class Authorization extends AbstractTransactionType
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getExternalOrderId()
+    {
+        return $this->externalOrderId;
+    }
+
+    /**
+     * @param string|null $externalOrderId
+     *
+     * @return Authorization
+     */
+    protected function setExternalOrderId($externalOrderId): Authorization
+    {
+        $this->externalOrderId = $externalOrderId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getZgReferenceId()
+    {
+        return $this->zgReferenceId;
+    }
+
+    /**
+     * @param string|null $zgReferenceId
+     *
+     * @return Authorization
+     */
+    protected function setZgReferenceId($zgReferenceId): Authorization
+    {
+        $this->zgReferenceId = $zgReferenceId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPDFLink()
+    {
+        return $this->PDFLink;
+    }
+
+    /**
+     * @param string|null $PDFLink
+     *
+     * @return Authorization
+     */
+    protected function setPDFLink($PDFLink): Authorization
+    {
+        $this->PDFLink = $PDFLink;
+        return $this;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Overridable Methods">
@@ -198,8 +264,8 @@ class Authorization extends AbstractTransactionType
      *
      * @return Cancellation
      *
-     * @throws RuntimeException
-     * @throws HeidelpayApiException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function cancel($amount = null): Cancellation
     {
@@ -213,8 +279,8 @@ class Authorization extends AbstractTransactionType
      *
      * @return Charge
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function charge($amount = null): Charge
     {

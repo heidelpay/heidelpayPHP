@@ -20,9 +20,11 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpayPHP/services
+ * @package  heidelpayPHP\Services
  */
 namespace heidelpayPHP\Services;
+
+use function in_array;
 
 class EnvironmentService
 {
