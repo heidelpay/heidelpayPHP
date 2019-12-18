@@ -69,8 +69,6 @@ class Cancellation extends AbstractTransactionType
     public function __construct($amount = null)
     {
         $this->setAmount($amount);
-
-        parent::__construct();
     }
 
     //<editor-fold desc="Getters/Setters">

@@ -155,26 +155,25 @@ class CancelService implements CancelServiceInterface
     //<editor-fold desc="Payment">
 
     /**
-     * @param Payment    $payment
-     * @param float|null $amount
-     * @param mixed      $reasonCode
-     * @param null|mixed $referenceText
-     * @param null|mixed $amountNet
-     * @param null|mixed $amountVat
-     *
-     * @return array
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
+     * {@inheritDoc}
      */
     public function cancelPayment(
-        Payment $payment,
+        $payment,
         float $amount = null,
         $reasonCode = CancelReasonCodes::REASON_CODE_CANCEL,
         string $referenceText = null,
         float $amountNet = null,
         float $amountVat = null
     ): array {
+        $paymentObject = $payment;
+        if (is_string($payment)) {
+            $paymentObject = $this->getResourceService()->fetchPayment($payment);
+        }
+
+        if (!$paymentObject instanceof Payment) {
+            throw new RuntimeException('Invalid payment object.');
+        }
+
         $remainingToCancel = $amount;
 
         $cancelWholePayment = $remainingToCancel === null;
@@ -182,7 +181,7 @@ class CancelService implements CancelServiceInterface
         $cancellation       = null;
 
         if ($cancelWholePayment || $remainingToCancel > 0.0) {
-            $cancellation = $this->cancelPaymentAuthorization($payment, $remainingToCancel);
+            $cancellation = $this->cancelPaymentAuthorization($paymentObject, $remainingToCancel);
 
             if ($cancellation instanceof Cancellation) {
                 $cancellations[] = $cancellation;
@@ -196,7 +195,7 @@ class CancelService implements CancelServiceInterface
         }
 
         $chargeCancels = $this->cancelPaymentCharges(
-            $payment,
+            $paymentObject,
             $reasonCode,
             $referenceText,
             $amountNet,
@@ -208,19 +207,9 @@ class CancelService implements CancelServiceInterface
     }
 
     /**
-     * Cancel the given amount of the payments authorization.
-     *
-     * @param Payment    $payment The payment whose authorization should be canceled.
-     * @param float|null $amount  The amount to be cancelled. If null the remaining uncharged amount of the authorization
-     *                            will be cancelled completely. If it exceeds the remaining uncharged amount the
-     *                            cancellation will only cancel the remaining uncharged amount.
-     *
-     * @return Cancellation|null
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is a error while using the SDK.
+     * {@inheritDoc}
      */
-    public function cancelPaymentAuthorization(Payment $payment, float $amount = null)
+    public function cancelPaymentAuthorization($payment, float $amount = null)
     {
         $cancellation   = null;
         $completeCancel = $amount === null;
@@ -311,7 +300,7 @@ class CancelService implements CancelServiceInterface
      *
      * @throws HeidelpayApiException
      */
-    public function isExceptionAllowed(HeidelpayApiException $exception)
+    private function isExceptionAllowed(HeidelpayApiException $exception)
     {
         $allowedErrors = [
             ApiResponseCodes::API_ERROR_ALREADY_CANCELLED,
@@ -334,7 +323,7 @@ class CancelService implements CancelServiceInterface
      *
      * @return float|null
      */
-    public function updateCancelAmount($remainingToCancel, float $amount)
+    private function updateCancelAmount($remainingToCancel, float $amount)
     {
         $cancelWholePayment = $remainingToCancel === null;
         if (!$cancelWholePayment) {
