@@ -26,7 +26,6 @@ namespace heidelpayPHP\test\integration\TransactionTypes;
 
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
-use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
 use RuntimeException;
@@ -68,7 +67,6 @@ class CancelAfterChargeTest extends BasePaymentTest
      */
     public function chargeShouldBeFullyRefundable(Charge $charge)
     {
-        /** @var Cancellation $refund */
         $refund = $this->heidelpay->cancelCharge($charge);
         $this->assertNotNull($refund);
         $this->assertNotEmpty($refund->getId());
@@ -87,7 +85,6 @@ class CancelAfterChargeTest extends BasePaymentTest
         $paymentType = $this->heidelpay->createPaymentType(new SepaDirectDebit('DE89370400440532013000'));
         $charge = $this->heidelpay->charge(100.0000, 'EUR', $paymentType, self::RETURN_URL);
 
-        /** @var Cancellation $refund */
         $refund = $this->heidelpay->cancelChargeById($charge->getPayment()->getId(), $charge->getId());
         $this->assertNotNull($refund);
         $this->assertNotEmpty($refund->getId());
@@ -110,7 +107,6 @@ class CancelAfterChargeTest extends BasePaymentTest
         $this->assertAmounts($firstPayment, 0, 100, 100, 0);
         $this->assertTrue($firstPayment->isCompleted());
 
-        /** @var Cancellation $refund */
         $refund = $this->heidelpay->cancelChargeById($charge->getPayment()->getId(), $charge->getId(), 10.0);
         $this->assertNotNull($refund);
         $this->assertNotEmpty($refund->getId());
@@ -138,7 +134,6 @@ class CancelAfterChargeTest extends BasePaymentTest
         $this->assertAmounts($firstPayment, 0, 100, 100, 0);
         $this->assertTrue($firstPayment->isCompleted());
 
-        /** @var Cancellation $refund */
         $refund = $this->heidelpay->cancelCharge($charge, 10.0);
         $this->assertNotNull($refund);
         $this->assertNotEmpty($refund->getId());

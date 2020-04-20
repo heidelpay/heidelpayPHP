@@ -26,7 +26,6 @@ namespace heidelpayPHP\test\integration\TransactionTypes;
 
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
-use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\test\BasePaymentTest;
 use RuntimeException;
 
@@ -75,7 +74,6 @@ class CancelAfterAuthorizationTest extends BasePaymentTest
 
         $cancelArray = $payment->cancelAmount(10.0);
 
-        /** @var Cancellation $cancel */
         $cancel = $cancelArray[0];
         $this->assertTransactionResourceHasBeenCreated($cancel);
         $this->assertEquals(10.0, $cancel->getAmount());
