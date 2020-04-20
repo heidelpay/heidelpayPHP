@@ -56,6 +56,10 @@ class CancelAfterAuthorizationTest extends BasePaymentTest
         $this->assertNotEmpty($cancellation);
         $this->assertAmounts($secPayment, 0.0, 0.0, 0.0, 0.0);
         $this->assertTrue($secPayment->isCanceled());
+
+        $traceId = $cancellation->getTraceId();
+        $this->assertNotEmpty($traceId);
+        $this->assertSame($traceId, $cancellation->getPayment()->getTraceId());
     }
 
     /**

@@ -54,6 +54,10 @@ class PaymentTest extends BasePaymentTest
         $this->assertInstanceOf(Authorization::class, $payment->getAuthorization());
         $this->assertNotEmpty($payment->getAuthorization()->getId());
         $this->assertNotNull($payment->getState());
+
+        $traceId = $authorize->getTraceId();
+        $this->assertNotEmpty($traceId);
+        $this->assertSame($traceId, $payment->getTraceId());
     }
 
     /**

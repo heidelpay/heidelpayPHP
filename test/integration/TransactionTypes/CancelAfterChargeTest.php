@@ -70,6 +70,10 @@ class CancelAfterChargeTest extends BasePaymentTest
         $refund = $this->heidelpay->cancelCharge($charge);
         $this->assertNotNull($refund);
         $this->assertNotEmpty($refund->getId());
+
+        $traceId = $charge->getTraceId();
+        $this->assertNotEmpty($traceId);
+        $this->assertSame($traceId, $charge->getPayment()->getTraceId());
     }
 
     /**
