@@ -50,8 +50,8 @@ class Card extends BasePaymentType
     /** @var string $cvc */
     protected $cvc;
 
-    /** @var string $holder */
-    protected $holder = '';
+    /** @var string $cardHolder */
+    protected $cardHolder = '';
 
     /** @var bool $card3ds */
     protected $card3ds;
@@ -150,20 +150,40 @@ class Card extends BasePaymentType
     /**
      * @return string|null
      */
-    public function getHolder()
+    public function getCardHolder()
     {
-        return $this->holder;
+        return $this->cardHolder;
     }
 
     /**
-     * @param string $holder
+     * @param string $cardHolder
      *
      * @return Card
      */
-    public function setHolder($holder): Card
+    public function setCardHolder($cardHolder): Card
     {
-        $this->holder = $holder;
+        $this->cardHolder = $cardHolder;
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHolder()
+    {
+        return $this->getCardHolder();
+    }
+
+    /**
+     * @param string $cardHolder
+     *
+     * @return Card
+     *
+     * @deprecated since 1.2.7.2
+     */
+    public function setHolder($cardHolder): Card
+    {
+        return $this->setCardHolder($cardHolder);
     }
 
     /**

@@ -187,6 +187,7 @@ class CardTest extends BasePaymentTest
         $this->assertEquals($this->maskNumber($card->getNumber()), $fetchedCard->getNumber());
         $this->assertEquals($card->getExpiryDate(), $fetchedCard->getExpiryDate());
         $this->assertEquals('***', $fetchedCard->getCvc());
+        $this->assertEquals($card->getHolder(), $fetchedCard->getHolder());
     }
 
     /**
