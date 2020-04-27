@@ -180,6 +180,7 @@ class CardTest extends BasePaymentTest
         $card = $this->createCardObject();
         $card = $this->heidelpay->createPaymentType($card);
         $this->assertNotNull($card->getId());
+        $this->assertNotNull($card->getCardHolder());
 
         /** @var Card $fetchedCard */
         $fetchedCard = $this->heidelpay->fetchPaymentType($card->getId());
