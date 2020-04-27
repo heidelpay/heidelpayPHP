@@ -168,6 +168,8 @@ class Card extends BasePaymentType
 
     /**
      * @return string|null
+     *
+     * @deprecated since 1.2.7.2
      */
     public function getHolder()
     {
