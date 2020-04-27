@@ -1024,7 +1024,7 @@ class Heidelpay implements HeidelpayParentInterface, PaymentServiceInterface, Re
         if ($this->isDebugMode()) {
             $debugHandler = $this->getDebugHandler();
             if ($debugHandler instanceof DebugHandlerInterface) {
-                $debugHandler->log('(' . (getmypid()) . ') ' . $message);
+                $debugHandler->log('(' . getmypid() . ') ' . $message);
             }
         }
     }
