@@ -90,8 +90,8 @@ class CardTest extends BasePaymentTest
      */
     public function cardWith3dsFlagShouldSetItAlsoInTransactions()
     {
-        /** @var Card $card */
         $card = $this->createCardObject()->set3ds(false);
+        /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($card);
         $this->assertFalse($card->get3ds());
 
