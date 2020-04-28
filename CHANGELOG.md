@@ -12,6 +12,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Change
 *   Fix some minor issues.
 
+### Added
+*   TraceId property to payment and transactions.
+
 ## [1.2.7.1][1.2.7.1]
 
 ### Added

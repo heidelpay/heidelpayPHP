@@ -78,6 +78,10 @@ class ShipmentTest extends BasePaymentTest
         $this->assertNotEmpty($shipment->getUniqueId());
         $this->assertNotEmpty($shipment->getShortId());
 
+        $traceId = $shipment->getTraceId();
+        $this->assertNotEmpty($traceId);
+        $this->assertSame($traceId, $shipment->getPayment()->getTraceId());
+
         $fetchedShipment = $this->heidelpay->fetchShipment($shipment->getPayment()->getId(), $shipment->getId());
         $this->assertNotEmpty($fetchedShipment);
         $this->assertEquals($shipment->expose(), $fetchedShipment->expose());
