@@ -54,6 +54,10 @@ class AuthorizationTest extends BasePaymentTest
         $this->assertNotEmpty($authorize->getId());
         $this->assertNotEmpty($authorize->getUniqueId());
         $this->assertNotEmpty($authorize->getShortId());
+
+        $traceId = $authorize->getTraceId();
+        $this->assertNotEmpty($traceId);
+        $this->assertSame($traceId, $authorize->getPayment()->getTraceId());
     }
 
     /**
