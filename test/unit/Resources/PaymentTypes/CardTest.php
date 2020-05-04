@@ -29,6 +29,7 @@ use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
+use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -184,11 +185,51 @@ class CardTest extends BasePaymentTest
      */
     public function verifyHolderCanBeSetAndChanged()
     {
+        $this->assertEquals(null, $this->card->getCardHolder());
+        $this->card->setCardHolder('Julia Heideich');
+        $this->assertEquals('Julia Heideich', $this->card->getCardHolder());
+        $this->card->setCardHolder(self::TEST_HOLDER);
+        $this->assertEquals(self::TEST_HOLDER, $this->card->getCardHolder());
+    }
+
+    /**
+     * Verify setting holder.
+     *
+     * @test
+     *
+     * @throws Exception
+     *
+     * @deprecated since 1.2.7.2
+     */
+    public function verifyHolderCanBeSetAndChangedOld()
+    {
         $this->assertEquals(null, $this->card->getHolder());
         $this->card->setHolder('Julia Heideich');
         $this->assertEquals('Julia Heideich', $this->card->getHolder());
         $this->card->setHolder(self::TEST_HOLDER);
         $this->assertEquals(self::TEST_HOLDER, $this->card->getHolder());
+    }
+
+    /**
+     * Verify setting holder.
+     *
+     * @test
+     *
+     * @throws Exception
+     * @throws \PHPUnit\Framework\MockObject\RuntimeException
+     * @throws ReflectionException
+     *
+     * @deprecated since 1.2.7.2
+     */
+    public function verifyHolderSettersPropagate()
+    {
+        $cardMock = $this->getMockBuilder(Card::class)->disableOriginalConstructor()->setMethods(['setCardHolder', 'getCardHolder'])->getMock();
+        $cardMock->expects($this->once())->method('setCardHolder')->with('set my CardHolder');
+        $cardMock->expects($this->once())->method('getCardHolder')->willReturn('get my CardHolder');
+
+        /** @var Card $cardMock */
+        $cardMock->setHolder('set my CardHolder');
+        $this->assertSame('get my CardHolder', $cardMock->getHolder());
     }
 
     /**
@@ -240,7 +281,7 @@ class CardTest extends BasePaymentTest
         $this->assertEquals(self::TEST_BRAND, $this->card->getBrand());
         $this->assertEquals(self::TEST_CVC, $this->card->getCvc());
         $this->assertEquals(self::TEST_EXPIRY_DATE, $this->card->getExpiryDate());
-        $this->assertEquals(self::TEST_HOLDER, $this->card->getHolder());
+        $this->assertEquals(self::TEST_HOLDER, $this->card->getCardHolder());
         $cardDetails = $this->card->getCardDetails();
         $this->assertNull($cardDetails);
 
@@ -260,7 +301,7 @@ class CardTest extends BasePaymentTest
         $this->assertEquals(self::TEST_BRAND, $this->card->getBrand());
         $this->assertEquals(self::TEST_CVC, $this->card->getCvc());
         $this->assertEquals(self::TEST_EXPIRY_DATE, $this->card->getExpiryDate());
-        $this->assertEquals(self::TEST_HOLDER, $this->card->getHolder());
+        $this->assertEquals(self::TEST_HOLDER, $this->card->getCardHolder());
         $details = $this->card->getCardDetails();
         $this->assertInstanceOf(CardDetails::class, $details);
         $this->assertEquals('my card type', $details->getCardType());

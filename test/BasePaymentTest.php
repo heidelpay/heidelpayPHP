@@ -223,7 +223,7 @@ class BasePaymentTest extends TestCase
     {
         $expiryDate = $this->getNextYearsTimestamp()->format('m/Y');
         $card = new Card($cardNumber, $expiryDate);
-        $card->setCvc('123');
+        $card->setCvc('123')->setCardHolder('max mustermann');
         return $card;
     }
 

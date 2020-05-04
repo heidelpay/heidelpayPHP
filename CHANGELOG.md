@@ -5,7 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [1.2.7.2][1.2.7.2]
 
+### Fix
+*   Rename Cards property holder to cardHolder.
+
+### Change
+*   Fix some minor issues.
+
 ### Added
+*   TraceId property to payment and transactions.
 *   Description to zgReferenceId setter/getter.
 
 ## [1.2.7.1][1.2.7.1]

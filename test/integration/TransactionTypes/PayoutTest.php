@@ -59,6 +59,10 @@ class PayoutTest extends BasePaymentTest
         $this->assertEquals(self::RETURN_URL, $payout->getReturnUrl());
 
         $this->assertAmounts($payment, 0, 0, -100, 0);
+
+        $traceId = $payout->getTraceId();
+        $this->assertNotEmpty($traceId);
+        $this->assertSame($traceId, $payout->getPayment()->getTraceId());
     }
 
     /**
