@@ -178,7 +178,7 @@ class PaymentTest extends BasePaymentTest
     {
         $card = $this->heidelpay->createPaymentType($this->createCardObject());
         $authorization = $this->heidelpay->authorize(100.00, 'EUR', $card, 'http://heidelpay.com', null, null, null, null, false);
-        $charge = $this->heidelpay->chargePayment($authorization->getPaymentId(), null, 'order-' . self::generateRandomId(), 'invoice-' . self::generateRandomId());
+        $charge = $this->heidelpay->chargePayment($authorization->getPaymentId(), null, 'EUR', 'o' . self::generateRandomId(), 'i' . self::generateRandomId());
 
         $this->assertNotEmpty($charge->getId());
     }
@@ -228,7 +228,7 @@ class PaymentTest extends BasePaymentTest
      */
     public function shouldAllowNonUniqueOrderId()
     {
-        $orderId = self::generateRandomId();
+        $orderId = 'o' . self::generateRandomId();
 
         /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($this->createCardObject());
@@ -254,7 +254,7 @@ class PaymentTest extends BasePaymentTest
      */
     public function shouldAllowNonUniqueInvoiceId()
     {
-        $invoiceId = self::generateRandomId();
+        $invoiceId = 'i' . self::generateRandomId();
 
         /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($this->createCardObject());
