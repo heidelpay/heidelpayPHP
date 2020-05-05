@@ -48,7 +48,7 @@ class ShipmentTest extends BasePaymentTest
         $this->assertNotNull($charge->getId());
         $this->assertNotNull($charge);
 
-        $shipment = $this->heidelpay->ship($charge->getPayment(), self::generateRandomId(), self::generateRandomId());
+        $shipment = $this->heidelpay->ship($charge->getPayment(), 'i'. self::generateRandomId(), 'i'. self::generateRandomId());
         $this->assertNotNull($shipment->getId());
         $this->assertNotNull($shipment);
 
@@ -72,7 +72,7 @@ class ShipmentTest extends BasePaymentTest
         $charge            = $this->heidelpay->charge(100.0, 'EUR', $invoiceGuaranteed, self::RETURN_URL, $customer);
 
         $payment  = $charge->getPayment();
-        $shipment = $payment->ship(self::generateRandomId(), self::generateRandomId());
+        $shipment = $payment->ship('i'. self::generateRandomId(), 'o'. self::generateRandomId());
         $this->assertNotNull($shipment);
         $this->assertNotEmpty($shipment->getId());
         $this->assertNotEmpty($shipment->getUniqueId());
@@ -102,7 +102,7 @@ class ShipmentTest extends BasePaymentTest
         $charge            = $this->heidelpay->charge(100.0, 'EUR', $invoiceGuaranteed, self::RETURN_URL, $customer);
 
         $payment  = $charge->getPayment();
-        $shipment = $this->heidelpay->ship($payment, self::generateRandomId(), self::generateRandomId());
+        $shipment = $this->heidelpay->ship($payment, 'i'. self::generateRandomId(), 'o'. self::generateRandomId());
         $this->assertNotNull($shipment->getId());
         $this->assertNotNull($shipment);
     }
@@ -122,7 +122,7 @@ class ShipmentTest extends BasePaymentTest
         $charge            = $this->heidelpay->charge(100.0, 'EUR', $invoiceGuaranteed, self::RETURN_URL, $customer);
 
         $payment  = $charge->getPayment();
-        $shipment = $this->heidelpay->ship($payment, self::generateRandomId(), self::generateRandomId());
+        $shipment = $this->heidelpay->ship($payment, 'i'. self::generateRandomId(), 'o'. self::generateRandomId());
         $this->assertSuccess($shipment);
     }
 }
