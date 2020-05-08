@@ -3,9 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
 ## [1.2.7.2][1.2.7.2]
 
+### Fix
+*   Rename Cards property holder to cardHolder.
+
+### Change
+*   Fix some minor issues.
+*   Refactor tests due to API changes.
+
 ### Added
+*   TraceId property to payment and transactions.
 *   Email form field to PayPal example.
 
 ## [1.2.7.1][1.2.7.1]

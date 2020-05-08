@@ -180,6 +180,7 @@ class CardTest extends BasePaymentTest
         $card = $this->createCardObject();
         $card = $this->heidelpay->createPaymentType($card);
         $this->assertNotNull($card->getId());
+        $this->assertNotNull($card->getCardHolder());
 
         /** @var Card $fetchedCard */
         $fetchedCard = $this->heidelpay->fetchPaymentType($card->getId());
@@ -187,6 +188,33 @@ class CardTest extends BasePaymentTest
         $this->assertEquals($this->maskNumber($card->getNumber()), $fetchedCard->getNumber());
         $this->assertEquals($card->getExpiryDate(), $fetchedCard->getExpiryDate());
         $this->assertEquals('***', $fetchedCard->getCvc());
+        $this->assertEquals($card->getCardHolder(), $fetchedCard->getCardHolder());
+    }
+
+    /**
+     * Verify that a card object can be fetched from the api using its id.
+     *
+     * @test
+     *
+     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
+     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     *
+     * @deprecated since 1.2.7.2
+     */
+    public function cardCanBeFetchedOld()
+    {
+        $card = $this->createCardObject();
+        $this->heidelpay->createPaymentType($card);
+        $this->assertNotNull($card->getId());
+        $this->assertNotEmpty($card->getHolder());
+
+        /** @var Card $fetchedCard */
+        $fetchedCard = $this->heidelpay->fetchPaymentType($card->getId());
+        $this->assertNotNull($fetchedCard->getId());
+        $this->assertEquals($this->maskNumber($card->getNumber()), $fetchedCard->getNumber());
+        $this->assertEquals($card->getExpiryDate(), $fetchedCard->getExpiryDate());
+        $this->assertEquals('***', $fetchedCard->getCvc());
+        $this->assertEquals($card->getHolder(), $fetchedCard->getHolder());
     }
 
     /**

@@ -123,7 +123,7 @@ class CustomerTest extends BasePaymentTest
      */
     public function customerCanBeFetchedByCustomerId()
     {
-        $customerId = str_replace([' ', '.'], '', microtime());
+        $customerId = 'c' . self::generateRandomId();
         $customer = $this->getMaximumCustomer()->setCustomerId($customerId);
         $this->heidelpay->createCustomer($customer);
 
@@ -173,7 +173,7 @@ class CustomerTest extends BasePaymentTest
      */
     public function transactionShouldCreateAndReferenceCustomerIfItDoesNotExistYet()
     {
-        $customerId = 'customer' . self::generateRandomId();
+        $customerId = 'c' . self::generateRandomId();
         $customer   = $this->getMaximumCustomerInclShippingAddress()->setCustomerId($customerId);
 
         /** @var Paypal $paypal */
@@ -379,7 +379,7 @@ class CustomerTest extends BasePaymentTest
      */
     public function addressNameCanHoldFirstAndLastNameConcatenated()
     {
-        $customerId = 'customer' . self::generateRandomId();
+        $customerId = 'c' . self::generateRandomId();
         $customer   = $this->getMaximumCustomerInclShippingAddress()->setCustomerId($customerId);
         $longName   = 'firstfirstfirstfirstfirstfirstfirstfirst lastlastlastlastlastlastlastlastlastlast';
         $customer->getShippingAddress()->setName($longName);
