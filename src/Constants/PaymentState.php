@@ -34,8 +34,6 @@ class PaymentState
     const STATE_PARTLY = 3;
     const STATE_PAYMENT_REVIEW = 4;
     const STATE_CHARGEBACK = 5;
-CREATE     (6, "create"),
-UNKNOWN       (-1, "unknown");
 
     const STATE_NAME_PENDING = 'pending';
     const STATE_NAME_COMPLETED = 'completed';
