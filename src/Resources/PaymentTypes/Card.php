@@ -30,6 +30,7 @@ use heidelpayPHP\Traits\CanAuthorize;
 use heidelpayPHP\Traits\CanDirectCharge;
 use heidelpayPHP\Traits\CanPayout;
 use heidelpayPHP\Traits\CanRecur;
+use heidelpayPHP\Traits\HasGeoLocation;
 use heidelpayPHP\Validators\ExpiryDateValidator;
 use RuntimeException;
 use stdClass;
@@ -40,6 +41,7 @@ class Card extends BasePaymentType
     use CanAuthorize;
     use CanPayout;
     use CanRecur;
+    use HasGeoLocation;
 
     /** @var string $number */
     protected $number;
