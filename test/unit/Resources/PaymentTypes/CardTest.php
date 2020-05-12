@@ -106,6 +106,10 @@ class CardTest extends BasePaymentTest
 
         $this->assertEquals($number, $card->getNumber());
         $this->assertEquals($expiryDate, $card->getExpiryDate());
+
+        $geoLocation = $card->getGeoLocation();
+        $this->assertNull($geoLocation->getClientIp());
+        $this->assertNull($geoLocation->getCountryCode());
     }
 
     /**
@@ -266,15 +270,18 @@ class CardTest extends BasePaymentTest
      */
     public function verifyCardCanBeUpdated()
     {
-        $testResponse = new stdClass();
-        $testResponse->id = self::TEST_ID;
-        $testResponse->number = self::TEST_NUMBER;
-        $testResponse->brand = self::TEST_BRAND;
-        $testResponse->cvc = self::TEST_CVC;
-        $testResponse->expiryDate = self::TEST_EXPIRY_DATE;
-        $testResponse->holder = self::TEST_HOLDER;
+        $newGeoLocation = (object)['clientIp' => 'client ip', 'countryCode' => 'country code'];
+        $newValues = (object)[
+            'id' => self::TEST_ID,
+            'number' => self::TEST_NUMBER,
+            'brand' => self::TEST_BRAND,
+            'cvc' => self::TEST_CVC,
+            'expiryDate' => self::TEST_EXPIRY_DATE,
+            'cardHolder' => self::TEST_HOLDER,
+            'geolocation' => $newGeoLocation
+        ];
 
-        $this->card->handleResponse($testResponse);
+        $this->card->handleResponse($newValues);
 
         $this->assertEquals(self::TEST_ID, $this->card->getId());
         $this->assertEquals(self::TEST_NUMBER, $this->card->getNumber());
@@ -285,6 +292,10 @@ class CardTest extends BasePaymentTest
         $cardDetails = $this->card->getCardDetails();
         $this->assertNull($cardDetails);
 
+        $geoLocation = $this->card->getGeoLocation();
+        $this->assertEquals('client ip', $geoLocation->getClientIp());
+        $this->assertEquals('country code', $geoLocation->getCountryCode());
+
         $cardDetails = new stdClass;
         $cardDetails->cardType = 'my card type';
         $cardDetails->account = 'CREDIT';
@@ -293,9 +304,9 @@ class CardTest extends BasePaymentTest
         $cardDetails->issuerName = 'my issuer name';
         $cardDetails->issuerUrl = 'https://my.issuer.url';
         $cardDetails->issuerPhoneNumber = '+49 6221 6471-400';
-        $testResponse->cardDetails = $cardDetails;
+        $newValues->cardDetails = $cardDetails;
 
-        $this->card->handleResponse($testResponse);
+        $this->card->handleResponse($newValues);
         $this->assertEquals(self::TEST_ID, $this->card->getId());
         $this->assertEquals(self::TEST_NUMBER, $this->card->getNumber());
         $this->assertEquals(self::TEST_BRAND, $this->card->getBrand());
