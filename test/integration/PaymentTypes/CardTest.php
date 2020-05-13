@@ -58,15 +58,24 @@ class CardTest extends BasePaymentTest
      */
     public function cardShouldBeCreatable(string $cardNumber, CardDetails $expectedCardDetails): BasePaymentType
     {
-        /** @var Card $card */
         $card = $this->createCardObject($cardNumber);
         $this->assertNull($card->getId());
+
+        $geoLocation = $card->getGeoLocation();
+        $this->assertNull($geoLocation->getClientIp());
+        $this->assertNull($geoLocation->getCountryCode());
+
+        /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($card);
 
         $this->assertInstanceOf(Card::class, $card);
         $this->assertNotNull($card->getId());
         $this->assertSame($this->heidelpay, $card->getHeidelpayObject());
         $this->assertEquals($expectedCardDetails, $card->getCardDetails());
+
+        $geoLocation = $card->getGeoLocation();
+        $this->assertNotEmpty($geoLocation->getClientIp());
+        $this->assertNotEmpty($geoLocation->getCountryCode());
 
         return $card;
     }
@@ -81,8 +90,8 @@ class CardTest extends BasePaymentTest
      */
     public function cardWith3dsFlagShouldSetItAlsoInTransactions()
     {
-        /** @var Card $card */
         $card = $this->createCardObject()->set3ds(false);
+        /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($card);
         $this->assertFalse($card->get3ds());
 

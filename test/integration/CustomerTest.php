@@ -29,7 +29,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Constants\Salutations;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Customer;
-use heidelpayPHP\Resources\EmbeddedResources\GeoLocation;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\test\BasePaymentTest;
@@ -52,25 +51,21 @@ class CustomerTest extends BasePaymentTest
      */
     public function minCustomerCanBeCreatedAndFetched(): Customer
     {
-        /** @var Customer $customer */
         $customer = $this->getMinimalCustomer();
         $this->assertEmpty($customer->getId());
         $this->heidelpay->createCustomer($customer);
         $this->assertNotEmpty($customer->getId());
 
         $geoLocation = $customer->getGeoLocation();
-        $this->assertInstanceOf(GeoLocation::class, $geoLocation);
         $this->assertNull($geoLocation->getClientIp());
         $this->assertNull($geoLocation->getCountryCode());
 
-        /** @var Customer $fetchedCustomer */
         $fetchedCustomer = $this->heidelpay->fetchCustomer($customer->getId());
         $exposeArray     = $customer->expose();
         $exposeArray['salutation'] = Salutations::UNKNOWN;
         $this->assertEquals($exposeArray, $fetchedCustomer->expose());
 
         $geoLocation = $fetchedCustomer->getGeoLocation();
-        $this->assertInstanceOf(GeoLocation::class, $geoLocation);
         $this->assertNotEmpty($geoLocation->getClientIp());
         $this->assertNotEmpty($geoLocation->getCountryCode());
 
