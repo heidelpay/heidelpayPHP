@@ -51,6 +51,7 @@ class ApiResponseCodes
     const API_ERROR_CURRENCY_IS_NOT_SUPPORTED                   = 'API.330.100.202';
     /**
      * API_ERROR_AUTHORIZE_ALREADY_CANCELLED
+     *
      * @deprecated since 1.2.3.0
      * @see ApiResponseCodes::API_ERROR_ALREADY_CANCELLED
      */
@@ -58,6 +59,7 @@ class ApiResponseCodes
     const API_ERROR_ALREADY_CANCELLED                           = 'API.340.100.014';
     /**
      * API_ERROR_CHARGE_ALREADY_CHARGED_BACK
+     *
      * @deprecated since 1.2.3.0
      * @see ApiResponseCodes::API_ERROR_ALREADY_CHARGED_BACK
      */
@@ -77,6 +79,7 @@ class ApiResponseCodes
     const API_ERROR_BASKET_ITEM_IMAGE_INVALID_URL               = 'API.600.630.004';
     /**
      * API_ERROR_BASKET_ITEM_IMAGE_INVALID_EXTENSION
+     *
      * @deprecated since 1.2.5.0 Will be removed in next major version.
      */
     const API_ERROR_BASKET_ITEM_IMAGE_INVALID_EXTENSION         = 'API.600.630.005';
