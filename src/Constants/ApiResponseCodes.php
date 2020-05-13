@@ -70,8 +70,6 @@ class ApiResponseCodes
     const API_ERROR_CUSTOMER_CAN_NOT_BE_FOUND                   = 'API.500.100.100';
     const API_ERROR_REQUEST_DATA_IS_INVALID                     = 'API.500.300.999';
     const API_ERROR_RECURRING_PAYMENT_NOT_SUPPORTED             = 'API.500.550.004';
-    const API_ERROR_ACTIVATE_RECURRING_VIA_TRANSACTION          = 'API.500.550.005';
-    const API_ERROR_RECURRING_ALREADY_ACTIVE                    = 'API.500.550.006';
     const API_ERROR_WEBHOOK_EVENT_ALREADY_REGISTERED            = 'API.510.310.009';
     const API_ERROR_WEBHOOK_CAN_NOT_BE_FOUND                    = 'API.510.310.008';
     const API_ERROR_BASKET_ITEM_IMAGE_INVALID_URL               = 'API.600.630.004';
@@ -79,6 +77,8 @@ class ApiResponseCodes
      * @deprecated since 1.2.5.0 Will be removed in next major version.
      */
     const API_ERROR_BASKET_ITEM_IMAGE_INVALID_EXTENSION         = 'API.600.630.005';
+    const API_ERROR_ACTIVATE_RECURRING_VIA_TRANSACTION          = 'API.640.550.005';
+    const API_ERROR_RECURRING_ALREADY_ACTIVE                    = 'API.640.550.006';
     const API_ERROR_INVALID_KEY                                 = 'API.710.000.002';
     const API_ERROR_INSUFFICIENT_PERMISSION                     = 'API.710.000.005';
     const API_ERROR_WRONG_AUTHENTICATION_METHOD                 = 'API.710.000.007';
