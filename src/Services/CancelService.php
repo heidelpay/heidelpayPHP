@@ -94,9 +94,6 @@ class CancelService implements CancelServiceInterface
 
         /** @var Cancellation $cancellation */
         $cancellation = $this->getResourceService()->createResource($cancellation);
-
-        // only add the cancellation if no exception is thrown (i.e. if it was successful)
-        $authorization->addCancellation($cancellation);
         return $cancellation;
     }
 
