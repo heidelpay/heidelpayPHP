@@ -90,10 +90,13 @@ class CancelService implements CancelServiceInterface
     public function cancelAuthorization(Authorization $authorization, float $amount = null): Cancellation
     {
         $cancellation = new Cancellation($amount);
-        $cancellation->setPayment($authorization->getPayment());
-        $authorization->addCancellation($cancellation);
-        $this->getResourceService()->createResource($cancellation);
+        $cancellation->setPayment($authorization->getPayment())->setParentResource($authorization);
 
+        /** @var Cancellation $cancellation */
+        $cancellation = $this->getResourceService()->createResource($cancellation);
+
+        // only add the cancellation if no exception is thrown (i.e. if it was successful)
+        $authorization->addCancellation($cancellation);
         return $cancellation;
     }
 

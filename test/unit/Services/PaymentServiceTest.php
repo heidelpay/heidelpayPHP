@@ -24,6 +24,7 @@
  */
 namespace heidelpayPHP\test\unit\Services;
 
+use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Constants\TransactionTypes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
@@ -304,22 +305,53 @@ class PaymentServiceTest extends BasePaymentTest
         $payment       = (new Payment())->setParentResource($heidelpay)->setId('myPaymentId');
         $authorization = (new Authorization())->setPayment($payment)->setId('s-aut-1');
 
-        /** @var ResourceServiceInterface|MockObject $resourceSrvMock */
+        /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        $cancellation    = new Cancellation();
         $resourceSrvMock->expects($this->once())->method('createResource')
-            ->with($this->callback(static function ($cancellation) use ($authorization, $payment) {
+            ->with($this->callback(static function ($cancellation) use ($payment) {
                 /** @var Cancellation $cancellation */
                 $newPayment = $cancellation->getPayment();
                 return $cancellation instanceof Cancellation &&
                     $cancellation->getAmount() === 12.122 &&
                     $newPayment instanceof Payment &&
-                    $newPayment === $payment &&
-                    in_array($cancellation, $authorization->getCancellations(), true);
-            }));
+                    $newPayment === $payment;
+            }))->willReturn($cancellation);
 
         $cancelSrv            = $heidelpay->setResourceService($resourceSrvMock)->getCancelService();
         $returnedCancellation = $cancelSrv->cancelAuthorization($authorization, 12.122);
         $this->assertArraySubset([$returnedCancellation], $authorization->getCancellations());
+    }
+
+    /**
+     * Verify cancelAuthorization will create a cancellation object and call create on ResourceService with it.
+     *
+     * @test
+     *
+     * @throws HeidelpayApiException
+     * @throws ReflectionException
+     * @throws RuntimeException
+     */
+    public function cancelAuthorizationShouldNotAddCancellationIfCancellationFails(): void
+    {
+        $heidelpay     = new Heidelpay('s-priv-123');
+        $payment       = (new Payment())->setParentResource($heidelpay)->setId('myPaymentId');
+        $authorization = (new Authorization())->setPayment($payment)->setId('s-aut-1');
+
+        /** @var ResourceService|MockObject $resourceSrvMock */
+        $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        $cancellationException       = new HeidelpayApiException(
+            'Cancellation failed',
+            'something went wrong',
+            ApiResponseCodes::API_ERROR_ALREADY_CANCELLED
+        );
+        $resourceSrvMock->expects($this->once())->method('createResource')->willThrowException($cancellationException);
+
+        $cancelSrv            = $heidelpay->setResourceService($resourceSrvMock)->getCancelService();
+        $this->expectException(HeidelpayApiException::class);
+        $this->expectExceptionCode(ApiResponseCodes::API_ERROR_ALREADY_CANCELLED);
+        $returnedCancellation = $cancelSrv->cancelAuthorization($authorization, 12.122);
+        $this->assertCount(0, $authorization->getCancellations());
     }
 
     /**
