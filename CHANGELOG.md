@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Fix
 *   Rename Cards property holder to cardHolder.
-*   Add cancellation object to authorization only id cancellation has been successful.
+*   Add cancellation object to authorization only if cancellation has been successful.
 
 ### Change
 *   Fix some minor issues.
