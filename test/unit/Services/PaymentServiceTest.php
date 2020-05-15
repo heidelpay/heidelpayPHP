@@ -305,7 +305,6 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
-        $cancellation    = new Cancellation();
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($cancellation) use ($payment) {
                 /** @var Cancellation $cancellation */
@@ -314,11 +313,13 @@ class PaymentServiceTest extends BasePaymentTest
                     $cancellation->getAmount() === 12.122 &&
                     $newPayment instanceof Payment &&
                     $newPayment === $payment;
-            }))->willReturn($cancellation);
+            }))->will($this->returnArgument(0));
 
         $cancelSrv            = $heidelpay->setResourceService($resourceSrvMock)->getCancelService();
         $returnedCancellation = $cancelSrv->cancelAuthorization($authorization, 12.122);
-        $this->assertArraySubset([$returnedCancellation], $authorization->getCancellations());
+
+        $this->assertSame(12.122, $returnedCancellation->getAmount());
+        $this->assertSame($payment, $returnedCancellation->getPayment());
     }
 
     /**
@@ -345,10 +346,10 @@ class PaymentServiceTest extends BasePaymentTest
         );
         $resourceSrvMock->expects($this->once())->method('createResource')->willThrowException($cancellationException);
 
-        $cancelSrv            = $heidelpay->setResourceService($resourceSrvMock)->getCancelService();
+        $cancelSrv = $heidelpay->setResourceService($resourceSrvMock)->getCancelService();
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_ALREADY_CANCELLED);
-        $returnedCancellation = $cancelSrv->cancelAuthorization($authorization, 12.122);
+        $cancelSrv->cancelAuthorization($authorization, 12.122);
         $this->assertCount(0, $authorization->getCancellations());
     }
 
