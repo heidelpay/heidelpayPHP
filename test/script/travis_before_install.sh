@@ -18,7 +18,7 @@ wget https://curl.haxx.se/ca/cacert.pem
 
 # add cert path to php config
 CERTPATH=$(realpath cacert.pem)
-echo 'curl.cainfo = "${CERTPATH}"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+echo "curl.cainfo = \"${CERTPATH}\"" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 ## create directories for the tests
 mkdir -p build/logs
