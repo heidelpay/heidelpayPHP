@@ -8,7 +8,19 @@ cp ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/.phpenv/ver
 echo > ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
 phpenv rehash
 
-# create directories for the tests
+echo "\nCurrent path: "
+pwd
+echo "\n\n"
+
+## add certificate
+# download it
+wget https://curl.haxx.se/ca/cacert.pem
+
+# add cert path to php config
+CERTPATH=$(realpath cacert.pem)
+echo 'curl.cainfo = "${CERTPATH}"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+## create directories for the tests
 mkdir -p build/logs
 
 composer self-update
