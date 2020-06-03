@@ -78,9 +78,10 @@ class CurlAdapter implements HttpAdapterInterface
     public function execute()
     {
         $response = curl_exec($this->request);
-        $error    = curl_errno($this->request);
+        $error    = curl_error($this->request);
+        $errorNo  = curl_errno($this->request);
 
-        switch ($error) {
+        switch ($errorNo) {
             case 0:
                 return $response;
                 break;
@@ -88,7 +89,7 @@ class CurlAdapter implements HttpAdapterInterface
                 $errorMessage = 'Timeout: The Payment API seems to be not available at the moment!';
                 break;
             default:
-                $errorMessage = 'An error occurred sending the request (curl_errno: '. $error . ').';
+                $errorMessage = $error . ' (curl_errno: '. $errorNo . ').';
                 break;
         }
         throw new HeidelpayApiException($errorMessage);
