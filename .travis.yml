@@ -11,7 +11,7 @@ matrix:
     - name: "php 7.1 (install) - integration"
       php: 7.1
       env:
-        - DEPS=NO
+        - DEPS=HIGH
         - LEVEL=INTEGRATION
     - name: "php 7.2 (install) - unit"
       php: 7.2
