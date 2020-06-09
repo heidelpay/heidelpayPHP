@@ -44,7 +44,6 @@ class EnvironmentService
     const DEFAULT_TIMEOUT = 60;
 
     const ENV_VAR_NAME_CURL_VERBOSE = 'HEIDELPAY_MGW_CURL_VERBOSE';
-    const DEFAULT_CURL_VERBOSE = false;
 
     /**
      * Returns the MGW environment set via environment variable or PROD es default.
@@ -86,8 +85,8 @@ class EnvironmentService
      */
     public static function getCurlVerbose(): bool
     {
-        $curlVerbose = $_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE] ?? '';
-        return empty($curlVerbose) ? self::DEFAULT_CURL_VERBOSE : (int)$curlVerbose;
+        $curlVerbose = strtolower($_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE] ?? 'false');
+        return in_array($curlVerbose, ['false', '0'], true);
     }
 
     /**
