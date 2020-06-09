@@ -11,7 +11,7 @@ phpenv rehash
 echo "Date before"
 date
 
-ntpdate ntp.ubuntu.com
+sudo ntpdate ntp.ubuntu.com
 
 echo "Date after"
 date
