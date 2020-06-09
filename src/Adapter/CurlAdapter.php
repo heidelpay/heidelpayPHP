@@ -63,9 +63,9 @@ class CurlAdapter implements HttpAdapterInterface
         $this->setOption(CURLOPT_HTTP200ALIASES, (array)400);
         $this->setOption(CURLOPT_CUSTOMREQUEST, $httpMethod);
         $this->setOption(CURLOPT_RETURNTRANSFER, 1);
-        $this->setOption(CURLOPT_SSL_VERIFYPEER, 0);
+        $this->setOption(CURLOPT_SSL_VERIFYPEER, 1);
         $this->setOption(CURLOPT_SSL_VERIFYHOST, 0);
-        $this->setOption(CURLOPT_SSLVERSION, 6);       // CURL_SSLVERSION_TLSv1_2
+        $this->setOption(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);       // CURL_SSLVERSION_TLSv1_2
 
         if (in_array($httpMethod, [HttpAdapterInterface::REQUEST_POST, HttpAdapterInterface::REQUEST_PUT], true)) {
             $this->setOption(CURLOPT_POSTFIELDS, $payload);
