@@ -86,7 +86,7 @@ class EnvironmentService
     public static function getCurlVerbose(): bool
     {
         $curlVerbose = strtolower($_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE] ?? 'false');
-        return in_array($curlVerbose, ['false', '0'], true);
+        return in_array($curlVerbose, ['true', '1'], true);
     }
 
     /**
