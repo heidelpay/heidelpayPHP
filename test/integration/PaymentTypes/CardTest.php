@@ -32,6 +32,7 @@ use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
+use heidelpayPHP\Services\ValueService;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
@@ -194,7 +195,7 @@ class CardTest extends BasePaymentTest
         /** @var Card $fetchedCard */
         $fetchedCard = $this->heidelpay->fetchPaymentType($card->getId());
         $this->assertNotNull($fetchedCard->getId());
-        $this->assertEquals($this->maskNumber($card->getNumber()), $fetchedCard->getNumber());
+        $this->assertEquals(ValueService::maskValue($card->getNumber()), $fetchedCard->getNumber());
         $this->assertEquals($card->getExpiryDate(), $fetchedCard->getExpiryDate());
         $this->assertEquals('***', $fetchedCard->getCvc());
         $this->assertEquals($card->getCardHolder(), $fetchedCard->getCardHolder());
@@ -220,7 +221,7 @@ class CardTest extends BasePaymentTest
         /** @var Card $fetchedCard */
         $fetchedCard = $this->heidelpay->fetchPaymentType($card->getId());
         $this->assertNotNull($fetchedCard->getId());
-        $this->assertEquals($this->maskNumber($card->getNumber()), $fetchedCard->getNumber());
+        $this->assertEquals(ValueService::maskValue($card->getNumber()), $fetchedCard->getNumber());
         $this->assertEquals($card->getExpiryDate(), $fetchedCard->getExpiryDate());
         $this->assertEquals('***', $fetchedCard->getCvc());
         $this->assertEquals($card->getHolder(), $fetchedCard->getHolder());
