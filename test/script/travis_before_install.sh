@@ -8,6 +8,9 @@ cp ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/.phpenv/ver
 echo > ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
 phpenv rehash
 
+echo "Date:"
+echo date
+
 ## create directories for the tests
 mkdir -p build/logs
 
