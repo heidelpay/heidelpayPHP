@@ -54,6 +54,7 @@ class CurlAdapter implements HttpAdapterInterface
     public function init($url, $payload = null, $httpMethod = HttpAdapterInterface::REQUEST_GET)
     {
         $timeout = EnvironmentService::getTimeout();
+        $curlVerbose = EnvironmentService::getCurlVerbose();
 
         $this->request = curl_init($url);
         $this->setOption(CURLOPT_HEADER, 0);
@@ -65,7 +66,7 @@ class CurlAdapter implements HttpAdapterInterface
         $this->setOption(CURLOPT_RETURNTRANSFER, 1);
         $this->setOption(CURLOPT_SSL_VERIFYPEER, 1);
         $this->setOption(CURLOPT_SSL_VERIFYHOST, 2);
-        $this->setOption(CURLOPT_VERBOSE, 1);
+        $this->setOption(CURLOPT_VERBOSE, $curlVerbose);
         $this->setOption(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);       // CURL_SSLVERSION_TLSv1_2
 
         if (in_array($httpMethod, [HttpAdapterInterface::REQUEST_POST, HttpAdapterInterface::REQUEST_PUT], true)) {

@@ -41,7 +41,10 @@ class EnvironmentService
     const DEFAULT_TEST_PUBLIC_KEY  = 's-pub-2a10ifVINFAjpQJ9qW8jBe5OJPBx6Gxa';
 
     const ENV_VAR_NAME_TIMEOUT = 'HEIDELPAY_MGW_TIMEOUT';
-    const ENV_VAR_DEFAULT_TIMEOUT = 60;
+    const DEFAULT_TIMEOUT = 60;
+
+    const ENV_VAR_NAME_CURL_VERBOSE = 'HEIDELPAY_MGW_CURL_VERBOSE';
+    const DEFAULT_CURL_VERBOSE = false;
 
     /**
      * Returns the MGW environment set via environment variable or PROD es default.
@@ -73,7 +76,18 @@ class EnvironmentService
     public static function getTimeout(): int
     {
         $timeout = $_SERVER[self::ENV_VAR_NAME_TIMEOUT] ?? '';
-        return is_numeric($timeout) ? (int)$timeout : self::ENV_VAR_DEFAULT_TIMEOUT;
+        return is_numeric($timeout) ? (int)$timeout : self::DEFAULT_TIMEOUT;
+    }
+
+    /**
+     * Returns the curl verbose flag.
+     *
+     * @return bool
+     */
+    public static function getCurlVerbose(): bool
+    {
+        $curlVerbose = $_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE] ?? '';
+        return empty($curlVerbose) ? self::DEFAULT_CURL_VERBOSE : (int)$curlVerbose;
     }
 
     /**
