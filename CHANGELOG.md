@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [1.2.7.3][1.2.7.3]
 
 ### Change
-*   Add curl error string to log.
+*   Add curl error string to debug log.
 *   Mask auth header in debug log.
 *   Apply minor changes.
+
+### Fix
+*   Change TravisCI config to use default linux distribution in VM to fix certificate errors during integration tests.
 
 ## [1.2.7.2][1.2.7.2]
 
