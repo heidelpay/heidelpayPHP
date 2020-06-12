@@ -44,7 +44,6 @@ use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use function strlen;
 
 class BasePaymentTest extends TestCase
 {
@@ -86,7 +85,7 @@ class BasePaymentTest extends TestCase
      */
     public function assertIsEmptyArray($value)
     {
-        $this->assertInternalType('array', $value);
+        $this->assertIsArray($value);
         $this->assertEmpty($value);
     }
 
@@ -194,19 +193,6 @@ class BasePaymentTest extends TestCase
         $basket->addBasketItem($basketItem);
         $this->heidelpay->createBasket($basket);
         return $basket;
-    }
-
-    /**
-     * Mask a credit card number.
-     *
-     * @param $number
-     * @param string $maskSymbol
-     *
-     * @return string
-     */
-    protected function maskNumber($number, $maskSymbol = '*'): string
-    {
-        return substr($number, 0, 6) . str_repeat($maskSymbol, strlen($number) - 10) . substr($number, -4);
     }
 
     /**
