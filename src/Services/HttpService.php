@@ -213,6 +213,11 @@ class HttpService
         string $url,
         $response
     ) {
+        // mask auth string
+        $authHeader = explode(' ', $headers['Authorization']);
+        $authHeader[1] = ValueService::maskValue($authHeader[1]);
+        $headers['Authorization'] = implode(' ', $authHeader);
+
         $heidelpayObj->debugLog($httpMethod . ': ' . $url);
         $writingOperations = [HttpAdapterInterface::REQUEST_POST, HttpAdapterInterface::REQUEST_PUT];
         $heidelpayObj->debugLog('Headers: ' . json_encode($headers, JSON_UNESCAPED_SLASHES));
