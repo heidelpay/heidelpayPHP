@@ -250,7 +250,7 @@ require_once __DIR__ . '/../../../autoload.php';
                         <div class="description">
                         </div>
                     </div>
-                    <div id="tryDirecDebitGuaranteedExample" class="ui bottom attached green button" onclick="location.href='SepaDirectDebitGuaranteed/';">
+                    <div id="tryDirectDebitGuaranteedExample" class="ui bottom attached green button" onclick="location.href='SepaDirectDebitGuaranteed/';">
                         Try
                     </div>
                 </div>
