@@ -5,9 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [1.2.7.3][1.2.7.3]
 
+### Add
+*   Add curl error string to debug log.
+*   Add environment variable to enable/disable verbose curl output.
+
 ### Change
 *   Mask auth header in debug log.
 *   Apply minor changes.
+
+### Fix
+*   Change TravisCI config to use default linux distribution in VM to fix certificate errors during integration tests.
+*   Remove invalid PHPUnit config parameters.
 
 ## [1.2.7.2][1.2.7.2]
 

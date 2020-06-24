@@ -54,6 +54,7 @@ class CurlAdapter implements HttpAdapterInterface
     public function init($url, $payload = null, $httpMethod = HttpAdapterInterface::REQUEST_GET)
     {
         $timeout = EnvironmentService::getTimeout();
+        $curlVerbose = EnvironmentService::getCurlVerbose();
 
         $this->request = curl_init($url);
         $this->setOption(CURLOPT_HEADER, 0);
@@ -65,7 +66,8 @@ class CurlAdapter implements HttpAdapterInterface
         $this->setOption(CURLOPT_RETURNTRANSFER, 1);
         $this->setOption(CURLOPT_SSL_VERIFYPEER, 1);
         $this->setOption(CURLOPT_SSL_VERIFYHOST, 2);
-        $this->setOption(CURLOPT_SSLVERSION, 6);       // CURL_SSLVERSION_TLSv1_2
+        $this->setOption(CURLOPT_VERBOSE, $curlVerbose);
+        $this->setOption(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);       // CURL_SSLVERSION_TLSv1_2
 
         if (in_array($httpMethod, [HttpAdapterInterface::REQUEST_POST, HttpAdapterInterface::REQUEST_PUT], true)) {
             $this->setOption(CURLOPT_POSTFIELDS, $payload);
@@ -78,9 +80,10 @@ class CurlAdapter implements HttpAdapterInterface
     public function execute()
     {
         $response = curl_exec($this->request);
-        $error    = curl_errno($this->request);
+        $error    = curl_error($this->request);
+        $errorNo  = curl_errno($this->request);
 
-        switch ($error) {
+        switch ($errorNo) {
             case 0:
                 return $response;
                 break;
@@ -88,7 +91,7 @@ class CurlAdapter implements HttpAdapterInterface
                 $errorMessage = 'Timeout: The Payment API seems to be not available at the moment!';
                 break;
             default:
-                $errorMessage = 'An error occurred sending the request (curl_errno: '. $error . ').';
+                $errorMessage = $error . ' (curl_errno: '. $errorNo . ').';
                 break;
         }
         throw new HeidelpayApiException($errorMessage);
