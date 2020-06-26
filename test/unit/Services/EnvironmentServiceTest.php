@@ -1,7 +1,6 @@
 <?php
 /**
- * This test is verifying that the set environment variables will lead to the correct configuration in terms
- * of test logging.
+ * This test is verifying that the set environment variables will lead to the correct configuration.
  *
  * Copyright (C) 2020 heidelpay GmbH
  *
@@ -21,28 +20,34 @@
  *
  * @author  Simon Gabriel <development@heidelpay.com>
  *
- * @package  heidelpayPHP\test\unit
+ * @package  heidelpayPHP\test\unit\Services
  */
-namespace heidelpayPHP\test\unit;
+namespace heidelpayPHP\test\unit\Services;
 
 use heidelpayPHP\Services\EnvironmentService;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
-class TestDebugHandlerTest extends TestCase
+class EnvironmentServiceTest extends TestCase
 {
     /**
-     * Verify test loggin environment vars are correctly interpreted.
+     * Verify test logging environment vars are correctly interpreted.
      *
      * @test
      * @dataProvider envVarsShouldBeInterpretedAsExpectedDP
+     *
+     * @param mixed $logDisabled
+     * @param mixed $verboseLog
+     * @param bool  $expectedLogEnabled
      *
      * @throws ExpectationFailedException
      */
     public function envVarsShouldBeInterpretedAsExpected($logDisabled, $verboseLog, $expectedLogEnabled): void
     {
-        unset($_SERVER[EnvironmentService::ENV_VAR_NAME_DISABLE_TEST_LOGGING]);
-        unset($_SERVER[EnvironmentService::ENV_VAR_NAME_VERBOSE_TEST_LOGGING]);
+        unset(
+            $_SERVER[EnvironmentService::ENV_VAR_NAME_DISABLE_TEST_LOGGING],
+            $_SERVER[EnvironmentService::ENV_VAR_NAME_VERBOSE_TEST_LOGGING]
+        );
 
         if ($logDisabled !== null) {
             $_SERVER[EnvironmentService::ENV_VAR_NAME_DISABLE_TEST_LOGGING] = $logDisabled;
@@ -55,7 +60,12 @@ class TestDebugHandlerTest extends TestCase
         $this->assertEquals($expectedLogEnabled, EnvironmentService::isTestLoggingActive());
     }
 
-    public function envVarsShouldBeInterpretedAsExpectedDP()
+    /**
+     * Data provider for envVarsShouldBeInterpretedAsExpected.
+     *
+     * @return array
+     */
+    public function envVarsShouldBeInterpretedAsExpectedDP(): array
     {
         return [
             '#0' => [null, null, true],
