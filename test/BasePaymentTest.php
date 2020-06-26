@@ -84,7 +84,6 @@ class BasePaymentTest extends TestCase
         }
     }
 
-
     /**
      * Override this in the child test class to perform custom setup tasks e.g. setting a different Key.
      */

@@ -49,6 +49,7 @@ class EnvironmentService
      * Returns the value of the given env var as bool.
      *
      * @param string $varName
+     *
      * @return bool
      */
     protected static function getBoolEnvValue(string $varName): bool
