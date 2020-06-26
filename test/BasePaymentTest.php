@@ -80,7 +80,9 @@ class BasePaymentTest extends TestCase
         if ($this->getStatus() === BaseTestRunner::STATUS_PASSED) {
             $debugHandler->clearTempLog();
         } else {
+            echo "\n";
             $debugHandler->dumpTempLog();
+            echo "\n";
         }
     }
 
