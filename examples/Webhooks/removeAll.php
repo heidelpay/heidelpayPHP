@@ -33,6 +33,8 @@ require_once __DIR__ . '/../../../../autoload.php';
 use heidelpayPHP\examples\ExampleDebugHandler;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
+use heidelpayPHP\Validators\PrivateKeyValidator;
+use heidelpayPHP\Validators\PublicKeyValidator;
 
 function printMessage($type, $title, $text)
 {
@@ -83,14 +85,16 @@ function printInfo($title, $text)
     </h2>
 
     <?php
-        // Show info message if the general test keys are used
-        if (DEFAULT_PRIVATE_KEY === HEIDELPAY_PHP_PAYMENT_API_PRIVATE_KEY) {
+        // Show info message if the key pair is invalid
+        if (
+            PrivateKeyValidator::validate(HEIDELPAY_PHP_PAYMENT_API_PRIVATE_KEY) ||
+            PublicKeyValidator::validate(HEIDELPAY_PHP_PAYMENT_API_PUBLIC_KEY)
+        ) {
             printMessage(
                 'yellow',
-                'Attention: You are using the default key pair!',
-                "Keep in mind that webhooks are registered for the private key used to create them.\n" .
-                "This may lead to unwanted behaviour, since someone else using the same key pair might change your webhooks e.g. by deleting them.\n" .
-                'We suggest you replace the predefined key pair in file _enableExamples.php with your own'
+                'Attention: You need to provide a valid key pair!',
+                "The key pair provided in file _enableExamples.php does not seem to be valid.\n".
+                'Please contact our support to get a test key pair <a href="mailto:support@heidelpay.com">support@heidelpay.com</a>'
             );
         }
 
@@ -100,7 +104,7 @@ function printInfo($title, $text)
 
             $heidelpay->deleteAllWebhooks();
             printSuccess(
-                'De-registered all existing events for this private key',
+                'De-registered all existing events for the given private key',
                 'Unsubscribed all events registered for the private key: "' . HEIDELPAY_PHP_PAYMENT_API_PRIVATE_KEY . '".'
             );
 
