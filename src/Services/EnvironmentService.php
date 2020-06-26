@@ -33,7 +33,9 @@ class EnvironmentService
     const ENV_VAR_VALUE_DEVELOPMENT_ENVIRONMENT = 'DEV';
     const ENV_VAR_VALUE_PROD_ENVIRONMENT = 'PROD';
 
+    /** @deprecated ENV_VAR_NAME_DISABLE_TEST_LOGGING since 1.2.7.2 replaced by ENV_VAR_NAME_VERBOSE_TEST_LOGGING */
     const ENV_VAR_NAME_DISABLE_TEST_LOGGING = 'HEIDELPAY_MGW_DISABLE_TEST_LOGGING';
+    const ENV_VAR_NAME_VERBOSE_TEST_LOGGING = 'HEIDELPAY_MGW_VERBOSE_TEST_LOGGING';
 
     const ENV_VAR_TEST_PRIVATE_KEY = 'HEIDELPAY_MGW_TEST_PRIVATE_KEY';
     const ENV_VAR_TEST_PUBLIC_KEY = 'HEIDELPAY_MGW_TEST_PUBLIC_KEY';
@@ -42,6 +44,22 @@ class EnvironmentService
 
     const ENV_VAR_NAME_TIMEOUT = 'HEIDELPAY_MGW_TIMEOUT';
     const ENV_VAR_DEFAULT_TIMEOUT = 60;
+
+    /**
+     * Returns the value of the given env var as bool.
+     *
+     * @param string $varName
+     * @return bool
+     */
+    protected static function getBoolEnvValue(string $varName): bool
+    {
+        /** @noinspection ProperNullCoalescingOperatorUsageInspection */
+        $envVar = $_SERVER[$varName] ?? false;
+        if (!is_bool($envVar)) {
+            $envVar = in_array(strtolower($envVar), [true, 'true', '1'], true);
+        }
+        return $envVar;
+    }
 
     /**
      * Returns the MGW environment set via environment variable or PROD es default.
@@ -60,8 +78,12 @@ class EnvironmentService
      */
     public static function isTestLoggingActive(): bool
     {
-        $testLoggingDisabled = strtolower($_SERVER[self::ENV_VAR_NAME_DISABLE_TEST_LOGGING] ?? 'false');
-        return in_array($testLoggingDisabled, ['false', '0'], true);
+        if (isset($_SERVER[self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING])) {
+            $verboseLogging = self::getBoolEnvValue(self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING);
+        } else {
+            $verboseLogging = !self::getBoolEnvValue(self::ENV_VAR_NAME_DISABLE_TEST_LOGGING);
+        }
+        return $verboseLogging;
     }
 
     /**
