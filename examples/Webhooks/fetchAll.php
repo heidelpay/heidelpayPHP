@@ -34,6 +34,7 @@ use heidelpayPHP\examples\ExampleDebugHandler;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Validators\PrivateKeyValidator;
+use heidelpayPHP\Validators\PublicKeyValidator;
 
 function printMessage($type, $title, $text)
 {
