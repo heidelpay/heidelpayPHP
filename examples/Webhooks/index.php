@@ -89,8 +89,8 @@ function printInfo($title, $text)
     <?php
         // Show info message if the key pair is invalid
         if (
-                PrivateKeyValidator::validate(HEIDELPAY_PHP_PAYMENT_API_PRIVATE_KEY) ||
-                PublicKeyValidator::validate(HEIDELPAY_PHP_PAYMENT_API_PUBLIC_KEY)
+            !PrivateKeyValidator::validate(HEIDELPAY_PHP_PAYMENT_API_PRIVATE_KEY) ||
+            !PublicKeyValidator::validate(HEIDELPAY_PHP_PAYMENT_API_PUBLIC_KEY)
         ) {
             printMessage(
                 'yellow',
