@@ -69,20 +69,29 @@ class EnvironmentServiceTest extends TestCase
      *
      * @dataProvider keyStringIsReturnedCorrectlyDP
      *
-     * @param string $privateKeyEnvVar
-     * @param string $expected
+     * @param string  $keyEnvVar
+     * @param string  $non3dsKeyEnvVar
+     * @param boolean $non3ds
+     * @param string  $expected
      *
      * @throws ExpectationFailedException
      */
-    public function privateKeyStringIsReturnedCorrectly($privateKeyEnvVar, $expected): void
+    public function privateKeyStringIsReturnedCorrectly($keyEnvVar, $non3dsKeyEnvVar, $non3ds, $expected): void
     {
-        unset($_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY]);
+        unset(
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY],
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY_NON_3DS]
+        );
 
-        if ($privateKeyEnvVar !== null) {
-            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY] = $privateKeyEnvVar;
+        if ($keyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY] = $keyEnvVar;
         }
 
-        $this->assertEquals($expected, EnvironmentService::getTestPrivateKey());
+        if ($non3dsKeyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY_NON_3DS] = $non3dsKeyEnvVar;
+        }
+
+        $this->assertEquals($expected, EnvironmentService::getTestPrivateKey($non3ds));
     }
 
     /**
@@ -92,20 +101,29 @@ class EnvironmentServiceTest extends TestCase
      *
      * @dataProvider keyStringIsReturnedCorrectlyDP
      *
-     * @param string $publicKeyEnvVar
-     * @param string $expected
+     * @param string  $keyEnvVar
+     * @param string  $non3dsKeyEnvVar
+     * @param boolean $non3ds
+     * @param string  $expected
      *
      * @throws ExpectationFailedException
      */
-    public function publicKeyStringIsReturnedCorrectly($publicKeyEnvVar, $expected): void
+    public function publicKeyStringIsReturnedCorrectly($keyEnvVar, $non3dsKeyEnvVar, $non3ds, $expected): void
     {
-        unset($_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY]);
+        unset(
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY],
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY_NON_3DS]
+        );
 
-        if ($publicKeyEnvVar !== null) {
-            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY] = $publicKeyEnvVar;
+        if ($keyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY] = $keyEnvVar;
         }
 
-        $this->assertEquals($expected, EnvironmentService::getTestPublicKey());
+        if ($non3dsKeyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY_NON_3DS] = $non3dsKeyEnvVar;
+        }
+
+        $this->assertEquals($expected, EnvironmentService::getTestPublicKey($non3ds));
     }
 
     //</editor-fold>
@@ -172,8 +190,10 @@ class EnvironmentServiceTest extends TestCase
     public function keyStringIsReturnedCorrectlyDP(): array
     {
         return [
-            'expect empty string' => [null, ''],
-            'expect string from Env Var' => ['I am the key', 'I am the key']
+            'expect empty string for 3ds' => [null, null, false, ''],
+            'expect empty string for non 3ds' => [null, null, true, ''],
+            'expect string from 3ds Env Var' => ['I am the 3ds key', 'I am the non 3ds key', false, 'I am the 3ds key'],
+            'expect string from non 3ds Env Var' => ['I am the 3ds key', 'I am the non 3ds key', true, 'I am the non 3ds key']
         ];
     }
 
