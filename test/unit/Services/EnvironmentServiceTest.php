@@ -30,6 +30,8 @@ use PHPUnit\Framework\TestCase;
 
 class EnvironmentServiceTest extends TestCase
 {
+    //<editor-fold desc="Tests">
+
     /**
      * Verify test logging environment vars are correctly interpreted.
      *
@@ -59,6 +61,56 @@ class EnvironmentServiceTest extends TestCase
 
         $this->assertEquals($expectedLogEnabled, EnvironmentService::isTestLoggingActive());
     }
+
+    /**
+     * Verify string is returned if the private test key environment variable is not set.
+     *
+     * @test
+     *
+     * @dataProvider keyStringIsReturnedCorrectlyDP
+     *
+     * @param string $privateKeyEnvVar
+     * @param string $expected
+     *
+     * @throws ExpectationFailedException
+     */
+    public function privateKeyStringIsReturnedCorrectly($privateKeyEnvVar, $expected): void
+    {
+        unset($_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY]);
+
+        if ($privateKeyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY] = $privateKeyEnvVar;
+        }
+
+        $this->assertEquals($expected, EnvironmentService::getTestPrivateKey());
+    }
+
+    /**
+     * Verify string is returned if the public test key environment variable is not set.
+     *
+     * @test
+     *
+     * @dataProvider keyStringIsReturnedCorrectlyDP
+     *
+     * @param string $publicKeyEnvVar
+     * @param string $expected
+     *
+     * @throws ExpectationFailedException
+     */
+    public function publicKeyStringIsReturnedCorrectly($publicKeyEnvVar, $expected): void
+    {
+        unset($_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY]);
+
+        if ($publicKeyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY] = $publicKeyEnvVar;
+        }
+
+        $this->assertEquals($expected, EnvironmentService::getTestPublicKey());
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Data Providers">
 
     /**
      * Data provider for envVarsShouldBeInterpretedAsExpected.
@@ -111,4 +163,19 @@ class EnvironmentServiceTest extends TestCase
             '#40' => ['tru', 'true', true],
         ];
     }
+
+    /**
+     * Data provider for privateKeyStringIsReturnedCorrectly and publicKeyStringIsReturnedCorrectly.
+     *
+     * @return array
+     */
+    public function keyStringIsReturnedCorrectlyDP(): array
+    {
+        return [
+            'expect empty string' => [null, ''],
+            'expect string from Env Var' => ['I am the key', 'I am the key']
+        ];
+    }
+
+    //</editor-fold>
 }
