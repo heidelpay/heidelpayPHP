@@ -33,7 +33,6 @@ use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebitGuaranteed;
 use heidelpayPHP\Services\EnvironmentService;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\Exception;
 use RuntimeException;
 
 class RecurringPaymentTest extends BaseIntegrationTest
@@ -44,7 +43,6 @@ class RecurringPaymentTest extends BaseIntegrationTest
      * @test
      *
      * @throws RuntimeException
-     * @throws Exception
      * @throws HeidelpayApiException
      */
     public function exceptionShouldBeThrownIfTheObjectIsNotAResource()
@@ -148,7 +146,7 @@ class RecurringPaymentTest extends BaseIntegrationTest
     }
 
     /**
-     * Verify sepa direct debit guaranteed cannot activate recurring payments directly.
+     * Verify sepa direct debit guaranteed can activate recurring payments.
      *
      * @test
      *
@@ -159,9 +157,15 @@ class RecurringPaymentTest extends BaseIntegrationTest
     {
         /** @var SepaDirectDebitGuaranteed $ddg */
         $ddg = $this->heidelpay->createPaymentType(new SepaDirectDebitGuaranteed('DE89370400440532013000'));
+        $this->assertFalse($ddg->isRecurring());
+        $customer = $this->getMaximumCustomer();
+        $customer->setShippingAddress($customer->getBillingAddress());
+        $ddg->charge(10.0, 'EUR', self::RETURN_URL, $customer);
+        $ddg = $this->heidelpay->fetchPaymentType($ddg->getId());
+        $this->assertTrue($ddg->isRecurring());
 
         $this->expectException(HeidelpayApiException::class);
-        $this->expectExceptionCode(ApiResponseCodes::API_ERROR_ACTIVATE_RECURRING_VIA_TRANSACTION);
-        $ddg->activateRecurring('https://dev.heidelpay.com');
+        $this->expectExceptionCode(ApiResponseCodes::API_ERROR_RECURRING_ALREADY_ACTIVE);
+        $this->heidelpay->activateRecurringPayment($ddg, self::RETURN_URL);
     }
 }

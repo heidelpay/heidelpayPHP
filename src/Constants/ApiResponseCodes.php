@@ -83,7 +83,6 @@ class ApiResponseCodes
      * @deprecated since 1.2.5.0 Will be removed in next major version.
      */
     const API_ERROR_BASKET_ITEM_IMAGE_INVALID_EXTENSION         = 'API.600.630.005';
-    const API_ERROR_ACTIVATE_RECURRING_VIA_TRANSACTION          = 'API.640.550.005';
     const API_ERROR_RECURRING_ALREADY_ACTIVE                    = 'API.640.550.006';
     const API_ERROR_INVALID_KEY                                 = 'API.710.000.002';
     const API_ERROR_INSUFFICIENT_PERMISSION                     = 'API.710.000.005';
