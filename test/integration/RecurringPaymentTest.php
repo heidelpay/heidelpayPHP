@@ -88,7 +88,7 @@ class RecurringPaymentTest extends BaseIntegrationTest
      */
     public function recurringForCardWithout3dsShouldActivateRecurringAtOnce()
     {
-        $privateKey = (new EnvironmentService())->getTestPrivateKey(true);
+        $privateKey = EnvironmentService::getTestPrivateKey(true);
         if (empty($privateKey)) {
             $this->markTestIncomplete('No non 3ds private key set');
         }
