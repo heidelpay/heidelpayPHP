@@ -34,10 +34,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   Remove deprecated method `authorizeWithPayment`.
 *   Remove return value from `deleteCustomer` method.
 
-### Fix
-*   Change TravisCI config to use default linux distribution in VM to fix certificate errors during integration tests.
-*   Remove invalid PHPUnit config parameters.
-
 ## [1.2.7.2][1.2.7.2]
 
 ### Fix
