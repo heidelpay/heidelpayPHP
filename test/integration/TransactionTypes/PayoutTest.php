@@ -32,11 +32,11 @@ use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebitGuaranteed;
 use heidelpayPHP\Resources\TransactionTypes\Payout;
 use heidelpayPHP\Services\ResourceService;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 
-class PayoutTest extends BasePaymentTest
+class PayoutTest extends BaseIntegrationTest
 {
     /**
      * Verify payout can be performed for card payment type.

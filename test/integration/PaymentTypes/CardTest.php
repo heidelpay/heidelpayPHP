@@ -33,11 +33,11 @@ use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\Services\ValueService;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 
-class CardTest extends BasePaymentTest
+class CardTest extends BaseIntegrationTest
 {
     //<editor-fold desc="Tests">
 

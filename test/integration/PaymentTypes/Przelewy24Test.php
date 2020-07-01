@@ -29,10 +29,10 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Przelewy24;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class Przelewy24Test extends BasePaymentTest
+class Przelewy24Test extends BaseIntegrationTest
 {
     /**
      * Verify Przelewy24 payment type can be created and fetched.

@@ -32,11 +32,11 @@ use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebitGuaranteed;
 use heidelpayPHP\Services\EnvironmentService;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 
-class RecurringPaymentTest extends BasePaymentTest
+class RecurringPaymentTest extends BaseIntegrationTest
 {
     /**
      * Verify exception is thrown if it is called on a non resource object.
@@ -148,7 +148,7 @@ class RecurringPaymentTest extends BasePaymentTest
     }
 
     /**
-     * Verify sepa direct debit guaranteed can activate recurring payments.
+     * Verify sepa direct debit guaranteed cannot activate recurring payments directly.
      *
      * @test
      *
