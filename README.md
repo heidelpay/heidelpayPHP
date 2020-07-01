@@ -45,7 +45,7 @@ Please refer to the following documentation for installation instructions and us
 For any issues or questions please get in touch with our support team.
 
 ### Web page
-[https://dev.heidelpay.com/](https://dev.heidelpay.com/)
+[https://docs.heidelpay.com/](https://docs.heidelpay.com/)
  
 ### Email
 support@heidelpay.com
