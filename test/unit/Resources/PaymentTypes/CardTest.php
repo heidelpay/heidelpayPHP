@@ -88,6 +88,7 @@ class CardTest extends BasePaymentTest
      */
     protected function setUp()
     {
+        parent::setUp();
         $this->card = new Card($this->number, $this->expiryDate);
     }
 
