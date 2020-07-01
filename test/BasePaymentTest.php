@@ -43,6 +43,7 @@ use heidelpayPHP\test\Fixtures\CustomerFixtureTrait;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Runner\BaseTestRunner;
 use RuntimeException;
 
 class BasePaymentTest extends TestCase
@@ -64,6 +65,25 @@ class BasePaymentTest extends TestCase
         $privateKey = (new EnvironmentService())->getTestPrivateKey();
         $this->heidelpay = (new Heidelpay($privateKey))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
         $this->childSetup();
+    }
+
+    /**
+     * If verbose test output is disabled echo debug log when test did not pass.
+     *
+     * {@inheritDoc}
+     */
+    protected function tearDown()
+    {
+        /** @var TestDebugHandler $debugHandler */
+        $debugHandler = $this->heidelpay->getDebugHandler();
+
+        if ($this->getStatus() === BaseTestRunner::STATUS_PASSED) {
+            $debugHandler->clearTempLog();
+        } else {
+            echo "\n";
+            $debugHandler->dumpTempLog();
+            echo "\n";
+        }
     }
 
     /**
