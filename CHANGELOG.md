@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Change
 *   Mask auth header in debug log.
+*   Refactor test logging.
+*   Replace test environment variable.
 *   Apply minor changes.
 
 ### Fix
