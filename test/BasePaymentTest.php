@@ -62,7 +62,7 @@ class BasePaymentTest extends TestCase
      */
     protected function setUp()
     {
-        $privateKey = (new EnvironmentService())->getTestPrivateKey();
+        $privateKey = EnvironmentService::getTestPrivateKey();
         $this->heidelpay = (new Heidelpay($privateKey))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
         $this->childSetup();
     }
