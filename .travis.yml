@@ -38,4 +38,4 @@ install:
 script:
     - ./test/script/travis_script.sh
 after_success:
-    - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l PHP -r tests/_output/coverage.xml
+    - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l PHP -r build/coverage/xml
