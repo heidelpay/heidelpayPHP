@@ -69,7 +69,7 @@ class IdService
     {
         try {
             return self::getResourceIdFromUrl($url, $idString, $onlyLast);
-        } catch (RuntimeException $e) {
+        } /** @noinspection BadExceptionsProcessingInspection */ catch (RuntimeException $e) {
             return null;
         }
     }

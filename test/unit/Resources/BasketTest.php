@@ -79,7 +79,7 @@ class BasketTest extends BasePaymentTest
         $this->assertNotSame($basketItem2, $basket->getBasketItemByIndex(0));
         $this->assertSame($basketItem2, $basket->getBasketItemByIndex(1));
 
-        $this->assertArraySubset([$basketItem1, $basketItem2], $basket->getBasketItems());
+        $this->assertEquals([$basketItem1, $basketItem2], $basket->getBasketItems());
 
         $basket->setBasketItems([]);
         $this->assertEquals(0, $basket->getItemCount());
@@ -107,8 +107,8 @@ class BasketTest extends BasePaymentTest
         $basket = (new Basket())->setBasketItems([$basketItemMock, $basketItemMock2]);
 
         $basketItemsExposed = $basket->expose()['basketItems'];
-        self::assertContains('resultItem1', $basketItemsExposed);
-        self::assertContains('resultItem2', $basketItemsExposed);
+        $this->assertContains('resultItem1', $basketItemsExposed);
+        $this->assertContains('resultItem2', $basketItemsExposed);
     }
 
     /**

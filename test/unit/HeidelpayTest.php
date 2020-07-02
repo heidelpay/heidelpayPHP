@@ -62,9 +62,11 @@ class HeidelpayTest extends BasePaymentTest
     {
         $heidelpay = new Heidelpay('s-priv-1234');
         $this->assertInstanceOf(ResourceService::class, $heidelpay->getResourceService());
-        $this->assertInstanceOf(PaymentService::class, $heidelpay->getPaymentService());
+        $paymentService = $heidelpay->getPaymentService();
+        $this->assertInstanceOf(PaymentService::class, $paymentService);
         $this->assertInstanceOf(WebhookService::class, $heidelpay->getWebhookService());
-        $this->assertSame($heidelpay, $heidelpay->getPaymentService()->getHeidelpay());
+        /** @var PaymentService $paymentService */
+        $this->assertSame($heidelpay, $paymentService->getHeidelpay());
         $this->assertEquals('s-priv-1234', $heidelpay->getKey());
         $this->assertEquals(null, $heidelpay->getLocale());
 

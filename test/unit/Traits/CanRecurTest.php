@@ -87,6 +87,7 @@ class CanRecurTest extends BasePaymentTest
 
         /** @var Heidelpay $heidelpayMock */
         $dummy = (new TraitDummyCanRecur())->setParentResource($heidelpayMock);
+        /** @noinspection PhpParamsInspection */
         $heidelpayMock->expects(self::once())->method('activateRecurringPayment')->with($dummy, 'return url')->willReturn(new Recurring('', ''));
 
         $dummy->activateRecurring('return url');

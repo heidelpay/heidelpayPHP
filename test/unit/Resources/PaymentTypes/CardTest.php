@@ -229,6 +229,7 @@ class CardTest extends BasePaymentTest
     public function verifyHolderSettersPropagate(): void
     {
         $cardMock = $this->getMockBuilder(Card::class)->disableOriginalConstructor()->setMethods(['setCardHolder', 'getCardHolder'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $cardMock->expects($this->once())->method('setCardHolder')->with('set my CardHolder');
         $cardMock->expects($this->once())->method('getCardHolder')->willReturn('get my CardHolder');
 

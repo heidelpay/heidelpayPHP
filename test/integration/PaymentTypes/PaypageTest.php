@@ -144,7 +144,7 @@ class PaypageTest extends BaseIntegrationTest
         $paypage = $this->heidelpay->initPayPageAuthorize($paypage, $customer, $basket);
         $this->assertNotEmpty($paypage->getId());
         $this->assertEquals(4.99, $paypage->getEffectiveInterestRate());
-        $this->assertArraySubset([Card::getResourceName()], $paypage->getExcludeTypes());
+        $this->assertEquals([Card::getResourceName()], $paypage->getExcludeTypes());
         $payment = $paypage->getPayment();
         $this->assertInstanceOf(Payment::class, $payment);
         $this->assertNotNull($payment->getId());

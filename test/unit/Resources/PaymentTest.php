@@ -120,6 +120,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['getResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('getResource')->with($authorization);
 
         /** @var ResourceService $resourceServiceMock */
@@ -169,13 +170,13 @@ class PaymentTest extends BasePaymentTest
         $charge1 = (new Charge())->setId('firstCharge');
         $charge2 = (new Charge())->setId('secondCharge');
 
-        $subset[] = $charge1;
+        $chargeArray[] = $charge1;
         $payment->addCharge($charge1);
-        $this->assertArraySubset($subset, $payment->getCharges());
+        $this->assertEquals($chargeArray, $payment->getCharges());
 
-        $subset[] = $charge2;
+        $chargeArray[] = $charge2;
         $payment->addCharge($charge2);
-        $this->assertArraySubset($subset, $payment->getCharges());
+        $this->assertEquals($chargeArray, $payment->getCharges());
 
         $this->assertSame($charge2, $payment->getCharge('secondCharge', true));
         $this->assertSame($charge1, $payment->getCharge('firstCharge', true));
@@ -289,6 +290,7 @@ class PaymentTest extends BasePaymentTest
         $payment->setPayout($payout);
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['getResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('getResource')->with($payout);
 
         /** @var ResourceService $resourceServiceMock */
@@ -360,6 +362,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['fetchCustomer'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('fetchCustomer')->with('MyCustomerId');
 
         /** @var ResourceService $resourceServiceMock */
@@ -385,6 +388,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['createCustomer'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('createCustomer')->with($customer);
 
         /** @var ResourceService $resourceServiceMock */
@@ -433,6 +437,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['fetchPaymentType'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('fetchPaymentType')->with('MyPaymentId');
 
         /** @var ResourceService $resourceServiceMock */
@@ -458,6 +463,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['createPaymentType'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('createPaymentType')->with($paymentType);
 
         /** @var ResourceService $resourceServiceMock */
@@ -486,7 +492,7 @@ class PaymentTest extends BasePaymentTest
 
         $expectedCancellations = [];
 
-        $this->assertArraySubset($expectedCancellations, $payment->getCancellations());
+        $this->assertEquals($expectedCancellations, $payment->getCancellations());
 
         $authorize = $this->getMockBuilder(Authorization::class)->setMethods(['getCancellations'])->getMock();
         $authorize->expects($this->exactly(4))->method('getCancellations')->willReturn([$cancellation1]);
@@ -494,7 +500,7 @@ class PaymentTest extends BasePaymentTest
         /** @var Authorization $authorize */
         $payment->setAuthorization($authorize);
         $expectedCancellations[] = $cancellation1;
-        $this->assertArraySubset($expectedCancellations, $payment->getCancellations());
+        $this->assertEquals($expectedCancellations, $payment->getCancellations());
 
         $charge1 = $this->getMockBuilder(Charge::class)->setMethods(['getCancellations'])->getMock();
         $charge1->expects($this->exactly(3))->method('getCancellations')->willReturn([$cancellation2]);
@@ -502,7 +508,7 @@ class PaymentTest extends BasePaymentTest
         /** @var Charge $charge1 */
         $payment->addCharge($charge1);
         $expectedCancellations[] = $cancellation2;
-        $this->assertArraySubset($expectedCancellations, $payment->getCancellations());
+        $this->assertEquals($expectedCancellations, $payment->getCancellations());
 
         $charge2 = $this->getMockBuilder(Charge::class)->setMethods(['getCancellations'])->getMock();
         $charge2->expects($this->exactly(2))->method('getCancellations')->willReturn([$cancellation3, $cancellation4]);
@@ -511,14 +517,14 @@ class PaymentTest extends BasePaymentTest
         $payment->addCharge($charge2);
         $expectedCancellations[] = $cancellation3;
         $expectedCancellations[] = $cancellation4;
-        $this->assertArraySubset($expectedCancellations, $payment->getCancellations());
+        $this->assertEquals($expectedCancellations, $payment->getCancellations());
 
         $charge3 = $this->getMockBuilder(Charge::class)->setMethods(['getCancellations'])->getMock();
         $charge3->expects($this->once())->method('getCancellations')->willReturn([]);
 
         /** @var Charge $charge3 */
         $payment->addCharge($charge3);
-        $this->assertArraySubset($expectedCancellations, $payment->getCancellations());
+        $this->assertEquals($expectedCancellations, $payment->getCancellations());
     }
 
     /**
@@ -580,6 +586,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['getResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('getResource')->with($cancellation);
 
         /** @var ResourceService $resourceServiceMock */
@@ -608,13 +615,13 @@ class PaymentTest extends BasePaymentTest
         $shipment1 = (new Shipment())->setId('firstShipment');
         $shipment2 = (new Shipment())->setId('secondShipment');
 
-        $subset[] = $shipment1;
+        $shipArray[] = $shipment1;
         $payment->addShipment($shipment1);
-        $this->assertArraySubset($subset, $payment->getShipments());
+        $this->assertEquals($shipArray, $payment->getShipments());
 
-        $subset[] = $shipment2;
+        $shipArray[] = $shipment2;
         $payment->addShipment($shipment2);
-        $this->assertArraySubset($subset, $payment->getShipments());
+        $this->assertEquals($shipArray, $payment->getShipments());
 
         $this->assertSame($shipment2, $payment->getShipment('secondShipment', true));
         $this->assertSame($shipment1, $payment->getShipment('firstShipment', true));
@@ -638,6 +645,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['getResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('getResource')->with($shipment);
 
         /** @var ResourceService $resourceServiceMock */
@@ -665,6 +673,7 @@ class PaymentTest extends BasePaymentTest
         /** @var Amount|MockObject $amountMock */
         $amountMock = $this->getMockBuilder(Amount::class)->setMethods(['getCurrency', 'setCurrency'])->getMock();
         $amountMock->expects($this->once())->method('getCurrency')->willReturn('MyTestGetCurrency');
+        /** @noinspection PhpParamsInspection */
         $amountMock->expects($this->once())->method('setCurrency')->with('MyTestSetCurrency');
 
         $payment = (new Payment())->setAmount($amountMock);
@@ -732,6 +741,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['fetchCustomer'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('fetchCustomer')->with('MyNewCustomerId');
 
         /** @var ResourceService $resourceServiceMock */
@@ -762,6 +772,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['getResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('getResource')->with($customer);
 
         /** @var ResourceService $resourceServiceMock */
@@ -790,6 +801,7 @@ class PaymentTest extends BasePaymentTest
 
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)
             ->disableOriginalConstructor()->setMethods(['fetchPaymentType'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('fetchPaymentType')->with('PaymentTypeId');
 
         /** @var ResourceService $resourceServiceMock */
@@ -814,6 +826,7 @@ class PaymentTest extends BasePaymentTest
     public function handleResponseShouldFetchAndUpdateMetadataIfTheIdIsSet(): void
     {
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['fetchMetadata'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('fetchMetadata')->with('MetadataId');
         /** @var ResourceService $resourceServiceMock */
         $heidelpayObj = (new Heidelpay('s-priv-123'))->setResourceService($resourceServiceMock);
@@ -838,6 +851,7 @@ class PaymentTest extends BasePaymentTest
     {
         $metadata = (new Metadata())->setId('MetadataId');
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['getResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('getResource')->with($metadata);
         /** @var ResourceService $resourceServiceMock */
         $heidelpayObj = (new Heidelpay('s-priv-123'))->setResourceService($resourceServiceMock);
@@ -1385,6 +1399,7 @@ class PaymentTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->setMethods(['createResource'])->disableOriginalConstructor()->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')->with($metadata);
 
         $heidelpay = (new Heidelpay('s-priv-1234'))->setResourceService($resourceSrvMock);
@@ -1417,6 +1432,7 @@ class PaymentTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->setMethods(['createResource'])->disableOriginalConstructor()->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')->with($metadata);
         $heidelpay = (new Heidelpay('s-priv-1234'))->setResourceService($resourceSrvMock);
 
@@ -1458,6 +1474,7 @@ class PaymentTest extends BasePaymentTest
         $heidelpay->setResourceService($resourceSrvMock);
 
         $basket = new Basket();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')->with(
             $this->callback(
                 static function ($object) use ($basket, $heidelpay) {
@@ -1513,6 +1530,7 @@ class PaymentTest extends BasePaymentTest
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)->disableOriginalConstructor()->setMethods(['fetchBasket'])->getMock();
 
         $basket = new Basket();
+        /** @noinspection PhpParamsInspection */
         $heidelpayMock->expects($this->once())->method('fetchBasket')->with('myResourcesBasketId')->willReturn($basket);
 
         $payment  = new Payment($heidelpayMock);

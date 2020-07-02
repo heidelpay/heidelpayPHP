@@ -61,12 +61,12 @@ class WebhooksTest extends BasePaymentTest
     {
         $webhook = new Webhooks('https://dev.heidelpay.com', [WebhookEvents::PAYMENT_COMPLETED]);
         $this->assertEquals('https://dev.heidelpay.com', $webhook->getUrl());
-        $this->assertArraySubset([WebhookEvents::PAYMENT_COMPLETED], $webhook->getEventList());
+        $this->assertEquals([WebhookEvents::PAYMENT_COMPLETED], $webhook->getEventList());
 
         $webhook->setUrl('https://docs.heidelpay.com');
         $webhook->addEvent(WebhookEvents::CHARGE);
         $this->assertEquals('https://docs.heidelpay.com', $webhook->getUrl());
-        $this->assertArraySubset([WebhookEvents::PAYMENT_COMPLETED, WebhookEvents::CHARGE], $webhook->getEventList());
+        $this->assertEquals([WebhookEvents::PAYMENT_COMPLETED, WebhookEvents::CHARGE], $webhook->getEventList());
     }
 
     /**

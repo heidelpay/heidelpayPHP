@@ -107,6 +107,7 @@ class PaymentServiceTest extends BasePaymentTest
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
         $paymentSrv  = (new Heidelpay('s-priv-123'))->setResourceService($resourceSrvMock)->getPaymentService();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($authorize) use ($customer, $metadata, $basket, $card3ds) {
                 /** @var Authorization $authorize */
@@ -153,6 +154,7 @@ class PaymentServiceTest extends BasePaymentTest
         $basket      = (new Basket())->setId('myBasketId');
 
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($charge) use ($customer, $paymentType, $basket, $card3ds) {
                 /** @var Charge $charge */
@@ -235,6 +237,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($charge) use ($payment) {
                 /** @var Charge $charge */
@@ -251,7 +254,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         $paymentSrv     = $heidelpay->setResourceService($resourceSrvMock)->getPaymentService();
         $returnedCharge = $paymentSrv->chargePayment($payment, 1.234, 'myTestCurrency');
-        $this->assertArraySubset([$returnedCharge], $payment->getCharges());
+        $this->assertEquals([$returnedCharge], $payment->getCharges());
     }
 
     /**
@@ -270,6 +273,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($charge) use ($payment) {
                 /** @var Charge $charge */
@@ -286,7 +290,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         $paymentSrv     = $heidelpay->setResourceService($resourceSrvMock)->getPaymentService();
         $returnedCharge = $paymentSrv->chargePayment($payment, 1.234, 'myTestCurrency', 'orderId', 'invoiceId');
-        $this->assertArraySubset([$returnedCharge], $payment->getCharges());
+        $this->assertEquals([$returnedCharge], $payment->getCharges());
     }
 
     //</editor-fold>
@@ -310,6 +314,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($cancellation) use ($payment) {
                 /** @var Cancellation $cancellation */
@@ -400,6 +405,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceServiceInterface|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->setMethods(['fetchChargeById'])->disableOriginalConstructor()->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->exactly(2))->method('fetchChargeById')->with($payment, 's-chg-1')->willReturn($charge);
 
         /** @var CancelServiceInterface|MockObject $cancelSrvMock */
@@ -429,6 +435,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->setMethods(['createResource'])->disableOriginalConstructor()->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($cancellation) use ($payment, $charge) {
                 return $cancellation instanceof Cancellation &&
@@ -462,6 +469,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->setMethods(['createResource'])->disableOriginalConstructor()->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->exactly(2))->method('createResource')
             ->with($this->callback(static function ($shipment) use ($payment) {
                 return $shipment instanceof Shipment &&
@@ -498,6 +506,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects(self::once())->method('createResource')
             ->with(self::callback(static function ($payout) use ($customer, $metadata) {
                 return $payout instanceof Payout &&
@@ -531,6 +540,7 @@ class PaymentServiceTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['createResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($payout) use ($customer, $basket, $metadata) {
                 /** @var Payout $payout */
@@ -595,6 +605,7 @@ class PaymentServiceTest extends BasePaymentTest
         $metadata = (new Metadata())->setId('metadataId');
 
         // should
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('createResource')
             ->with($this->callback(static function ($paypage) use ($basket, $customer, $metadata, $action) {
                 return $paypage instanceof Paypage &&
@@ -633,6 +644,7 @@ class PaymentServiceTest extends BasePaymentTest
         $heidelpay->setResourceService($resourceSrvMock);
 
         $date = $this->getYesterdaysTimestamp();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('fetchResource')
             ->with($this->callback(static function ($param) use ($date) {
                 return $param instanceof InstalmentPlans &&

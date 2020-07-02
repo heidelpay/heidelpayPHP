@@ -486,6 +486,7 @@ abstract class AbstractHeidelpayResource implements HeidelpayParentInterface
      *
      * @param stdClass $response
      * @param string   $method
+     * @noinspection PhpUnusedParameterInspection
      */
     public function handleResponse(stdClass $response, $method = HttpAdapterInterface::REQUEST_GET): void
     {

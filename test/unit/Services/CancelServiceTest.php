@@ -140,8 +140,8 @@ class CancelServiceTest extends BasePaymentTest
         $payment->addCharge($chargeMock1)->addCharge($chargeMock2)->addCharge($chargeMock3)->addCharge($chargeMock4)->addCharge($chargeMock5);
 
         [$cancellations, $exceptions] = $payment->cancelAllCharges();
-        $this->assertArraySubset([$cancellation1, $cancellation2, $cancellation3], $cancellations);
-        $this->assertArraySubset([$exception1, $exception2], $exceptions);
+        $this->assertEquals([$cancellation1, $cancellation2, $cancellation3], $cancellations);
+        $this->assertEquals([$exception1, $exception2], $exceptions);
     }
 
     /**
@@ -237,6 +237,7 @@ class CancelServiceTest extends BasePaymentTest
         $cancellation = new Cancellation(10.0);
 
         $cancelSrvMock->expects($this->once())->method('cancelPaymentAuthorization')->willReturn(null);
+        /** @noinspection PhpParamsInspection */
         $chargeMock->expects($this->once())->method('cancel')->with(10.0, 'CANCEL')->willReturn($cancellation);
 
         $payment = (new Payment($this->heidelpay))->addCharge($chargeMock);
@@ -456,6 +457,7 @@ class CancelServiceTest extends BasePaymentTest
 
         $payment = (new Payment($this->heidelpay))->setId('paymentId');
 
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects(self::once())->method('fetchPayment')->with('paymentId')->willReturn($payment);
         $cancelService->cancelPayment('paymentId');
     }

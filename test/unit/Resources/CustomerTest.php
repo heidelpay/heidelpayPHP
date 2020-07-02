@@ -265,6 +265,7 @@ class CustomerTest extends BasePaymentTest
     {
         $heidelpay = new Heidelpay('s-priv-1234');
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->setMethods(['fetchResource'])->setConstructorArgs([$heidelpay])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('fetchResource')
             ->with($this->callback(static function ($customer) use ($heidelpay) {
                 return $customer instanceof Customer &&

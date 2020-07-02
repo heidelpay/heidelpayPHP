@@ -137,9 +137,9 @@ class PayPageTest extends BasePaymentTest
         $this->assertEquals('my tac url', $paypage->getTermsAndConditionUrl());
 
         // other
-        $this->assertArraySubset([SepaDirectDebit::getResourceName()], $paypage->getExcludeTypes());
+        $this->assertEquals([SepaDirectDebit::getResourceName()], $paypage->getExcludeTypes());
         $paypage->setExcludeTypes([Card::getResourceName(), Giropay::getResourceName()]);
-        $this->assertArraySubset([Card::getResourceName(), Giropay::getResourceName()], $paypage->getExcludeTypes());
+        $this->assertEquals([Card::getResourceName(), Giropay::getResourceName()], $paypage->getExcludeTypes());
         $this->assertTrue($paypage->isCard3ds());
 
         // SET test values 2
@@ -307,6 +307,7 @@ class PayPageTest extends BasePaymentTest
         $paypage->setPayment($payment)->setParentResource($payment);
 
         // should
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->exactly($fetchCallCount))->method('fetchResource')->with($payment);
 
         // when

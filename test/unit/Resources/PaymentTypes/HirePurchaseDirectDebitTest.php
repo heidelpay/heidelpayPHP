@@ -187,6 +187,7 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
         $exposedObject = (object)['data' => 'I am exposed'];
 
         $instalmentPlanMock->expects($this->once())->method('expose')->willReturn($exposedObject);
+        /** @noinspection PhpParamsInspection */
         $hddMock->expects($this->once())->method('handleResponse')->with($exposedObject);
 
         $hddMock->selectInstalmentPlan($instalmentPlanMock);
@@ -213,6 +214,6 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
         $planData = (object)['installmentRates' => $rates];
 
         $plan->handleResponse($planData);
-        $this->assertArraySubset($rates, $plan->getInstallmentRates());
+        $this->assertEquals($rates, $plan->getInstallmentRates());
     }
 }

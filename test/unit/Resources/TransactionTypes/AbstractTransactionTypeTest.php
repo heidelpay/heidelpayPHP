@@ -216,6 +216,7 @@ class AbstractTransactionTypeTest extends BasePaymentTest
 
         /** @var ResourceService|MockObject $resourceServiceMock */
         $resourceServiceMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['fetchResource'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceServiceMock->expects($this->once())->method('fetchResource')->with($payment);
 
         $heidelpayObj = (new Heidelpay('s-priv-123'))->setResourceService($resourceServiceMock);

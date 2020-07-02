@@ -121,6 +121,7 @@ class HttpServiceTest extends BasePaymentTest
         )->getMock();
 
         $resource = (new DummyResource())->setParentResource(new Heidelpay('s-priv-MyTestKey'));
+        /** @noinspection PhpParamsInspection */
         $adapterMock->expects($this->once())->method('init')->with(
             $this->callback(
                 static function ($url) {
@@ -129,6 +130,7 @@ class HttpServiceTest extends BasePaymentTest
             '{"dummyResource": "JsonSerialized"}',
             'GET'
         );
+        /** @noinspection PhpParamsInspection */
         $adapterMock->expects($this->once())->method('setUserAgent')->with('heidelpayPHP');
         $headers = [
             'Authorization' => 'Basic cy1wcml2LU15VGVzdEtleTo=',
@@ -170,6 +172,7 @@ class HttpServiceTest extends BasePaymentTest
 
         $resource = (new DummyResource())->setParentResource(new Heidelpay('s-priv-MyTestKey', $locale));
 
+        /** @noinspection PhpParamsInspection */
         $adapterMock->expects($this->once())->method('setHeaders')->with(
             $this->callback(
                 static function ($headers) use ($locale) {
@@ -416,6 +419,7 @@ class HttpServiceTest extends BasePaymentTest
     public function environmentUrlSwitchesWithEnvironmentVariable($environment, $apiUrl): void
     {
         $adapterMock = $this->getMockBuilder(CurlAdapter::class)->setMethods(['init', 'setUserAgent', 'setHeaders', 'execute', 'getResponseCode', 'close'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $adapterMock->expects($this->once())->method('init')->with($apiUrl, self::anything(), self::anything());
         $resource = (new DummyResource())->setParentResource(new Heidelpay('s-priv-MyTestKey'));
         $adapterMock->method('execute')->willReturn('myResponseString');
