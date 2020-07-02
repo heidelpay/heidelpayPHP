@@ -22,7 +22,6 @@
  *
  * @package  heidelpayPHP\test\integration
  */
-
 namespace heidelpayPHP\test;
 
 use heidelpayPHP\Heidelpay;
@@ -37,7 +36,7 @@ class BaseIntegrationTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $privateKey = EnvironmentService::getTestPrivateKey();
         $this->heidelpay = (new Heidelpay($privateKey))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
@@ -48,7 +47,7 @@ class BaseIntegrationTest extends BasePaymentTest
      *
      * {@inheritDoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         /** @var TestDebugHandler $debugHandler */
         $debugHandler = $this->heidelpay->getDebugHandler();
@@ -61,5 +60,4 @@ class BaseIntegrationTest extends BasePaymentTest
             echo "\n";
         }
     }
-
 }

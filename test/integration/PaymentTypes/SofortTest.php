@@ -41,8 +41,8 @@ class SofortTest extends BaseIntegrationTest
      *
      * @return Sofort
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function sofortShouldBeCreatableAndFetchable(): Sofort
     {
@@ -67,8 +67,8 @@ class SofortTest extends BaseIntegrationTest
      *
      * @return Charge
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends sofortShouldBeCreatableAndFetchable
      */
     public function sofortShouldBeAbleToCharge(Sofort $sofort): Charge
@@ -88,11 +88,11 @@ class SofortTest extends BaseIntegrationTest
      *
      * @param Sofort $sofort
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends sofortShouldBeCreatableAndFetchable
      */
-    public function sofortShouldNotBeAuthorizable(Sofort $sofort)
+    public function sofortShouldNotBeAuthorizable(Sofort $sofort): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);

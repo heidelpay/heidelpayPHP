@@ -24,6 +24,7 @@
  */
 namespace heidelpayPHP\test\unit\Services;
 
+use Exception;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Constants\TransactionTypes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
@@ -49,8 +50,10 @@ use heidelpayPHP\Services\CancelService;
 use heidelpayPHP\Services\PaymentService;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\Exception as PhpUnitException;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
 use ReflectionException;
 use RuntimeException;
 use function in_array;
@@ -63,8 +66,10 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify setters and getters work properly.
      *
      * @test
+     *
+     * @throws ExpectationFailedException
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $heidelpay      = new Heidelpay('s-priv-123');
         /** @var PaymentService $paymentService */
@@ -82,7 +87,7 @@ class PaymentServiceTest extends BasePaymentTest
     //<editor-fold desc="Authorize">
 
     /**
-     * Verify authorizeWithPayment calls create for a new authorization using the passed values.
+     * Verify authorize calls create for a new authorization using the passed values.
      *
      * @test
      *
@@ -93,7 +98,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws RuntimeException
      * @dataProvider card3dsDataProvider
      */
-    public function authorizeShouldCreateNewAuthorizationAndPayment($card3ds)
+    public function authorizeShouldCreateNewAuthorizationAndPayment($card3ds): void
     {
         $customer  = (new Customer())->setId('myCustomerId');
         $metadata  = (new Metadata())->setId('myMetadataId');
@@ -139,7 +144,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws RuntimeException
      * @dataProvider card3dsDataProvider
      */
-    public function chargeShouldCreateNewPaymentAndCharge($card3ds)
+    public function chargeShouldCreateNewPaymentAndCharge($card3ds): void
     {
         $customer    = (new Customer())->setId('myCustomerId');
         $heidelpay   = new Heidelpay('s-priv-123');
@@ -176,11 +181,11 @@ class PaymentServiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function chargeAuthorizationShouldCallChargePaymentWithTheGivenPaymentObject()
+    public function chargeAuthorizationShouldCallChargePaymentWithTheGivenPaymentObject(): void
     {
         $paymentObject  = (new Payment())->setId('myPaymentId');
         /** @var PaymentService|MockObject $paymentSrvMock */
@@ -197,11 +202,11 @@ class PaymentServiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function chargeAuthorizationShouldCallFetchPaymentIfThePaymentIsPassedAsIdString()
+    public function chargeAuthorizationShouldCallFetchPaymentIfThePaymentIsPassedAsIdString(): void
     {
         /** @var ResourceServiceInterface|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->setMethods(['fetchPayment'])->disableOriginalConstructor()->getMock();
@@ -223,7 +228,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function chargePaymentShouldCallCreateOnResourceServiceWithNewCharge()
+    public function chargePaymentShouldCallCreateOnResourceServiceWithNewCharge(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $payment   = (new Payment())->setParentResource($heidelpay)->setId('myPaymentId');
@@ -258,7 +263,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function chargePaymentShouldSetArgumentsInNewChargeObject()
+    public function chargePaymentShouldSetArgumentsInNewChargeObject(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $payment   = (new Payment())->setParentResource($heidelpay)->setId('myPaymentId');
@@ -297,7 +302,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function cancelAuthorizationShouldCallCreateOnResourceServiceWithNewCancellation()
+    public function cancelAuthorizationShouldCallCreateOnResourceServiceWithNewCancellation(): void
     {
         $heidelpay     = new Heidelpay('s-priv-123');
         $payment       = (new Payment())->setParentResource($heidelpay)->setId('myPaymentId');
@@ -362,7 +367,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function cancelAuthorizationByPaymentShouldCallCancelAuthorization()
+    public function cancelAuthorizationByPaymentShouldCallCancelAuthorization(): void
     {
         $authorization = (new Authorization())->setId('s-aut-1');
         $heidelpay = new Heidelpay('s-priv-1234');
@@ -388,7 +393,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function cancelChargeByIdShouldFetchChargeAndPropagateToCancelCharge()
+    public function cancelChargeByIdShouldFetchChargeAndPropagateToCancelCharge(): void
     {
         $payment = (new Payment())->setId('myPaymentId');
         $charge  = new Charge();
@@ -415,7 +420,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function cancelChargeShouldCreateCancellationAndCallsCreate()
+    public function cancelChargeShouldCreateCancellationAndCallsCreate(): void
     {
         $heidelpay = new Heidelpay('s-priv-1234');
         $cancelSrv = $heidelpay->getCancelService();
@@ -447,10 +452,10 @@ class PaymentServiceTest extends BasePaymentTest
      * @test
      *
      * @throws ReflectionException
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function shipShouldCreateShipmentAndCallCreateOnResourceServiceWithIt()
+    public function shipShouldCreateShipmentAndCallCreateOnResourceServiceWithIt(): void
     {
         $heidelpay  = new Heidelpay('s-priv-1234');
         $payment    = new Payment();
@@ -482,10 +487,10 @@ class PaymentServiceTest extends BasePaymentTest
      * @test
      *
      * @throws ReflectionException
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function payoutShouldCreatePaymentAndCallPayoutWithPayment()
+    public function payoutShouldCreatePaymentAndCallPayoutWithPayment(): void
     {
         $paymentType = (new SepaDirectDebit('1234'))->setId('typeId');
         $customer    = (new Customer())->setId('customerId');
@@ -516,7 +521,7 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function payoutShouldCreateNewPayout()
+    public function payoutShouldCreateNewPayout(): void
     {
         // we provide some fake resources with ids to avoid them to be automatically created
         $customer  = (new Customer())->setId('id-1');
@@ -572,10 +577,10 @@ class PaymentServiceTest extends BasePaymentTest
      * @throws HeidelpayApiException
      * @throws ReflectionException
      * @throws RuntimeException
-     * @throws Exception
-     * @throws \PHPUnit\Framework\MockObject\RuntimeException
+     * @throws PhpUnitException
+     * @throws MockObjectRuntimeException
      */
-    public function paymentShouldBeCreatedByInitPayPage(string $action)
+    public function paymentShouldBeCreatedByInitPayPage(string $action): void
     {
         $method = 'initPayPage' . $action;
 
@@ -613,14 +618,14 @@ class PaymentServiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws Exception
+     * @throws PhpUnitException
      * @throws ReflectionException
-     * @throws \PHPUnit\Framework\MockObject\RuntimeException
-     * @throws HeidelpayApiException                          A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException                               A RuntimeException is thrown when there is an error while using the SDK.
-     * @throws \Exception
+     * @throws MockObjectRuntimeException
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
+     * @throws Exception
      */
-    public function fetchInstalmentPlansWillCallFetchOnResourceService()
+    public function fetchInstalmentPlansWillCallFetchOnResourceService(): void
     {
         $heidelpay = new Heidelpay('s-priv-1234');
         /** @var MockObject|ResourceService $resourceSrvMock */

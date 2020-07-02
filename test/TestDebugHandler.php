@@ -35,7 +35,7 @@ class TestDebugHandler implements DebugHandlerInterface
     /**
      * {@inheritDoc}
      */
-    public function log(string $message)
+    public function log(string $message): void
     {
         $logMessage = 'heidelpay debug message: ' . $message . "\n";
 

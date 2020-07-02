@@ -37,7 +37,7 @@ class PayPalTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function bicShouldBeRW()
+    public function bicShouldBeRW(): void
     {
         $paypal = new Paypal();
         $this->assertNull($paypal->getEmail());

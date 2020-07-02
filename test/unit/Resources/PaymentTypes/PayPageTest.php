@@ -27,7 +27,6 @@ namespace heidelpayPHP\test\unit\Resources\PaymentTypes;
 use heidelpayPHP\Adapter\HttpAdapterInterface;
 use heidelpayPHP\Constants\TransactionTypes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
-use heidelpayPHP\Interfaces\ResourceServiceInterface;
 use heidelpayPHP\Resources\Basket;
 use heidelpayPHP\Resources\Customer;
 use heidelpayPHP\Resources\Metadata;
@@ -39,6 +38,7 @@ use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionException;
 use RuntimeException;
@@ -51,9 +51,11 @@ class PayPageTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws Exception
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
+     * @throws ExpectationFailedException
      */
-    public function getterAndSetterWorkAsExpected()
+    public function getterAndSetterWorkAsExpected(): void
     {
         // ----------- SET initial values ------------
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -150,10 +152,10 @@ class PayPageTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function responseHandlingShouldWorkProperly()
+    public function responseHandlingShouldWorkProperly(): void
     {
         // when
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -228,10 +230,10 @@ class PayPageTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function paymentObjectShouldBeUpdatedProperly()
+    public function paymentObjectShouldBeUpdatedProperly(): void
     {
         // when
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -263,10 +265,10 @@ class PayPageTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function responseHandlingShouldMapSpecialFieldsProperly()
+    public function responseHandlingShouldMapSpecialFieldsProperly(): void
     {
         // when
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -290,13 +292,13 @@ class PayPageTest extends BasePaymentTest
      * @param mixed  $fetchCallCount
      *
      *@throws ReflectionException
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function paymentShouldBeFetchedWhenItIsNoGetRequest($method, $fetchCallCount)
+    public function paymentShouldBeFetchedWhenItIsNoGetRequest($method, $fetchCallCount): void
     {
         // mock resource service to check whether fetch is called on it with the payment object.
-        /** @var ResourceServiceInterface|MockObject $resourceSrvMock */
+        /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['fetchResource'])->getMock();
 
         // when
@@ -320,10 +322,10 @@ class PayPageTest extends BasePaymentTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function exposeShouldSetBasicParams()
+    public function exposeShouldSetBasicParams(): void
     {
         // when
         $basket = (new Basket())->setId('basketId');
@@ -387,10 +389,10 @@ class PayPageTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function resourcesAreNullWithoutPaymentObject()
+    public function resourcesAreNullWithoutPaymentObject(): void
     {
         // when
         $paypage = new Paypage(123.4567, 'EUR', self::RETURN_URL);

@@ -36,7 +36,7 @@ class HasInvoiceIdTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function gettersAndSettersShouldWorkAsExpected()
+    public function gettersAndSettersShouldWorkAsExpected(): void
     {
         $dummy = new TraitDummyHasInvoiceId();
         $this->assertNull($dummy->getInvoiceId());

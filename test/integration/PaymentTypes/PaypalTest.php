@@ -39,8 +39,8 @@ class PaypalTest extends BaseIntegrationTest
      *
      * @return BasePaymentType
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function paypalShouldBeCreatableAndFetchable(): BasePaymentType
     {
@@ -63,8 +63,8 @@ class PaypalTest extends BaseIntegrationTest
      *
      * @return BasePaymentType
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function paypalShouldBeCreatableAndFetchableWithEmail(): BasePaymentType
     {
@@ -88,10 +88,10 @@ class PaypalTest extends BaseIntegrationTest
      *
      * @param Paypal $paypal
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function paypalShouldBeAuthorizable(Paypal $paypal)
+    public function paypalShouldBeAuthorizable(Paypal $paypal): void
     {
         $authorization = $paypal->authorize(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($authorization);
@@ -111,10 +111,10 @@ class PaypalTest extends BaseIntegrationTest
      *
      * @param Paypal $paypal
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function paypalShouldBeChargeable(Paypal $paypal)
+    public function paypalShouldBeChargeable(Paypal $paypal): void
     {
         $charge = $paypal->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);

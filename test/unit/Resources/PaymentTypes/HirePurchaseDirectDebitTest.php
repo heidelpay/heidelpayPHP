@@ -26,11 +26,12 @@ namespace heidelpayPHP\test\unit\Resources\PaymentTypes;
 
 use DateInterval;
 use DateTime;
+use Exception;
 use heidelpayPHP\Resources\InstalmentPlan;
 use heidelpayPHP\Resources\PaymentTypes\HirePurchaseDirectDebit;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\Exception as PhpUnitException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\RuntimeException;
 use ReflectionException;
@@ -42,10 +43,10 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
      *
      * @test
      *
+     * @throws PhpUnitException
      * @throws Exception
-     * @throws \Exception
      */
-    public function getterAndSetterWorkAsExpected()
+    public function getterAndSetterWorkAsExpected(): void
     {
         $hdd = new HirePurchaseDirectDebit();
         $this->assertEmpty($hdd->getTransactionParams());
@@ -171,11 +172,11 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws Exception
+     * @throws PhpUnitException
      * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function selectedInstalmentPlanDataIsUsedToUpdateInstalmentPlanInformation()
+    public function selectedInstalmentPlanDataIsUsedToUpdateInstalmentPlanInformation(): void
     {
         /** @var HirePurchaseDirectDebit|MockObject $hddMock */
         $hddMock = $this->getMockBuilder(HirePurchaseDirectDebit::class)->setMethods(['handleResponse'])->getMock();
@@ -197,9 +198,9 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
      * @test
      *
      * @throws AssertionFailedError
-     * @throws Exception
+     * @throws PhpUnitException
      */
-    public function instalmentPlanPropertiesShouldBeUpdateable()
+    public function instalmentPlanPropertiesShouldBeUpdateable(): void
     {
         $plan = new InstalmentPlan();
         $this->assertEmpty($plan->getInstallmentRates());

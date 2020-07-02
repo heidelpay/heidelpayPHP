@@ -39,8 +39,8 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      *
      * @return Charge
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function chargeShouldBeFetchable(): Charge
     {
@@ -62,10 +62,10 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      *
      * @param Charge $charge
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldBeFullyRefundable(Charge $charge)
+    public function chargeShouldBeFullyRefundable(Charge $charge): void
     {
         $refund = $this->heidelpay->cancelCharge($charge);
         $this->assertNotNull($refund);
@@ -81,10 +81,10 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldBeFullyRefundableWithId()
+    public function chargeShouldBeFullyRefundableWithId(): void
     {
         $paymentType = $this->heidelpay->createPaymentType(new SepaDirectDebit('DE89370400440532013000'));
         $charge = $this->heidelpay->charge(100.0000, 'EUR', $paymentType, self::RETURN_URL);
@@ -99,10 +99,10 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldBePartlyRefundableWithId()
+    public function chargeShouldBePartlyRefundableWithId(): void
     {
         $paymentType = $this->heidelpay->createPaymentType(new SepaDirectDebit('DE89370400440532013000'));
         $charge = $this->heidelpay->charge(100.0000, 'EUR', $paymentType, self::RETURN_URL);
@@ -126,10 +126,10 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldBePartlyRefundable()
+    public function chargeShouldBePartlyRefundable(): void
     {
         $paymentType = $this->heidelpay->createPaymentType(new SepaDirectDebit('DE89370400440532013000'));
         $charge = $this->heidelpay->charge(100.0000, 'EUR', $paymentType, self::RETURN_URL);
@@ -153,10 +153,10 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function cancelShouldAcceptPaymentReferenceParameter()
+    public function cancelShouldAcceptPaymentReferenceParameter(): void
     {
         $paymentType = $this->heidelpay->createPaymentType(new SepaDirectDebit('DE89370400440532013000'));
         $charge = $this->heidelpay->charge(100.0000, 'EUR', $paymentType, self::RETURN_URL);

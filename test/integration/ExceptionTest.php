@@ -39,10 +39,10 @@ class ExceptionTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function apiExceptionShouldHoldClientMessage()
+    public function apiExceptionShouldHoldClientMessage(): void
     {
         $giropay             = $this->heidelpay->createPaymentType(new Giropay());
         $firstClientMessage  = '';

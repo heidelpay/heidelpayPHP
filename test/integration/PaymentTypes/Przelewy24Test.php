@@ -41,8 +41,8 @@ class Przelewy24Test extends BaseIntegrationTest
      *
      * @return BasePaymentType
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function przelewy24ShouldBeCreatableAndFetchable(): BasePaymentType
     {
@@ -66,10 +66,10 @@ class Przelewy24Test extends BaseIntegrationTest
      *
      * @param Przelewy24 $przelewy24
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function przelewy24ShouldBeChargeable(Przelewy24 $przelewy24)
+    public function przelewy24ShouldBeChargeable(Przelewy24 $przelewy24): void
     {
         $charge = $przelewy24->charge(100.0, 'PLN', self::RETURN_URL);
         $this->assertNotNull($charge);
@@ -89,10 +89,10 @@ class Przelewy24Test extends BaseIntegrationTest
      *
      * @param Przelewy24 $przelewy24
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function przelewy24ShouldNotBeAuthorizable(Przelewy24 $przelewy24)
+    public function przelewy24ShouldNotBeAuthorizable(Przelewy24 $przelewy24): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
@@ -109,10 +109,10 @@ class Przelewy24Test extends BaseIntegrationTest
      *
      * @param string $currencyCode
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function przelewy24ShouldThrowExceptionIfCurrencyIsNotSupported($currencyCode)
+    public function przelewy24ShouldThrowExceptionIfCurrencyIsNotSupported($currencyCode): void
     {
         /** @var Przelewy24 $przelewy24 */
         $przelewy24 = $this->heidelpay->createPaymentType(new Przelewy24());

@@ -40,10 +40,10 @@ class ChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldWorkWithTypeId()
+    public function chargeShouldWorkWithTypeId(): void
     {
         $paymentType = $this->heidelpay->createPaymentType(new SepaDirectDebit('DE89370400440532013000'));
         $charge = $this->heidelpay->charge(100.0, 'EUR', $paymentType->getId(), self::RETURN_URL);
@@ -58,10 +58,10 @@ class ChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldWorkWithTypeObject()
+    public function chargeShouldWorkWithTypeObject(): void
     {
         $paymentType = $this->heidelpay->createPaymentType(new SepaDirectDebit('DE89370400440532013000'));
         $charge = $this->heidelpay->charge(100.0, 'EUR', $paymentType, self::RETURN_URL);
@@ -76,10 +76,10 @@ class ChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeStatusIsSetCorrectly()
+    public function chargeStatusIsSetCorrectly(): void
     {
         $this->assertSuccess($this->createCharge());
     }
@@ -89,10 +89,10 @@ class ChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldAcceptAllParameters()
+    public function chargeShouldAcceptAllParameters(): void
     {
         // prepare test data
         /** @var Card $paymentType */
@@ -138,10 +138,10 @@ class ChargeTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeWithCustomerShouldAcceptAllParameters()
+    public function chargeWithCustomerShouldAcceptAllParameters(): void
     {
         // prepare test data
         /** @var InvoiceGuaranteed $ivg */

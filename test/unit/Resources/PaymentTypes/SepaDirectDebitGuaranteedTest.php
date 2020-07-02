@@ -27,6 +27,7 @@ namespace heidelpayPHP\test\unit\Resources\PaymentTypes;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebitGuaranteed;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\ExpectationFailedException;
 
 class SepaDirectDebitGuaranteedTest extends BasePaymentTest
 {
@@ -35,8 +36,9 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
      *
      * @test
      *
+     * @throws ExpectationFailedException
      */
-    public function ibanShouldBeSetByConstructor()
+    public function ibanShouldBeSetByConstructor(): void
     {
         $sdd = new SepaDirectDebitGuaranteed(null);
         $this->assertNull($sdd->getIban());
@@ -49,7 +51,7 @@ class SepaDirectDebitGuaranteedTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function getterAndSetterWorkAsExpected()
+    public function getterAndSetterWorkAsExpected(): void
     {
         $sdd = new SepaDirectDebitGuaranteed('DE89370400440532013000');
         $this->assertEquals('DE89370400440532013000', $sdd->getIban());

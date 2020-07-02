@@ -60,6 +60,7 @@ use heidelpayPHP\Resources\Webhook;
 use heidelpayPHP\test\BasePaymentTest;
 use heidelpayPHP\test\unit\DummyResource;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionException;
 use RuntimeException;
 use stdClass;
@@ -74,7 +75,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * @throws RuntimeException
      * @throws \Exception
      */
-    public function settersAndGettersShouldWork()
+    public function settersAndGettersShouldWork(): void
     {
         $customer = new Customer();
         $this->assertNull($customer->getId());
@@ -94,7 +95,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function getParentResourceShouldThrowExceptionIfItIsNotSet()
+    public function getParentResourceShouldThrowExceptionIfItIsNotSet(): void
     {
         $customer = new Customer();
 
@@ -111,7 +112,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function getHeidelpayObjectShouldCallGetParentResourceOnce()
+    public function getHeidelpayObjectShouldCallGetParentResourceOnce(): void
     {
         $customerMock = $this->getMockBuilder(Customer::class)->setMethods(['getParentResource'])->getMock();
         $customerMock->expects($this->once())->method('getParentResource');
@@ -127,7 +128,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function parentResourceAndHeidelpayGetterSetterShouldWork()
+    public function parentResourceAndHeidelpayGetterSetterShouldWork(): void
     {
         $heidelpayObj = new Heidelpay('s-priv-123');
         $customer     = new Customer();
@@ -144,7 +145,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function getUriWillCallGetUriOnItsParentResource()
+    public function getUriWillCallGetUriOnItsParentResource(): void
     {
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)
             ->disableOriginalConstructor()
@@ -170,7 +171,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function getUriWillAddIdToTheUriIfItIsSetAndAppendIdIsSet(AbstractHeidelpayResource$resource, $resourcePath)
+    public function getUriWillAddIdToTheUriIfItIsSetAndAppendIdIsSet(AbstractHeidelpayResource$resource, $resourcePath): void
     {
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)->disableOriginalConstructor()->setMethods(['getUri'])->getMock();
         $heidelpayMock->method('getUri')->willReturn('parent/resource/path/');
@@ -189,7 +190,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function getUriWillAddExternalIdToTheUriIfTheIdIsNotSetButAppendIdIs()
+    public function getUriWillAddExternalIdToTheUriIfTheIdIsNotSetButAppendIdIs(): void
     {
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)
             ->disableOriginalConstructor()
@@ -214,7 +215,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function updateValuesShouldUpdateChildObjects()
+    public function updateValuesShouldUpdateChildObjects(): void
     {
         $address = (new Address())
             ->setState('DE-BW')
@@ -234,7 +235,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
         $testResponse->billingAddress = json_decode($address->jsonSerialize(), false);
         $testResponse->companyInfo    = json_decode($info->jsonSerialize(), false);
 
-        /** @var Customer $customer */
         $customer = new Customer();
         $customer->handleResponse($testResponse);
 
@@ -260,12 +260,11 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function updateValuesShouldUpdateValuesFromProcessingInTheActualObject()
+    public function updateValuesShouldUpdateValuesFromProcessingInTheActualObject(): void
     {
         $testResponse  = new stdClass();
         $testResponse->processing = (object)['customerId' => 'cst-id', 'firstname' => 'first', 'lastname' => 'last'];
 
-        /** @var Customer $customer */
         $customer = CustomerFactory::createCustomer('firstName', 'lastName')->setCustomerId('customerId');
         $this->assertEquals('customerId', $customer->getCustomerId());
         $this->assertEquals('firstName', $customer->getFirstname());
@@ -284,7 +283,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function jsonSerializeShouldTranslateResourceIntoJson()
+    public function jsonSerializeShouldTranslateResourceIntoJson(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $address   = (new Address())
@@ -327,7 +326,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function nullValuesShouldBeUnsetOnExpose()
+    public function nullValuesShouldBeUnsetOnExpose(): void
     {
         $customer = new Customer();
         $customer->setEmail('my.email@test.com');
@@ -344,7 +343,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function idsOfLinkedResourcesShouldBeAddedOnExpose()
+    public function idsOfLinkedResourcesShouldBeAddedOnExpose(): void
     {
         $customer = CustomerFactory::createCustomer('Max', ' Mustermann');
         $customer->setId('MyTestId');
@@ -360,8 +359,9 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @test
      *
+     * @throws ExpectationFailedException
      */
-    public function getExternalIdShouldReturnNullIfItIsNotImplementedInTheExtendingClass()
+    public function getExternalIdShouldReturnNullIfItIsNotImplementedInTheExtendingClass(): void
     {
         $customer = CustomerFactory::createCustomer('Max', ' Mustermann');
         $customer->setId('MyTestId');
@@ -377,7 +377,7 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function moreThenFourDecimalPlaces()
+    public function moreThenFourDecimalPlaces(): void
     {
         // general
         $object = new DummyResource();
@@ -401,10 +401,10 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function additionalAttributesShouldBeSettable()
+    public function additionalAttributesShouldBeSettable(): void
     {
         $paypage = new Paypage(123.4, 'EUR', self::RETURN_URL);
 
@@ -429,8 +429,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Data provider for getUriWillAddIdToTheUriIfItIsSetAndAppendIdIsSet.
      *
      * @return array
-     *
-     * @throws RuntimeException
      */
     public function uriDataProvider(): array
     {

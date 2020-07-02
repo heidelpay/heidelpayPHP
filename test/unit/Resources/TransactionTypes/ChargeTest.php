@@ -33,7 +33,9 @@ use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
 use ReflectionException;
 use RuntimeException;
 use stdClass;
@@ -45,9 +47,9 @@ class ChargeTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws Exception
+     * @throws ExpectationFailedException
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $charge = new Charge();
         $this->assertNull($charge->getAmount());
@@ -80,10 +82,10 @@ class ChargeTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function aChargeShouldBeUpdatedThroughResponseHandling()
+    public function aChargeShouldBeUpdatedThroughResponseHandling(): void
     {
         $charge = new Charge();
         $this->assertNull($charge->getAmount());
@@ -125,7 +127,7 @@ class ChargeTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet()
+    public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Payment type is missing!');
@@ -138,10 +140,10 @@ class ChargeTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function getLinkedResourceShouldReturnResourcesBelongingToCharge()
+    public function getLinkedResourceShouldReturnResourcesBelongingToCharge(): void
     {
         $heidelpayObj    = new Heidelpay('s-priv-123345');
         $paymentType     = (new Sofort())->setId('123');
@@ -167,7 +169,7 @@ class ChargeTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function cancelShouldCallCancelChargeOnHeidelpayObject()
+    public function cancelShouldCallCancelChargeOnHeidelpayObject(): void
     {
         $charge =  new Charge();
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)
@@ -192,9 +194,9 @@ class ChargeTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws Exception
+     * @throws
      */
-    public function getCancelledAmountReturnsTheCancelledAmount()
+    public function getCancelledAmountReturnsTheCancelledAmount(): void
     {
         $charge = new Charge();
         $this->assertEquals(0.0, $charge->getCancelledAmount());
@@ -216,11 +218,12 @@ class ChargeTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws Exception
+     * @throws ExpectationFailedException
      * @throws ReflectionException
-     * @throws \PHPUnit\Framework\MockObject\RuntimeException
+     * @throws Exception
+     * @throws MockObjectRuntimeException
      */
-    public function getTotalAmountReturnsAmountMinusCancelledAmount()
+    public function getTotalAmountReturnsAmountMinusCancelledAmount(): void
     {
         /** @var MockObject|Charge $chargeMock */
         $chargeMock = $this->getMockBuilder(Charge::class)

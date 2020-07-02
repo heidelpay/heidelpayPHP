@@ -37,7 +37,7 @@ class IdealTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function bicShouldBeRW()
+    public function bicShouldBeRW(): void
     {
         $ideal = new Ideal();
         $this->assertNull($ideal->getBic());

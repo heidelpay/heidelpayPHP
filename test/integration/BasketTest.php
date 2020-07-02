@@ -42,10 +42,10 @@ class BasketTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function minBasketShouldBeCreatableAndFetchable()
+    public function minBasketShouldBeCreatableAndFetchable(): void
     {
         $orderId = microtime(true);
         $basket = new Basket($orderId, 123.4, 'EUR', []);
@@ -69,10 +69,10 @@ class BasketTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function maxBasketShouldBeCreatableAndFetchableWorkAround()
+    public function maxBasketShouldBeCreatableAndFetchableWorkAround(): void
     {
         $basket = new Basket('b' . self::generateRandomId(), 123.4, 'EUR', []);
         $basket->setNote('This basket is creatable!');
@@ -114,7 +114,7 @@ class BasketTest extends BaseIntegrationTest
      * @throws Exception
      * @throws RuntimeException
      */
-    public function basketItemWithInvalidUrlWillThrowAnError($expectException, $imageUrl, $exceptionCode = null)
+    public function basketItemWithInvalidUrlWillThrowAnError($expectException, $imageUrl, $exceptionCode = null): void
     {
         $basket = new Basket('b' . self::generateRandomId(), 123.4, 'EUR', []);
         $basketItem = (new BasketItem('myItem', 1234, 2345, 12))->setImageUrl($imageUrl);
@@ -138,10 +138,10 @@ class BasketTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function basketShouldBeUpdateable()
+    public function basketShouldBeUpdateable(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket  = new Basket($orderId, 123.4, 'EUR', []);
@@ -170,10 +170,10 @@ class BasketTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function authorizeTransactionsShouldPassAlongTheBasketIdIfSet()
+    public function authorizeTransactionsShouldPassAlongTheBasketIdIfSet(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket  = new Basket($orderId, 123.4, 'EUR', []);
@@ -196,10 +196,10 @@ class BasketTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeTransactionsShouldPassAlongTheBasketIdIfSet()
+    public function chargeTransactionsShouldPassAlongTheBasketIdIfSet(): void
     {
         $basket  = $this->createBasket();
         $this->assertNotEmpty($basket->getId());
@@ -219,10 +219,10 @@ class BasketTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function authorizeTransactionsShouldCreateBasketIfItDoesNotExistYet()
+    public function authorizeTransactionsShouldCreateBasketIfItDoesNotExistYet(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket  = new Basket($orderId, 123.4, 'EUR', []);
@@ -245,10 +245,10 @@ class BasketTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeTransactionsShouldCreateBasketIfItDoesNotExistYet()
+    public function chargeTransactionsShouldCreateBasketIfItDoesNotExistYet(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket  = new Basket($orderId, 123.4, 'EUR', []);

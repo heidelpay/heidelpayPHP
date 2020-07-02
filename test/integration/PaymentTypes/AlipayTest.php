@@ -41,8 +41,8 @@ class AlipayTest extends BaseIntegrationTest
      *
      * @return Alipay
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function alipayShouldBeCreatableAndFetchable(): Alipay
     {
@@ -67,8 +67,8 @@ class AlipayTest extends BaseIntegrationTest
      *
      * @return Charge
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends alipayShouldBeCreatableAndFetchable
      */
     public function alipayShouldBeAbleToCharge(Alipay $alipay): Charge
@@ -88,11 +88,11 @@ class AlipayTest extends BaseIntegrationTest
      *
      * @param Alipay $alipay
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends alipayShouldBeCreatableAndFetchable
      */
-    public function alipayShouldNotBeAuthorizable(Alipay $alipay)
+    public function alipayShouldNotBeAuthorizable(Alipay $alipay): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);

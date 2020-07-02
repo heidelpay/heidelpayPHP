@@ -43,7 +43,7 @@ class PayoutTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $payout = new Payout();
         $this->assertNull($payout->getAmount());
@@ -71,10 +71,10 @@ class PayoutTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function aPayoutShouldBeUpdatedThroughResponseHandling()
+    public function aPayoutShouldBeUpdatedThroughResponseHandling(): void
     {
         $payout = new Payout();
         $this->assertNull($payout->getAmount());
@@ -104,7 +104,7 @@ class PayoutTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet()
+    public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Payment type is missing!');
@@ -118,10 +118,10 @@ class PayoutTest extends BasePaymentTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function getLinkedResourceShouldReturnResourcesBelongingToPayout()
+    public function getLinkedResourceShouldReturnResourcesBelongingToPayout(): void
     {
         $heidelpayObj = new Heidelpay('s-priv-123345');
         $paymentType = $this->createCardObject()->setId('123');

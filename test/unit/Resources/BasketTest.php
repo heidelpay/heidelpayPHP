@@ -42,7 +42,7 @@ class BasketTest extends BasePaymentTest
      * @throws Exception
      * @throws RuntimeException
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $basket = new Basket();
         $this->assertEquals(0, $basket->getAmountTotalGross());
@@ -97,7 +97,7 @@ class BasketTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function exposeShouldCallExposeOnAllAttachedBasketItems()
+    public function exposeShouldCallExposeOnAllAttachedBasketItems(): void
     {
         $basketItemMock = $this->getMockBuilder(BasketItem::class)->setMethods(['expose'])->getMock();
         $basketItemMock->expects($this->once())->method('expose')->willReturn('resultItem1');
@@ -118,7 +118,7 @@ class BasketTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function handleResponseShouldCreateBasketItemObjectsForAllBasketItemsInResponse()
+    public function handleResponseShouldCreateBasketItemObjectsForAllBasketItemsInResponse(): void
     {
         $response                = new stdClass();
         $response->basketItems   = [];
@@ -143,7 +143,7 @@ class BasketTest extends BasePaymentTest
      * @throws Exception
      * @throws RuntimeException
      */
-    public function referenceIdShouldBeAutomaticallySetToTheArrayIndexIfItIsNotSet()
+    public function referenceIdShouldBeAutomaticallySetToTheArrayIndexIfItIsNotSet(): void
     {
         $basketItem1 = new BasketItem();
         $this->assertNull($basketItem1->getBasketItemReferenceId());
@@ -178,7 +178,7 @@ class BasketTest extends BasePaymentTest
      *
      * @deprecated since 1.2.6.0
      */
-    public function amountTotalSetterGetterAccessAmountTotalGross()
+    public function amountTotalSetterGetterAccessAmountTotalGross(): void
     {
         $basket = new Basket();
         $this->assertEquals($basket->getAmountTotalGross(), $basket->getAmountTotal());

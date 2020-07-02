@@ -49,7 +49,7 @@ class WebhooksServiceTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -77,11 +77,11 @@ class WebhooksServiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function createWebhookShouldCallResourceServiceWithWebhookObject()
+    public function createWebhookShouldCallResourceServiceWithWebhookObject(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -110,7 +110,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function fetchWebhookShouldCallResourceServiceWithTheGivenWebhookObject()
+    public function fetchWebhookShouldCallResourceServiceWithTheGivenWebhookObject(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -137,7 +137,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function fetchWebhookShouldCallResourceServiceWithANewWebhookObjectWithTheGivenId()
+    public function fetchWebhookShouldCallResourceServiceWithANewWebhookObjectWithTheGivenId(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -165,7 +165,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function updateWebhookShouldCallResourceServiceWithTheGivenWebhookObject()
+    public function updateWebhookShouldCallResourceServiceWithTheGivenWebhookObject(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -195,7 +195,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function deleteWebhookShouldCallResourceServiceWithTheGivenWebhookObject()
+    public function deleteWebhookShouldCallResourceServiceWithTheGivenWebhookObject(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -224,7 +224,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function deleteWebhookShouldCallResourceServiceFetchingAndDeletingTheWebhookWithTheGivenId()
+    public function deleteWebhookShouldCallResourceServiceFetchingAndDeletingTheWebhookWithTheGivenId(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookServiceMock = $this->getMockBuilder(WebhookService::class)->setConstructorArgs([$heidelpay])
@@ -264,7 +264,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function fetchWebhooksShouldCallResourceService()
+    public function fetchWebhooksShouldCallResourceService(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -296,7 +296,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function deleteWebhooksShouldCallResourceServiceWithANewWebhooksObject()
+    public function deleteWebhooksShouldCallResourceServiceWithANewWebhooksObject(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -318,11 +318,11 @@ class WebhooksServiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function createWebhooksShouldCallResourceServiceWithNewWebhooksObject()
+    public function createWebhooksShouldCallResourceServiceWithNewWebhooksObject(): void
     {
         $heidelpay = new Heidelpay('s-priv-123');
         $webhookService = new WebhookService($heidelpay);
@@ -363,7 +363,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws Exception
      * @throws HeidelpayApiException
      */
-    public function fetchResourceByEventWithEmptyRetrieveUrlShouldThrowException()
+    public function fetchResourceByEventWithEmptyRetrieveUrlShouldThrowException(): void
     {
         // override readInputStreamTo provide custom retrieveURL
         $webhookService = $this->getMockBuilder(WebhookService::class)
@@ -387,7 +387,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws Exception
      * @throws HeidelpayApiException
      */
-    public function fetchResourceByEventShouldThrowExceptionIfResourceObjectCanNotBeRetrieved()
+    public function fetchResourceByEventShouldThrowExceptionIfResourceObjectCanNotBeRetrieved(): void
     {
         // override readInputStreamTo provide custom retrieveURL
         $webhookService = $this->getMockBuilder(WebhookService::class)
@@ -421,7 +421,7 @@ class WebhooksServiceTest extends BasePaymentTest
      * @throws Exception
      * @throws HeidelpayApiException
      */
-    public function fetchResourceByEventShouldGetResourceServiceWithRetrieveUrl()
+    public function fetchResourceByEventShouldGetResourceServiceWithRetrieveUrl(): void
     {
         // setup received event
         $retrieveUrl            = 'https://test/url';

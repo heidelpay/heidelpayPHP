@@ -45,7 +45,7 @@ class CancellationTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $cancellation = new Cancellation();
         $this->assertNull($cancellation->getAmount());
@@ -85,11 +85,11 @@ class CancellationTest extends BasePaymentTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @throws ReflectionException
      */
-    public function exposeWillReplaceAmountWithAmountGross()
+    public function exposeWillReplaceAmountWithAmountGross(): void
     {
         /** @var Cancellation|MockObject $cancelMock */
         $cancelMock = $this->getMockBuilder(Cancellation::class)->setMethods(['getLinkedResources'])->getMock();

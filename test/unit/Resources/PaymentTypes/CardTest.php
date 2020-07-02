@@ -29,19 +29,19 @@ use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
 use ReflectionException;
 use RuntimeException;
 use stdClass;
 
 class CardTest extends BasePaymentTest
 {
-    const TEST_ID = 's-crd-l4bbx7ory1ec';
-    const TEST_METHOD_TYPE = 'card';
-    const TEST_NUMBER = '444433******1111';
-    const TEST_BRAND = 'VISA';
-    const TEST_CVC = '***';
-    const TEST_EXPIRY_DATE = '03/2020';
-    const TEST_HOLDER = 'Max Mustermann';
+    private const TEST_ID = 's-crd-l4bbx7ory1ec';
+    private const TEST_NUMBER = '444433******1111';
+    private const TEST_BRAND = 'VISA';
+    private const TEST_CVC = '***';
+    private const TEST_EXPIRY_DATE = '03/2020';
+    private const TEST_HOLDER = 'Max Mustermann';
 
     private $number     = '4111111111111111';
     private $expiryDate = '12/2030';
@@ -86,7 +86,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->card = new Card($this->number, $this->expiryDate);
@@ -99,7 +99,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function constructorShouldSetParameters()
+    public function constructorShouldSetParameters(): void
     {
         $number     = '4111111111111111';
         $expiryDate = '12/2030';
@@ -124,7 +124,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function expiryDateShouldBeExtendedToLongVersion($testData, $expected)
+    public function expiryDateShouldBeExtendedToLongVersion($testData, $expected): void
     {
         $this->card->setExpiryDate($testData);
         $this->assertEquals($expected, $this->card->getExpiryDate());
@@ -140,7 +140,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function yearOfExpiryDateShouldBeExtendedToLongVersion($testData)
+    public function yearOfExpiryDateShouldBeExtendedToLongVersion($testData): void
     {
         $this->expectException(RuntimeException::class);
         $this->card->setExpiryDate($testData);
@@ -155,7 +155,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function verifySettingExpiryDateNullChangesNothing()
+    public function verifySettingExpiryDateNullChangesNothing(): void
     {
         $card = new Card(null, null);
         $this->assertEquals(null, $card->getExpiryDate());
@@ -172,7 +172,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function verifyCvcCanBeSetAndChanged()
+    public function verifyCvcCanBeSetAndChanged(): void
     {
         $this->assertEquals(null, $this->card->getCvc());
         $this->card->setCvc('123');
@@ -188,7 +188,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function verifyHolderCanBeSetAndChanged()
+    public function verifyHolderCanBeSetAndChanged(): void
     {
         $this->assertEquals(null, $this->card->getCardHolder());
         $this->card->setCardHolder('Julia Heideich');
@@ -206,7 +206,7 @@ class CardTest extends BasePaymentTest
      *
      * @deprecated since 1.2.7.2
      */
-    public function verifyHolderCanBeSetAndChangedOld()
+    public function verifyHolderCanBeSetAndChangedOld(): void
     {
         $this->assertEquals(null, $this->card->getHolder());
         $this->card->setHolder('Julia Heideich');
@@ -221,12 +221,12 @@ class CardTest extends BasePaymentTest
      * @test
      *
      * @throws Exception
-     * @throws \PHPUnit\Framework\MockObject\RuntimeException
+     * @throws MockObjectRuntimeException
      * @throws ReflectionException
      *
      * @deprecated since 1.2.7.2
      */
-    public function verifyHolderSettersPropagate()
+    public function verifyHolderSettersPropagate(): void
     {
         $cardMock = $this->getMockBuilder(Card::class)->disableOriginalConstructor()->setMethods(['setCardHolder', 'getCardHolder'])->getMock();
         $cardMock->expects($this->once())->method('setCardHolder')->with('set my CardHolder');
@@ -245,7 +245,7 @@ class CardTest extends BasePaymentTest
      * @throws AssertionFailedError
      * @throws Exception
      */
-    public function card3dsFlagShouldBeSettableInCardResource()
+    public function card3dsFlagShouldBeSettableInCardResource(): void
     {
         $this->assertNull($this->card->get3ds());
         $this->assertArrayNotHasKey('3ds', $this->card->expose());
@@ -269,7 +269,7 @@ class CardTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function verifyCardCanBeUpdated()
+    public function verifyCardCanBeUpdated(): void
     {
         $newGeoLocation = (object)['clientIp' => 'client ip', 'countryCode' => 'country code'];
         $newValues = (object)[

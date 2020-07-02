@@ -30,6 +30,7 @@ use heidelpayPHP\Resources\Recurring;
 use heidelpayPHP\test\BasePaymentTest;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\MockObject\RuntimeException as PHPUnitRuntimeException;
 use ReflectionException;
 use RuntimeException;
 use stdClass;
@@ -43,7 +44,7 @@ class CanRecurTest extends BasePaymentTest
      *
      * @throws AssertionFailedError
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $dummy = new TraitDummyCanRecur();
         $this->assertFalse($dummy->isRecurring());
@@ -58,10 +59,10 @@ class CanRecurTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function activateRecurringWillThrowExceptionIfTheObjectHasWrongType()
+    public function activateRecurringWillThrowExceptionIfTheObjectHasWrongType(): void
     {
         $dummy = new TraitDummyCanRecurNonResource();
 
@@ -78,9 +79,9 @@ class CanRecurTest extends BasePaymentTest
      * @throws HeidelpayApiException
      * @throws ReflectionException
      * @throws RuntimeException
-     * @throws \PHPUnit\Framework\MockObject\RuntimeException
+     * @throws PHPUnitRuntimeException
      */
-    public function activateRecurringWillCallHeidelpayMethod()
+    public function activateRecurringWillCallHeidelpayMethod(): void
     {
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)->disableOriginalConstructor()->setMethods(['activateRecurringPayment'])->getMock();
 
