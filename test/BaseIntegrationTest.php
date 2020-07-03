@@ -22,7 +22,6 @@
  *
  * @package  heidelpayPHP\test\integration
  */
-
 namespace heidelpayPHP\test;
 
 use heidelpayPHP\Heidelpay;
@@ -61,5 +60,4 @@ class BaseIntegrationTest extends BasePaymentTest
             echo "\n";
         }
     }
-
 }
