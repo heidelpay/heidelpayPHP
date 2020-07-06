@@ -26,10 +26,10 @@ namespace heidelpayPHP\test\integration;
 
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class KeypairTest extends BasePaymentTest
+class KeypairTest extends BaseIntegrationTest
 {
     /**
      * Validate valid keys are accepted.

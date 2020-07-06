@@ -25,10 +25,10 @@
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
 use heidelpayPHP\Exceptions\HeidelpayApiException;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class CancelTest extends BasePaymentTest
+class CancelTest extends BaseIntegrationTest
 {
     /**
      * Verify reversal is fetchable.

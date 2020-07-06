@@ -29,10 +29,10 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\PIS;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class PISTest extends BasePaymentTest
+class PISTest extends BaseIntegrationTest
 {
     /**
      * Verify pis can be created.

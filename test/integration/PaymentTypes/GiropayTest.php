@@ -27,10 +27,10 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Giropay;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class GiropayTest extends BasePaymentTest
+class GiropayTest extends BaseIntegrationTest
 {
     /**
      * Verify a GiroPay resource can be created.

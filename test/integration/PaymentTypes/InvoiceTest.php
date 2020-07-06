@@ -27,10 +27,10 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Invoice;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class InvoiceTest extends BasePaymentTest
+class InvoiceTest extends BaseIntegrationTest
 {
     /**
      * Verifies invoice payment type can be created.
