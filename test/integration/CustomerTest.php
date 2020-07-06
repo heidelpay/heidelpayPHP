@@ -31,11 +31,11 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Customer;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 use function microtime;
 
-class CustomerTest extends BasePaymentTest
+class CustomerTest extends BaseIntegrationTest
 {
     //<editor-fold desc="General Customer">
 

@@ -26,10 +26,10 @@ namespace heidelpayPHP\test\integration\TransactionTypes;
 
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class CancelAfterAuthorizationTest extends BasePaymentTest
+class CancelAfterAuthorizationTest extends BaseIntegrationTest
 {
     /**
      * Verify that a full cancel on an authorization results in a cancelled payment.

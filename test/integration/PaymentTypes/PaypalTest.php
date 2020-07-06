@@ -27,10 +27,10 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class PaypalTest extends BasePaymentTest
+class PaypalTest extends BaseIntegrationTest
 {
     /**
      * Verify PayPal payment type can be created and fetched.

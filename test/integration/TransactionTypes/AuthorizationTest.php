@@ -32,11 +32,11 @@ use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 
-class AuthorizationTest extends BasePaymentTest
+class AuthorizationTest extends BaseIntegrationTest
 {
     /**
      * Verify heidelpay object can perform an authorization based on the paymentTypeId.

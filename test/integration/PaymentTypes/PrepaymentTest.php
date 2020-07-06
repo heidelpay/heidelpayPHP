@@ -29,10 +29,10 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\AbstractHeidelpayResource;
 use heidelpayPHP\Resources\PaymentTypes\Prepayment;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class PrepaymentTest extends BasePaymentTest
+class PrepaymentTest extends BaseIntegrationTest
 {
     /**
      * Verify Prepayment can be created and fetched.

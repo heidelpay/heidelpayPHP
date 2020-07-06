@@ -30,10 +30,10 @@ use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceGuaranteed;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class ChargeTest extends BasePaymentTest
+class ChargeTest extends BaseIntegrationTest
 {
     /**
      * Verify charge can be performed using the id of a payment type.

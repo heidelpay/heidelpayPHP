@@ -27,10 +27,10 @@ namespace heidelpayPHP\test\integration\TransactionTypes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class CancelAfterChargeTest extends BasePaymentTest
+class CancelAfterChargeTest extends BaseIntegrationTest
 {
     /**
      * Verify charge can be fetched by id.

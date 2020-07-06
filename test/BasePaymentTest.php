@@ -1,6 +1,6 @@
 <?php
 /**
- * This class is the base class for all integration tests of this SDK.
+ * This class is the base class for all tests of this SDK.
  *
  * Copyright (C) 2018 heidelpay GmbH
  *
@@ -38,12 +38,10 @@ use heidelpayPHP\Resources\Recurring;
 use heidelpayPHP\Resources\TransactionTypes\AbstractTransactionType;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
-use heidelpayPHP\Services\EnvironmentService;
 use heidelpayPHP\test\Fixtures\CustomerFixtureTrait;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Runner\BaseTestRunner;
 use RuntimeException;
 
 class BasePaymentTest extends TestCase
@@ -57,41 +55,10 @@ class BasePaymentTest extends TestCase
 
     /**
      * {@inheritDoc}
-     *
-     * @throws RuntimeException
      */
     protected function setUp()
     {
-        $privateKey = (new EnvironmentService())->getTestPrivateKey();
-        $this->heidelpay = (new Heidelpay($privateKey))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
-        $this->childSetup();
-    }
-
-    /**
-     * If verbose test output is disabled echo debug log when test did not pass.
-     *
-     * {@inheritDoc}
-     */
-    protected function tearDown()
-    {
-        /** @var TestDebugHandler $debugHandler */
-        $debugHandler = $this->heidelpay->getDebugHandler();
-
-        if ($this->getStatus() === BaseTestRunner::STATUS_PASSED) {
-            $debugHandler->clearTempLog();
-        } else {
-            echo "\n";
-            $debugHandler->dumpTempLog();
-            echo "\n";
-        }
-    }
-
-    /**
-     * Override this in the child test class to perform custom setup tasks e.g. setting a different Key.
-     */
-    protected function childSetup()
-    {
-        // do nothing here
+        $this->heidelpay = (new Heidelpay('s-priv-1234'))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
     }
 
     //<editor-fold desc="Custom asserts">
