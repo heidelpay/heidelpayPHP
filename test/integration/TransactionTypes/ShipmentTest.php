@@ -26,10 +26,10 @@ namespace heidelpayPHP\test\integration\TransactionTypes;
 
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceGuaranteed;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class ShipmentTest extends BasePaymentTest
+class ShipmentTest extends BaseIntegrationTest
 {
     /**
      * Verify shipment transaction can be called.

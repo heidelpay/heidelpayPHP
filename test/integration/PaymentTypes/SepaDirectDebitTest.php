@@ -28,10 +28,10 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class SepaDirectDebitTest extends BasePaymentTest
+class SepaDirectDebitTest extends BaseIntegrationTest
 {
     /**
      * Verify sepa direct debit can be created.

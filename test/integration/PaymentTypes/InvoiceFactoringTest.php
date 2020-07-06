@@ -29,12 +29,12 @@ use heidelpayPHP\Constants\CancelReasonCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceFactoring;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 
-class InvoiceFactoringTest extends BasePaymentTest
+class InvoiceFactoringTest extends BaseIntegrationTest
 {
     /**
      * Verifies Invoice Factoring payment type can be created.

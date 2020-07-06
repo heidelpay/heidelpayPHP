@@ -25,10 +25,10 @@
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
 use heidelpayPHP\Exceptions\HeidelpayApiException;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class ChargeAfterAuthorizationTest extends BasePaymentTest
+class ChargeAfterAuthorizationTest extends BaseIntegrationTest
 {
     /**
      * Validate full charge after authorization.

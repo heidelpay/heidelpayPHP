@@ -28,10 +28,10 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Wechatpay;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class WechatpayTest extends BasePaymentTest
+class WechatpayTest extends BaseIntegrationTest
 {
     /**
      * Verify wechatpay can be created.

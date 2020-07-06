@@ -29,11 +29,11 @@ use heidelpayPHP\Resources\CustomerFactory;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\PaymentTypes\Paypage;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\AssertionFailedError;
 use RuntimeException;
 
-class PaypageTest extends BasePaymentTest
+class PaypageTest extends BaseIntegrationTest
 {
     /**
      * Verify the Paypage resource for charge can be created with the mandatory parameters only.

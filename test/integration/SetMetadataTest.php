@@ -28,10 +28,10 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class SetMetadataTest extends BasePaymentTest
+class SetMetadataTest extends BaseIntegrationTest
 {
     /**
      * Verify Metadata can be created and fetched with the API.
