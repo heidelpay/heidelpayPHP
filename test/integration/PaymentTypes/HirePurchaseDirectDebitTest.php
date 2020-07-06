@@ -33,11 +33,11 @@ use heidelpayPHP\Resources\CustomerFactory;
 use heidelpayPHP\Resources\EmbeddedResources\Address;
 use heidelpayPHP\Resources\InstalmentPlan;
 use heidelpayPHP\Resources\PaymentTypes\HirePurchaseDirectDebit;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 use function count;
 
-class HirePurchaseDirectDebitTest extends BasePaymentTest
+class HirePurchaseDirectDebitTest extends BaseIntegrationTest
 {
     /**
      * Verify the following features:

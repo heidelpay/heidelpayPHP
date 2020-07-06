@@ -28,10 +28,10 @@ namespace heidelpayPHP\test\integration;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Giropay;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class ExceptionTest extends BasePaymentTest
+class ExceptionTest extends BaseIntegrationTest
 {
     /**
      * Verify that the HeidelpayApiException holds a special message for for the client.

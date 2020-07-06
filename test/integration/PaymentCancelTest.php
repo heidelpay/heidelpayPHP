@@ -27,12 +27,12 @@ namespace heidelpayPHP\test\integration;
 use heidelpayPHP\Constants\CancelReasonCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Invoice;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 
-class PaymentCancelTest extends BasePaymentTest
+class PaymentCancelTest extends BaseIntegrationTest
 {
     //<editor-fold desc="Tests">
 

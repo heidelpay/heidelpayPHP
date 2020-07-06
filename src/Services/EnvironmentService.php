@@ -39,8 +39,8 @@ class EnvironmentService
 
     const ENV_VAR_TEST_PRIVATE_KEY = 'HEIDELPAY_MGW_TEST_PRIVATE_KEY';
     const ENV_VAR_TEST_PUBLIC_KEY = 'HEIDELPAY_MGW_TEST_PUBLIC_KEY';
-    const DEFAULT_TEST_PRIVATE_KEY = 's-priv-2a102ZMq3gV4I3zJ888J7RR6u75oqK3n';
-    const DEFAULT_TEST_PUBLIC_KEY  = 's-pub-2a10ifVINFAjpQJ9qW8jBe5OJPBx6Gxa';
+    const ENV_VAR_TEST_PRIVATE_KEY_NON_3DS = 'HEIDELPAY_MGW_TEST_PRIVATE_KEY_NON_3DS';
+    const ENV_VAR_TEST_PUBLIC_KEY_NON_3DS = 'HEIDELPAY_MGW_TEST_PUBLIC_KEY_NON_3DS';
 
     const ENV_VAR_NAME_TIMEOUT = 'HEIDELPAY_MGW_TIMEOUT';
     const DEFAULT_TIMEOUT = 60;
@@ -114,31 +114,33 @@ class EnvironmentService
 
     /**
      * Returns the private key string set via environment variable.
-     * Returns the default key if the environment variable is not set.
+     * Returns the non 3ds version of the key if the non3ds flag is set.
+     * Returns an empty string if the environment variable is not set.
      *
      * @param bool $non3ds
      *
      * @return string
      */
-    public function getTestPrivateKey($non3ds = false): string
+    public static function getTestPrivateKey($non3ds = false): string
     {
-        $variableName = self::ENV_VAR_TEST_PRIVATE_KEY . ($non3ds ? '_NON_3DS' : '');
+        $variableName = $non3ds ? self::ENV_VAR_TEST_PRIVATE_KEY_NON_3DS : self::ENV_VAR_TEST_PRIVATE_KEY;
         $key = $_SERVER[$variableName] ?? '';
-        return empty($key) && !$non3ds ? self::DEFAULT_TEST_PRIVATE_KEY : $key;
+        return empty($key) ? '' : $key;
     }
 
     /**
      * Returns the public key string set via environment variable.
-     * Returns the default key if the environment variable is not set.
+     * Returns the non 3ds version of the key if the non3ds flag is set.
+     * Returns an empty string if the environment variable is not set.
      *
      * @param bool $non3ds
      *
      * @return string
      */
-    public function getTestPublicKey($non3ds = false): string
+    public static function getTestPublicKey($non3ds = false): string
     {
-        $variableName = self::ENV_VAR_TEST_PUBLIC_KEY . ($non3ds ? '_NON_3DS' : '');
+        $variableName = $non3ds ? self::ENV_VAR_TEST_PUBLIC_KEY_NON_3DS : self::ENV_VAR_TEST_PUBLIC_KEY;
         $key = $_SERVER[$variableName] ?? '';
-        return empty($key) && !$non3ds ? self::DEFAULT_TEST_PUBLIC_KEY : $key;
+        return empty($key) ? '' : $key;
     }
 }

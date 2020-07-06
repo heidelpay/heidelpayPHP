@@ -28,10 +28,10 @@ namespace heidelpayPHP\test\integration\PaymentTypes;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebitGuaranteed;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
 
-class SepaDirectDebitGuaranteedTest extends BasePaymentTest
+class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
 {
     /**
      * Verify sepa direct debit guaranteed can be created with mandatory fields only.

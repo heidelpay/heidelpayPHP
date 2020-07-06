@@ -28,13 +28,13 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Constants\WebhookEvents;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Webhook;
-use heidelpayPHP\test\BasePaymentTest;
+use heidelpayPHP\test\BaseIntegrationTest;
 use PHPUnit\Framework\Exception;
 use RuntimeException;
 use function count;
 use function in_array;
 
-class WebhookTest extends BasePaymentTest
+class WebhookTest extends BaseIntegrationTest
 {
     //<editor-fold desc="Webhook tests">
 
