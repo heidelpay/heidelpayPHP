@@ -22,7 +22,7 @@
  *
  * @package  heidelpayPHP\test\unit
  */
-namespace heidelpayPHP\test\integration;
+namespace heidelpayPHP\test\unit\Resources;
 
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\test\BasePaymentTest;
@@ -38,7 +38,7 @@ class MetadataTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function metaDataShouldAllowForCustomDataToBeSet()
+    public function metaDataShouldAllowForCustomDataToBeSet(): void
     {
         $metaData = new Metadata();
         $metaData->addMetadata('myCustomData', 'Wow I can add custom information');
@@ -54,7 +54,7 @@ class MetadataTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function metadataShouldNotAllowForMagicAccessToSdkAndShopData()
+    public function metadataShouldNotAllowForMagicAccessToSdkAndShopData(): void
     {
         $metaData = new Metadata();
         $metaData->addMetadata('sdkType', 'sdkType');
@@ -76,7 +76,7 @@ class MetadataTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function exposeShouldGatherAllDefinedDataInTheAnArray()
+    public function exposeShouldGatherAllDefinedDataInTheAnArray(): void
     {
         $metaData = new Metadata();
         $metaDataArray = (array)$metaData->expose();
@@ -102,7 +102,7 @@ class MetadataTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function handleResponseShouldUpdateMetadata()
+    public function handleResponseShouldUpdateMetadata(): void
     {
         $metaData = new Metadata();
         $metaData->addMetadata('myData', 'This should be my Data');

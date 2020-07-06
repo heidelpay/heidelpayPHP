@@ -39,7 +39,7 @@ class RecurringTest extends BasePaymentTest
      * @throws Exception
      * @throws RuntimeException
      */
-    public function gettersAndSettersShouldWorkAsExpected()
+    public function gettersAndSettersShouldWorkAsExpected(): void
     {
         $recurring = new Recurring('payment type id', $this::RETURN_URL);
         $this->assertEquals('payment type id', $recurring->getPaymentTypeId());

@@ -41,8 +41,8 @@ class PISTest extends BaseIntegrationTest
      *
      * @return PIS
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function pisShouldBeCreatableAndFetchable(): PIS
     {
@@ -67,8 +67,8 @@ class PISTest extends BaseIntegrationTest
      *
      * @return Charge
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends pisShouldBeCreatableAndFetchable
      */
     public function pisShouldBeAbleToCharge(PIS $pis): Charge
@@ -88,11 +88,11 @@ class PISTest extends BaseIntegrationTest
      *
      * @param PIS $pis
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends pisShouldBeCreatableAndFetchable
      */
-    public function pisShouldNotBeAuthorizable(PIS $pis)
+    public function pisShouldNotBeAuthorizable(PIS $pis): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);

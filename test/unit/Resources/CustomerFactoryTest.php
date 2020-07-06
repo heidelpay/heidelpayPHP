@@ -41,7 +41,7 @@ class CustomerFactoryTest extends TestCase
      *
      * @throws Exception
      */
-    public function b2cCustomerIsCreatedAsExpected()
+    public function b2cCustomerIsCreatedAsExpected(): void
     {
         $customer = CustomerFactory::createCustomer('Max', 'Mustermann');
         $this->assertEquals('Max', $customer->getFirstname());
@@ -56,7 +56,7 @@ class CustomerFactoryTest extends TestCase
      *
      * @throws Exception
      */
-    public function registeredB2bCustomerIsCreatedAsExpected()
+    public function registeredB2bCustomerIsCreatedAsExpected(): void
     {
         $address = new Address();
 
@@ -83,7 +83,7 @@ class CustomerFactoryTest extends TestCase
      *
      * @throws Exception
      */
-    public function notRegisteredB2bCustomerIsCreatedAsExpected()
+    public function notRegisteredB2bCustomerIsCreatedAsExpected(): void
     {
         $address = new Address();
 

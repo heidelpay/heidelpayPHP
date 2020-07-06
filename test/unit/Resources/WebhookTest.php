@@ -37,7 +37,7 @@ class WebhookTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function mandatoryConstructorParametersShouldDefaultToEmptyString()
+    public function mandatoryConstructorParametersShouldDefaultToEmptyString(): void
     {
         $webhook = new Webhook();
         $this->assertEquals('', $webhook->getUrl());
@@ -51,7 +51,7 @@ class WebhookTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function gettersAndSettersOfWebhookShouldBehaveAsExpected()
+    public function gettersAndSettersOfWebhookShouldBehaveAsExpected(): void
     {
         $webhook = new Webhook('https://dev.heidelpay.com', 'anEventIMadeUp');
         $this->assertEquals('https://dev.heidelpay.com', $webhook->getUrl());

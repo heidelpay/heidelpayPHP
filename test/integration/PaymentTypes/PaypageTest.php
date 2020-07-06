@@ -41,10 +41,10 @@ class PaypageTest extends BaseIntegrationTest
      * @test
      *
      * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function minimalPaypageChargeShouldBeCreatableAndFetchable()
+    public function minimalPaypageChargeShouldBeCreatableAndFetchable(): void
     {
         $paypage = new Paypage(100.0, 'EUR', self::RETURN_URL);
         $this->assertEmpty($paypage->getId());
@@ -58,10 +58,10 @@ class PaypageTest extends BaseIntegrationTest
      * @test
      *
      * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function maximumPaypageChargeShouldBeCreatable()
+    public function maximumPaypageChargeShouldBeCreatable(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket = $this->createBasket();
@@ -98,10 +98,10 @@ class PaypageTest extends BaseIntegrationTest
      * @test
      *
      * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function minimalPaypageAuthorizeShouldBeCreatableAndFetchable()
+    public function minimalPaypageAuthorizeShouldBeCreatableAndFetchable(): void
     {
         $paypage = new Paypage(100.0, 'EUR', self::RETURN_URL);
         $this->assertEmpty($paypage->getId());
@@ -115,10 +115,10 @@ class PaypageTest extends BaseIntegrationTest
      * @test
      *
      * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function maximumPaypageAuthorizeShouldBeCreatable()
+    public function maximumPaypageAuthorizeShouldBeCreatable(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket = $this->createBasket();
@@ -144,7 +144,7 @@ class PaypageTest extends BaseIntegrationTest
         $paypage = $this->heidelpay->initPayPageAuthorize($paypage, $customer, $basket);
         $this->assertNotEmpty($paypage->getId());
         $this->assertEquals(4.99, $paypage->getEffectiveInterestRate());
-        $this->assertArraySubset([Card::getResourceName()], $paypage->getExcludeTypes());
+        $this->assertEquals([Card::getResourceName()], $paypage->getExcludeTypes());
         $payment = $paypage->getPayment();
         $this->assertInstanceOf(Payment::class, $payment);
         $this->assertNotNull($payment->getId());

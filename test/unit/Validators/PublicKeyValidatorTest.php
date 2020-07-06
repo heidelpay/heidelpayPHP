@@ -22,7 +22,7 @@
  *
  * @package  heidelpayPHP\test\unit
  */
-namespace heidelpayPHP\test\unit\Resources;
+namespace heidelpayPHP\test\unit\Validators;
 
 use heidelpayPHP\test\BasePaymentTest;
 use heidelpayPHP\Validators\PublicKeyValidator;
@@ -41,7 +41,7 @@ class PublicKeyValidatorTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function validateShouldReturnTrueIfPublicKeyHasCorrectFormat($key, $expectedResult)
+    public function validateShouldReturnTrueIfPublicKeyHasCorrectFormat($key, $expectedResult): void
     {
         $this->assertEquals($expectedResult, PublicKeyValidator::validate($key));
     }

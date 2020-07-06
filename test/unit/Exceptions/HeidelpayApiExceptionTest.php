@@ -37,7 +37,7 @@ class HeidelpayApiExceptionTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function heidelpayApiExceptionShouldReturnDefaultDataWhenNoneIsSet()
+    public function heidelpayApiExceptionShouldReturnDefaultDataWhenNoneIsSet(): void
     {
         $exception = new HeidelpayApiException();
         $this->assertEquals(HeidelpayApiException::CLIENT_MESSAGE, $exception->getClientMessage());
@@ -57,7 +57,7 @@ class HeidelpayApiExceptionTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function heidelpayApiExceptionShouldReturnTheGivenData(array $testData, array $expected)
+    public function heidelpayApiExceptionShouldReturnTheGivenData(array $testData, array $expected): void
     {
         $exception = new HeidelpayApiException($testData['message'], $testData['clientMessage'], $testData['code'], $testData['errorId']);
         $this->assertEquals($expected['message'], $exception->getMerchantMessage());

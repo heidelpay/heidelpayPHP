@@ -48,10 +48,10 @@ class WebhookTest extends BaseIntegrationTest
      * @param string $event
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function webhookResourceCanBeRegisteredAndFetched($event)
+    public function webhookResourceCanBeRegisteredAndFetched($event): void
     {
         $url = $this->generateUniqueUrl();
         $webhook = $this->heidelpay->createWebhook($url, $event);
@@ -68,10 +68,10 @@ class WebhookTest extends BaseIntegrationTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function webhookUrlShouldBeUpdateable()
+    public function webhookUrlShouldBeUpdateable(): void
     {
         $url     = $this->generateUniqueUrl();
         $webhook = $this->heidelpay->createWebhook($url, WebhookEvents::ALL);
@@ -92,10 +92,10 @@ class WebhookTest extends BaseIntegrationTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function webhookEventShouldNotBeUpdateable()
+    public function webhookEventShouldNotBeUpdateable(): void
     {
         $webhook = $this->heidelpay->createWebhook($this->generateUniqueUrl(), WebhookEvents::ALL);
         $fetchedWebhook = $this->heidelpay->fetchWebhook($webhook->getId());
@@ -114,10 +114,10 @@ class WebhookTest extends BaseIntegrationTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function webhookResourceShouldBeDeletable()
+    public function webhookResourceShouldBeDeletable(): void
     {
         $webhook = $this->heidelpay->createWebhook($this->generateUniqueUrl(), WebhookEvents::ALL);
         $fetchedWebhook = $this->heidelpay->fetchWebhook($webhook->getId());
@@ -135,11 +135,10 @@ class WebhookTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function webhookCreateShouldThrowErrorWhenEventIsAlreadyRegistered()
+    public function webhookCreateShouldThrowErrorWhenEventIsAlreadyRegistered(): void
     {
         $url = $this->generateUniqueUrl();
         $this->heidelpay->createWebhook($url, WebhookEvents::ALL);
@@ -159,10 +158,10 @@ class WebhookTest extends BaseIntegrationTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function fetchWebhooksShouldReturnArrayOfRegisteredWebhooks()
+    public function fetchWebhooksShouldReturnArrayOfRegisteredWebhooks(): void
     {
         // --- Prepare --> remove all existing webhooks
         // start workaround - avoid error deleting non existing webhooks
@@ -195,10 +194,10 @@ class WebhookTest extends BaseIntegrationTest
      * @depends webhookResourceCanBeRegisteredAndFetched
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function allWebhooksShouldBeRemovableAtOnce()
+    public function allWebhooksShouldBeRemovableAtOnce(): void
     {
         // --- Verify webhooks have been registered ---
         $webhooks = $this->heidelpay->fetchAllWebhooks();
@@ -216,10 +215,10 @@ class WebhookTest extends BaseIntegrationTest
      * @test
      * @depends allWebhooksShouldBeRemovableAtOnce
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function bulkSettingWebhookEventsShouldBePossible()
+    public function bulkSettingWebhookEventsShouldBePossible(): void
     {
         $webhookEvents      = [WebhookEvents::AUTHORIZE, WebhookEvents::CHARGE, WebhookEvents::SHIPMENT];
         $url                = $this->generateUniqueUrl();
@@ -238,7 +237,7 @@ class WebhookTest extends BaseIntegrationTest
         // check whether all of the webhookEvents exist
         sort($webhookEvents);
         sort($registeredEvents);
-        $this->assertArraySubset($webhookEvents, $registeredEvents);
+        $this->assertEquals($webhookEvents, $registeredEvents);
     }
 
     /**
@@ -246,10 +245,10 @@ class WebhookTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function bulkSettingOnlyOneWebhookShouldBePossible()
+    public function bulkSettingOnlyOneWebhookShouldBePossible(): void
     {
         // remove all existing webhooks a avoid errors here
         $this->heidelpay->deleteAllWebhooks();

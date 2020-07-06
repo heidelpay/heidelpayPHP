@@ -37,7 +37,7 @@ class EPSTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function gettersAndSettersShouldWorkAsExpected()
+    public function gettersAndSettersShouldWorkAsExpected(): void
     {
         $eps = new EPS();
         $this->assertNull($eps->getBic());

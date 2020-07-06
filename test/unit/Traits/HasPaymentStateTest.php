@@ -56,7 +56,7 @@ class HasPaymentStateTest extends BasePaymentTest
         $partlyPaid,
         $paymentReview,
         $chargeBack
-    ) {
+    ): void {
         $traitDummy = new TraitDummyHasCancellationsHasPaymentState();
         $this->assertEquals(PaymentState::STATE_PENDING, $traitDummy->getState());
         $this->assertEquals(PaymentState::STATE_NAME_PENDING, $traitDummy->getStateName());

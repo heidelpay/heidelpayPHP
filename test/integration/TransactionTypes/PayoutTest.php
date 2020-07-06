@@ -43,10 +43,10 @@ class PayoutTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function payoutCanBeCalledForCardType()
+    public function payoutCanBeCalledForCardType(): void
     {
         /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($this->createCardObject());
@@ -70,10 +70,10 @@ class PayoutTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function payoutCanBeCalledForSepaDirectDebitType()
+    public function payoutCanBeCalledForSepaDirectDebitType(): void
     {
         $sepa = new SepaDirectDebit('DE89370400440532013000');
         $this->heidelpay->createPaymentType($sepa);
@@ -92,10 +92,10 @@ class PayoutTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function payoutCanBeCalledForSepaDirectDebitGuaranteedType()
+    public function payoutCanBeCalledForSepaDirectDebitGuaranteedType(): void
     {
         $sepa = new SepaDirectDebitGuaranteed('DE89370400440532013000');
         $this->heidelpay->createPaymentType($sepa);
@@ -115,11 +115,11 @@ class PayoutTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @throws Exception
      */
-    public function payoutShouldBeFetchedWhenItsPaymentResourceIsFetched()
+    public function payoutShouldBeFetchedWhenItsPaymentResourceIsFetched(): void
     {
         /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($this->createCardObject());
@@ -137,10 +137,10 @@ class PayoutTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function payoutShouldBeFetchableViaItsUrl()
+    public function payoutShouldBeFetchableViaItsUrl(): void
     {
         /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($this->createCardObject());
@@ -156,10 +156,10 @@ class PayoutTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function payoutShouldAcceptAllParameters()
+    public function payoutShouldAcceptAllParameters(): void
     {
         /** @var Card $card */
         $card = $this->heidelpay->createPaymentType($this->createCardObject());

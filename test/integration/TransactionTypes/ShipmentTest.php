@@ -36,10 +36,10 @@ class ShipmentTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function shipmentShouldBeCreatableAndFetchable()
+    public function shipmentShouldBeCreatableAndFetchable(): void
     {
         $ivg      = new InvoiceGuaranteed();
         $customer = $this->getMaximumCustomerInclShippingAddress()->setShippingAddress($this->getBillingAddress());
@@ -62,10 +62,10 @@ class ShipmentTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function shipmentCanBeCalledOnThePaymentObject()
+    public function shipmentCanBeCalledOnThePaymentObject(): void
     {
         $invoiceGuaranteed = new InvoiceGuaranteed();
         $customer          = $this->getMaximumCustomerInclShippingAddress()->setShippingAddress($this->getBillingAddress());
@@ -92,10 +92,10 @@ class ShipmentTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function shipmentShouldBePossibleWithPaymentObject()
+    public function shipmentShouldBePossibleWithPaymentObject(): void
     {
         $invoiceGuaranteed = new InvoiceGuaranteed();
         $customer          = $this->getMaximumCustomerInclShippingAddress()->setShippingAddress($this->getBillingAddress());
@@ -112,10 +112,10 @@ class ShipmentTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function shipmentStatusIsSetCorrectly()
+    public function shipmentStatusIsSetCorrectly(): void
     {
         $invoiceGuaranteed = new InvoiceGuaranteed();
         $customer          = $this->getMaximumCustomerInclShippingAddress()->setShippingAddress($this->getBillingAddress());

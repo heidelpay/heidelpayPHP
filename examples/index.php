@@ -40,16 +40,6 @@ function printMessage($type, $title, $text)
         '<p>' . nl2br($text) . '</p>'.
         '</div>';
 }
-
-function printError($text)
-{
-    printMessage('error', 'Error', $text);
-}
-
-function printInfo($title, $text)
-{
-    printMessage('info', $title, $text);
-}
 ?>
 
 <!DOCTYPE html>

@@ -22,7 +22,7 @@
  *
  * @package  heidelpayPHP\test\unit
  */
-namespace heidelpayPHP\test\unit;
+namespace heidelpayPHP\test\unit\Services;
 
 use heidelpayPHP\Services\ResourceNameService;
 use heidelpayPHP\test\BasePaymentTest;
@@ -41,7 +41,7 @@ class ResourceNameServiceTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function shouldReturnTheCorrectShortName($className, $expected)
+    public function shouldReturnTheCorrectShortName($className, $expected): void
     {
         $this->assertEquals($expected, ResourceNameService::getClassShortNameKebapCase($className));
     }

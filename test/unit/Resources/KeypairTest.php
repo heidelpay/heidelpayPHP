@@ -40,7 +40,7 @@ class KeypairTest extends BasePaymentTest
      * @throws AssertionFailedError
      * @throws Exception
      */
-    public function gettersAndSettersWorkAsExpected()
+    public function gettersAndSettersWorkAsExpected(): void
     {
         $keypair = new Keypair();
         $this->assertFalse($keypair->isDetailed());
@@ -68,7 +68,7 @@ class KeypairTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function aKeypairShouldBeUpdatedThroughResponseHandling()
+    public function aKeypairShouldBeUpdatedThroughResponseHandling(): void
     {
         // when
         $keypair = new Keypair();
@@ -103,7 +103,7 @@ class KeypairTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function aKeypairShouldBeUpdatedWithDetailsThroughResponseHandling()
+    public function aKeypairShouldBeUpdatedWithDetailsThroughResponseHandling(): void
     {
         $keypair = new Keypair();
 

@@ -46,7 +46,7 @@ class AuthorizationTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $authorization = new Authorization();
         $this->assertNull($authorization->getAmount());
@@ -77,10 +77,10 @@ class AuthorizationTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function anAuthorizationShouldBeUpdatedThroughResponseHandling()
+    public function anAuthorizationShouldBeUpdatedThroughResponseHandling(): void
     {
         $authorization = new Authorization();
         $this->assertNull($authorization->getAmount());
@@ -123,7 +123,7 @@ class AuthorizationTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet()
+    public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Payment type is missing!');
@@ -137,10 +137,10 @@ class AuthorizationTest extends BasePaymentTest
      * @test
      *
      * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function getLinkedResourceShouldReturnResourcesBelongingToAuthorization()
+    public function getLinkedResourceShouldReturnResourcesBelongingToAuthorization(): void
     {
         $heidelpayObj    = new Heidelpay('s-priv-123345');
         $paymentType     = (new Sofort())->setId('123');
@@ -166,7 +166,7 @@ class AuthorizationTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function cancelShouldCallCancelAuthorizationOnHeidelpayObject()
+    public function cancelShouldCallCancelAuthorizationOnHeidelpayObject(): void
     {
         $authorization =  new Authorization();
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)
@@ -194,10 +194,10 @@ class AuthorizationTest extends BasePaymentTest
      *
      * @param float|null $value
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldThrowExceptionIfPaymentIsNotSet($value)
+    public function chargeShouldThrowExceptionIfPaymentIsNotSet($value): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Payment object is missing. Try fetching the object first!');
@@ -215,7 +215,7 @@ class AuthorizationTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function chargeShouldCallChargeAuthorizationOnHeidelpayObject()
+    public function chargeShouldCallChargeAuthorizationOnHeidelpayObject(): void
     {
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)
             ->disableOriginalConstructor()
@@ -243,7 +243,7 @@ class AuthorizationTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function getCancelledAmountReturnsTheCancelledAmount()
+    public function getCancelledAmountReturnsTheCancelledAmount(): void
     {
         $authorization = new Authorization();
         $this->assertEquals(0.0, $authorization->getCancelledAmount());

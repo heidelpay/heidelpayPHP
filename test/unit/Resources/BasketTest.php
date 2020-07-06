@@ -42,7 +42,7 @@ class BasketTest extends BasePaymentTest
      * @throws Exception
      * @throws RuntimeException
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $basket = new Basket();
         $this->assertEquals(0, $basket->getAmountTotalGross());
@@ -79,7 +79,7 @@ class BasketTest extends BasePaymentTest
         $this->assertNotSame($basketItem2, $basket->getBasketItemByIndex(0));
         $this->assertSame($basketItem2, $basket->getBasketItemByIndex(1));
 
-        $this->assertArraySubset([$basketItem1, $basketItem2], $basket->getBasketItems());
+        $this->assertEquals([$basketItem1, $basketItem2], $basket->getBasketItems());
 
         $basket->setBasketItems([]);
         $this->assertEquals(0, $basket->getItemCount());
@@ -97,7 +97,7 @@ class BasketTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    public function exposeShouldCallExposeOnAllAttachedBasketItems()
+    public function exposeShouldCallExposeOnAllAttachedBasketItems(): void
     {
         $basketItemMock = $this->getMockBuilder(BasketItem::class)->setMethods(['expose'])->getMock();
         $basketItemMock->expects($this->once())->method('expose')->willReturn('resultItem1');
@@ -107,8 +107,8 @@ class BasketTest extends BasePaymentTest
         $basket = (new Basket())->setBasketItems([$basketItemMock, $basketItemMock2]);
 
         $basketItemsExposed = $basket->expose()['basketItems'];
-        self::assertContains('resultItem1', $basketItemsExposed);
-        self::assertContains('resultItem2', $basketItemsExposed);
+        $this->assertContains('resultItem1', $basketItemsExposed);
+        $this->assertContains('resultItem2', $basketItemsExposed);
     }
 
     /**
@@ -118,7 +118,7 @@ class BasketTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function handleResponseShouldCreateBasketItemObjectsForAllBasketItemsInResponse()
+    public function handleResponseShouldCreateBasketItemObjectsForAllBasketItemsInResponse(): void
     {
         $response                = new stdClass();
         $response->basketItems   = [];
@@ -143,7 +143,7 @@ class BasketTest extends BasePaymentTest
      * @throws Exception
      * @throws RuntimeException
      */
-    public function referenceIdShouldBeAutomaticallySetToTheArrayIndexIfItIsNotSet()
+    public function referenceIdShouldBeAutomaticallySetToTheArrayIndexIfItIsNotSet(): void
     {
         $basketItem1 = new BasketItem();
         $this->assertNull($basketItem1->getBasketItemReferenceId());
@@ -178,7 +178,7 @@ class BasketTest extends BasePaymentTest
      *
      * @deprecated since 1.2.6.0
      */
-    public function amountTotalSetterGetterAccessAmountTotalGross()
+    public function amountTotalSetterGetterAccessAmountTotalGross(): void
     {
         $basket = new Basket();
         $this->assertEquals($basket->getAmountTotalGross(), $basket->getAmountTotal());

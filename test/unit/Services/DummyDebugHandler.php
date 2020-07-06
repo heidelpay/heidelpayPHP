@@ -33,7 +33,7 @@ class DummyDebugHandler implements DebugHandlerInterface
      *
      * @param string $message
      */
-    public function log(string $message)
+    public function log(string $message): void
     {
         // do nothing
     }

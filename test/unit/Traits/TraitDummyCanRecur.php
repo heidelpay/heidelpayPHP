@@ -31,7 +31,7 @@ class TraitDummyCanRecur extends BasePaymentType
 {
     use CanRecur;
 
-    public function getId()
+    public function getId(): ?string
     {
         return 'myId';
     }

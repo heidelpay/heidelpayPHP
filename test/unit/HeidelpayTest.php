@@ -58,13 +58,15 @@ class HeidelpayTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function constructorShouldInitPropertiesProperly()
+    public function constructorShouldInitPropertiesProperly(): void
     {
         $heidelpay = new Heidelpay('s-priv-1234');
         $this->assertInstanceOf(ResourceService::class, $heidelpay->getResourceService());
-        $this->assertInstanceOf(PaymentService::class, $heidelpay->getPaymentService());
+        $paymentService = $heidelpay->getPaymentService();
+        $this->assertInstanceOf(PaymentService::class, $paymentService);
         $this->assertInstanceOf(WebhookService::class, $heidelpay->getWebhookService());
-        $this->assertSame($heidelpay, $heidelpay->getPaymentService()->getHeidelpay());
+        /** @var PaymentService $paymentService */
+        $this->assertSame($heidelpay, $paymentService->getHeidelpay());
         $this->assertEquals('s-priv-1234', $heidelpay->getKey());
         $this->assertEquals(null, $heidelpay->getLocale());
 
@@ -82,7 +84,7 @@ class HeidelpayTest extends BasePaymentTest
      *
      * @throws RuntimeException
      */
-    public function gettersAndSettersShouldWorkProperly()
+    public function gettersAndSettersShouldWorkProperly(): void
     {
         $heidelpay = new Heidelpay('s-priv-1234');
         $heidelpay->setLocale('myLocale');
@@ -146,7 +148,7 @@ class HeidelpayTest extends BasePaymentTest
         array $heidelpayParams,
         $serviceMethod,
         array $serviceParams
-    ) {
+    ): void {
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods([$serviceMethod])->getMock();
         $resourceSrvMock->expects($this->once())->method($serviceMethod)->with(...$serviceParams);
@@ -174,7 +176,7 @@ class HeidelpayTest extends BasePaymentTest
         array $heidelpayParams,
         $serviceMethod,
         array $serviceParams
-    ) {
+    ): void {
         /** @var PaymentService|MockObject $paymentSrvMock */
         $paymentSrvMock = $this->getMockBuilder(PaymentService::class)->disableOriginalConstructor()->setMethods([$serviceMethod])->getMock();
         $paymentSrvMock->expects($this->once())->method($serviceMethod)->with(...$serviceParams);
@@ -202,7 +204,7 @@ class HeidelpayTest extends BasePaymentTest
         array $heidelpayParams,
         $serviceMethod,
         array $serviceParams
-    ) {
+    ): void {
         /** @var WebhookService|MockObject $webhookSrvMock */
         $webhookSrvMock = $this->getMockBuilder(WebhookService::class)->disableOriginalConstructor()->setMethods([$serviceMethod])->getMock();
         $webhookSrvMock->expects($this->once())->method($serviceMethod)->with(...$serviceParams);
@@ -230,7 +232,7 @@ class HeidelpayTest extends BasePaymentTest
         array $heidelpayParams,
         $serviceMethod,
         array $serviceParams
-    ) {
+    ): void {
         /** @var CancelService|MockObject $cancelSrvMock */
         $cancelSrvMock = $this->getMockBuilder(CancelService::class)->disableOriginalConstructor()->setMethods([$serviceMethod])->getMock();
         $cancelSrvMock->expects($this->once())->method($serviceMethod)->with(...$serviceParams);
@@ -247,7 +249,6 @@ class HeidelpayTest extends BasePaymentTest
      * @return array
      *
      * @throws Exception
-     * @throws RuntimeException
      */
     public static function resourceServiceDP(): array
     {

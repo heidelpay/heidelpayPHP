@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   Replace test environment variable.
 *   Apply minor changes.
 *   Refactor tests due to disabled default keypair.
+*   Refactor all files to reflect PHP 7.1 standards.
+*   Replace `codacy/coverage` with `codacy/codacy-coverage-reporter`.
 *   Update examples to always show the sandbox banner when sandbox keys are used.
 
 ### Fix
@@ -23,6 +25,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Remove
 *   Disabled key pair from examples and tests.
+*   Remove deprecated method `authorizeWithPayment`.
+*   Remove return value from `deleteCustomer` method.
 
 ## [1.2.7.2][1.2.7.2]
 

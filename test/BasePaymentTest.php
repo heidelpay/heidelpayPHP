@@ -46,17 +46,17 @@ use RuntimeException;
 
 class BasePaymentTest extends TestCase
 {
+    protected const RETURN_URL = 'http://dev.heidelpay.com';
+
     use CustomerFixtureTrait;
 
     /** @var Heidelpay $heidelpay */
     protected $heidelpay;
 
-    const RETURN_URL = 'http://dev.heidelpay.com';
-
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->heidelpay = (new Heidelpay('s-priv-1234'))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
     }
@@ -70,7 +70,7 @@ class BasePaymentTest extends TestCase
      *
      * @throws Exception
      */
-    public function assertIsEmptyArray($value)
+    public function assertIsEmptyArray($value): void
     {
         $this->assertIsArray($value);
         $this->assertEmpty($value);
@@ -91,7 +91,7 @@ class BasePaymentTest extends TestCase
         $expectedCharged,
         $expectedTotal,
         $expectedCanceled
-    ) {
+    ): void {
         $amount = $payment->getAmount();
         $this->assertEquals($expectedRemaining, $amount->getRemaining(), 'The remaining amount does not match.');
         $this->assertEquals($expectedCharged, $amount->getCharged(), 'The charged amount does not match.');
@@ -104,7 +104,7 @@ class BasePaymentTest extends TestCase
      *
      * @throws AssertionFailedError
      */
-    public function assertTransactionResourceHasBeenCreated($transactionType)
+    public function assertTransactionResourceHasBeenCreated($transactionType): void
     {
         $this->assertNotNull($transactionType);
         $this->assertNotEmpty($transactionType->getId());
@@ -119,7 +119,7 @@ class BasePaymentTest extends TestCase
      *
      * @throws AssertionFailedError
      */
-    protected function assertSuccess($transaction)
+    protected function assertSuccess($transaction): void
     {
         $this->assertTrue($transaction->isSuccess());
         $this->assertFalse($transaction->isPending());
@@ -133,7 +133,7 @@ class BasePaymentTest extends TestCase
      *
      * @throws AssertionFailedError
      */
-    protected function assertError($transaction)
+    protected function assertError($transaction): void
     {
         $this->assertFalse($transaction->isSuccess());
         $this->assertFalse($transaction->isPending());
@@ -147,7 +147,7 @@ class BasePaymentTest extends TestCase
      *
      * @throws AssertionFailedError
      */
-    protected function assertPending($transaction)
+    protected function assertPending($transaction): void
     {
         $this->assertFalse($transaction->isSuccess());
         $this->assertTrue($transaction->isPending());

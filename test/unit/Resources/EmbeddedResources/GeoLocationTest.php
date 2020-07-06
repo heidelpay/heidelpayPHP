@@ -22,7 +22,7 @@
  *
  * @package  heidelpayPHP\test\unit
  */
-namespace heidelpayPHP\test\unit\Resources;
+namespace heidelpayPHP\test\unit\Resources\EmbeddedResources;
 
 use heidelpayPHP\Resources\EmbeddedResources\GeoLocation;
 use heidelpayPHP\test\BasePaymentTest;
@@ -37,7 +37,7 @@ class GeoLocationTest extends BasePaymentTest
      *
      * @throws Exception
      */
-    public function settersAndGettersShouldWork()
+    public function settersAndGettersShouldWork(): void
     {
         $geoLocation = new GeoLocation();
         $this->assertNull($geoLocation->getCountryCode());

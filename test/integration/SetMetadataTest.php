@@ -38,10 +38,10 @@ class SetMetadataTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function metadataShouldBeCreatableAndFetchableWithTheApi()
+    public function metadataShouldBeCreatableAndFetchableWithTheApi(): void
     {
         $metadata = new Metadata();
         $this->assertNull($metadata->getShopType());
@@ -72,10 +72,10 @@ class SetMetadataTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function authorizeShouldCreateMetadata()
+    public function authorizeShouldCreateMetadata(): void
     {
         $metadata = new Metadata();
         $metadata->setShopType('Shopware');
@@ -94,10 +94,10 @@ class SetMetadataTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function chargeShouldCreateMetadata()
+    public function chargeShouldCreateMetadata(): void
     {
         $metadata = new Metadata();
         $metadata->setShopType('Shopware');
@@ -116,10 +116,10 @@ class SetMetadataTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function paymentShouldFetchMetadataResourceOnFetch()
+    public function paymentShouldFetchMetadataResourceOnFetch(): void
     {
         $metadata = (new Metadata())->addMetadata('key', 'value');
 
@@ -139,10 +139,10 @@ class SetMetadataTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function emptyMetaDataShouldLeadToError()
+    public function emptyMetaDataShouldLeadToError(): void
     {
         $metadata = new Metadata();
         $this->expectException(HeidelpayApiException::class);

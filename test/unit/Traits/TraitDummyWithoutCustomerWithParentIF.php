@@ -30,7 +30,6 @@ use heidelpayPHP\Interfaces\HeidelpayParentInterface;
 use heidelpayPHP\Traits\CanAuthorize;
 use heidelpayPHP\Traits\CanDirectCharge;
 use heidelpayPHP\Traits\CanPayout;
-use RuntimeException;
 
 class TraitDummyWithoutCustomerWithParentIF implements HeidelpayParentInterface
 {
@@ -42,8 +41,6 @@ class TraitDummyWithoutCustomerWithParentIF implements HeidelpayParentInterface
      * Returns the heidelpay root object.
      *
      * @return Heidelpay
-     *
-     * @throws RuntimeException
      */
     public function getHeidelpayObject(): Heidelpay
     {

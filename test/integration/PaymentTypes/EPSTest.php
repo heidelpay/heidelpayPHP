@@ -32,7 +32,7 @@ use RuntimeException;
 
 class EPSTest extends BaseIntegrationTest
 {
-    const TEST_BIC = 'STZZATWWXXX';
+    private const TEST_BIC = 'STZZATWWXXX';
 
     /**
      * Verify EPS payment type is creatable.
@@ -41,8 +41,8 @@ class EPSTest extends BaseIntegrationTest
      *
      * @return EPS
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function epsShouldBeCreatable(): EPS
     {
@@ -68,11 +68,11 @@ class EPSTest extends BaseIntegrationTest
      *
      * @param EPS $eps
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends epsShouldBeCreatable
      */
-    public function epsShouldThrowExceptionOnAuthorize(EPS $eps)
+    public function epsShouldThrowExceptionOnAuthorize(EPS $eps): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
@@ -88,10 +88,10 @@ class EPSTest extends BaseIntegrationTest
      *
      * @param EPS $eps
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function epsShouldBeChargeable(EPS $eps)
+    public function epsShouldBeChargeable(EPS $eps): void
     {
         $charge = $eps->charge(1.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
@@ -112,10 +112,10 @@ class EPSTest extends BaseIntegrationTest
      *
      * @param EPS $eps
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function epsTypeCanBeFetched(EPS $eps)
+    public function epsTypeCanBeFetched(EPS $eps): void
     {
         $fetchedEPS = $this->heidelpay->fetchPaymentType($eps->getId());
         $this->assertInstanceOf(EPS::class, $fetchedEPS);

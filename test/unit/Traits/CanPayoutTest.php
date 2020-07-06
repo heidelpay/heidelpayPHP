@@ -40,10 +40,10 @@ class CanPayoutTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function payoutShouldThrowExceptionIfTheClassDoesNotImplementParentInterface()
+    public function payoutShouldThrowExceptionIfTheClassDoesNotImplementParentInterface(): void
     {
         $dummy = new TraitDummyWithoutCustomerWithoutParentIF();
 
@@ -62,7 +62,7 @@ class CanPayoutTest extends BasePaymentTest
      * @throws ReflectionException
      * @throws HeidelpayApiException
      */
-    public function payoutShouldPropagatePayoutToHeidelpay()
+    public function payoutShouldPropagatePayoutToHeidelpay(): void
     {
         $heidelpayMock = $this->getMockBuilder(Heidelpay::class)->setMethods(['payout'])->disableOriginalConstructor()->getMock();
         $dummyMock     = $this->getMockBuilder(TraitDummyWithoutCustomerWithParentIF::class)->setMethods(['getHeidelpayObject'])->getMock();

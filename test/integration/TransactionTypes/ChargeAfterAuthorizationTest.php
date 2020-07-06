@@ -35,10 +35,10 @@ class ChargeAfterAuthorizationTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function authorizationShouldBeFullyChargeable()
+    public function authorizationShouldBeFullyChargeable(): void
     {
         $authorization = $this->createCardAuthorization();
         $payment = $authorization->getPayment();
@@ -58,10 +58,10 @@ class ChargeAfterAuthorizationTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function authorizationShouldBeFullyChargeableViaHeidelpayObject()
+    public function authorizationShouldBeFullyChargeableViaHeidelpayObject(): void
     {
         $authorization = $this->createCardAuthorization();
         $payment = $authorization->getPayment();
@@ -81,10 +81,10 @@ class ChargeAfterAuthorizationTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function authorizationShouldBePartlyChargeable()
+    public function authorizationShouldBePartlyChargeable(): void
     {
         $authorization = $this->createCardAuthorization();
         $payment = $authorization->getPayment();

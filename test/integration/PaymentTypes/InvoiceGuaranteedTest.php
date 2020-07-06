@@ -37,10 +37,10 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function invoiceGuaranteedTypeShouldBeCreatable()
+    public function invoiceGuaranteedTypeShouldBeCreatable(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -53,10 +53,10 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function verifyInvoiceGuaranteedShipment()
+    public function verifyInvoiceGuaranteedShipment(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -78,10 +78,10 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function verifyInvoiceGuaranteedCanBeChargedAndCancelled()
+    public function verifyInvoiceGuaranteedCanBeChargedAndCancelled(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -98,10 +98,10 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function invoiceGuaranteedTypeCanBeFetched()
+    public function invoiceGuaranteedTypeCanBeFetched(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -115,10 +115,10 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function ivgShouldThrowErrorIfAddressesDoNotMatch()
+    public function ivgShouldThrowErrorIfAddressesDoNotMatch(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -134,10 +134,10 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function verifyInvoiceIdInShipmentWillOverrideTheOneFromCharge()
+    public function verifyInvoiceIdInShipmentWillOverrideTheOneFromCharge(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());

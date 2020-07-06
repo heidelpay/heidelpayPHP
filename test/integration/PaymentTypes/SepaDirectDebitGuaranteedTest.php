@@ -38,10 +38,10 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function sepaDirectDebitGuaranteedShouldBeCreatableWithMandatoryFieldsOnly()
+    public function sepaDirectDebitGuaranteedShouldBeCreatableWithMandatoryFieldsOnly(): void
     {
         $directDebitGuaranteed = new SepaDirectDebitGuaranteed('DE89370400440532013000');
         /** @var SepaDirectDebitGuaranteed $directDebitGuaranteed */
@@ -61,8 +61,8 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      *
      * @return SepaDirectDebitGuaranteed
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
     public function sepaDirectDebitGuaranteedShouldBeCreatable(): SepaDirectDebitGuaranteed
     {
@@ -86,11 +86,11 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      *
      * @param SepaDirectDebitGuaranteed $directDebitGuaranteed
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      * @depends sepaDirectDebitGuaranteedShouldBeCreatable
      */
-    public function directDebitGuaranteedShouldProhibitAuthorization(SepaDirectDebitGuaranteed $directDebitGuaranteed)
+    public function directDebitGuaranteedShouldProhibitAuthorization(SepaDirectDebitGuaranteed $directDebitGuaranteed): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
@@ -103,10 +103,10 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function directDebitGuaranteedShouldAllowCharge()
+    public function directDebitGuaranteedShouldAllowCharge(): void
     {
         $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setBic('COBADEFFXXX');
         $this->heidelpay->createPaymentType($directDebitGuaranteed);
@@ -121,10 +121,10 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function ddgShouldThrowErrorIfAddressesDoNotMatch()
+    public function ddgShouldThrowErrorIfAddressesDoNotMatch(): void
     {
         $directDebitGuaranteed = (new SepaDirectDebitGuaranteed('DE89370400440532013000'))->setBic('COBADEFFXXX');
         $this->heidelpay->createPaymentType($directDebitGuaranteed);

@@ -38,10 +38,10 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function sepaDirectDebitShouldBeCreatableWithMandatoryFieldsOnly()
+    public function sepaDirectDebitShouldBeCreatableWithMandatoryFieldsOnly(): void
     {
         $directDebit = new SepaDirectDebit('DE89370400440532013000');
         /** @var SepaDirectDebit $directDebit */
@@ -59,10 +59,10 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function sepaDirectDebitShouldBeCreatable()
+    public function sepaDirectDebitShouldBeCreatable(): void
     {
         $sdd = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
         /** @var SepaDirectDebit $sdd */
@@ -80,13 +80,13 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function authorizeShouldThrowException()
+    public function authorizeShouldThrowException(): void
     {
-        /** @var SepaDirectDebit $sdd */
         $sdd = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
+        /** @var SepaDirectDebit $sdd */
         $sdd = $this->heidelpay->createPaymentType($sdd);
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
@@ -97,13 +97,13 @@ class SepaDirectDebitTest extends BaseIntegrationTest
     /**
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function directDebitShouldBeChargeable()
+    public function directDebitShouldBeChargeable(): void
     {
-        /** @var SepaDirectDebit $sdd */
         $sdd = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
+        /** @var SepaDirectDebit $sdd */
         $sdd = $this->heidelpay->createPaymentType($sdd);
         $charge = $sdd->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
@@ -115,13 +115,13 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
      */
-    public function directDebitChargeShouldBeRefundable()
+    public function directDebitChargeShouldBeRefundable(): void
     {
-        /** @var SepaDirectDebit $sdd */
         $sdd = (new SepaDirectDebit('DE89370400440532013000'))->setHolder('Max Mustermann')->setBic('COBADEFFXXX');
+        /** @var SepaDirectDebit $sdd */
         $sdd = $this->heidelpay->createPaymentType($sdd);
         $charge = $sdd->charge(100.0, 'EUR', self::RETURN_URL);
 

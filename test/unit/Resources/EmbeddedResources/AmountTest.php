@@ -22,7 +22,7 @@
  *
  * @package  heidelpayPHP\test\unit
  */
-namespace heidelpayPHP\test\unit\Resources;
+namespace heidelpayPHP\test\unit\Resources\EmbeddedResources;
 
 use heidelpayPHP\Resources\EmbeddedResources\Amount;
 use heidelpayPHP\test\BasePaymentTest;
@@ -38,7 +38,7 @@ class AmountTest extends BasePaymentTest
      * @throws Exception
      *
      */
-    public function settersAndGettersShouldWork()
+    public function settersAndGettersShouldWork(): void
     {
         $amount = new Amount();
         $this->assertNull($amount->getCurrency());
