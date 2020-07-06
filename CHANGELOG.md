@@ -11,10 +11,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   Method to get the initial transaction from a payment.
 *   Parameter `css` to `Paypage` to enable custom styling. Special thanks to github user [bleenders](https://github.com/bleenders).
 
-### Add
-*   Add curl error string to debug log.
-*   Add environment variable to enable/disable verbose curl output.
-
 ### Change
 *   Mask auth header in debug log.
 *   Refactor test logging.
