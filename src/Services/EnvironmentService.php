@@ -58,7 +58,7 @@ class EnvironmentService
     protected static function getBoolEnvValue(string $varName): bool
     {
         /** @noinspection ProperNullCoalescingOperatorUsageInspection */
-        $envVar = $_SERVER[$varName] ?? false;
+        $envVar = stripslashes($_SERVER[$varName]) ?? false;
         if (!is_bool($envVar)) {
             $envVar = in_array(strtolower($envVar), [true, 'true', '1'], true);
         }
@@ -72,7 +72,7 @@ class EnvironmentService
      */
     public function getMgwEnvironment(): string
     {
-        return $_SERVER[self::ENV_VAR_NAME_ENVIRONMENT] ?? self::ENV_VAR_VALUE_PROD_ENVIRONMENT;
+        return stripslashes($_SERVER[self::ENV_VAR_NAME_ENVIRONMENT]) ?? self::ENV_VAR_VALUE_PROD_ENVIRONMENT;
     }
 
     /**
@@ -83,11 +83,9 @@ class EnvironmentService
     public static function isTestLoggingActive(): bool
     {
         if (isset($_SERVER[self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING])) {
-            $verboseLogging = self::getBoolEnvValue(self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING);
-        } else {
-            $verboseLogging = !self::getBoolEnvValue(self::ENV_VAR_NAME_DISABLE_TEST_LOGGING);
+            return self::getBoolEnvValue(self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING);
         }
-        return $verboseLogging;
+        return !self::getBoolEnvValue(self::ENV_VAR_NAME_DISABLE_TEST_LOGGING);
     }
 
     /**
@@ -98,7 +96,7 @@ class EnvironmentService
      */
     public static function getTimeout(): int
     {
-        $timeout = $_SERVER[self::ENV_VAR_NAME_TIMEOUT] ?? '';
+        $timeout = stripslashes($_SERVER[self::ENV_VAR_NAME_TIMEOUT]) ?? '';
         return is_numeric($timeout) ? (int)$timeout : self::DEFAULT_TIMEOUT;
     }
 
@@ -107,9 +105,9 @@ class EnvironmentService
      *
      * @return bool
      */
-    public static function getCurlVerbose(): bool
+    public static function isCurlVerbose(): bool
     {
-        $curlVerbose = strtolower($_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE] ?? 'false');
+        $curlVerbose = strtolower(stripslashes($_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE]) ?? 'false');
         return in_array($curlVerbose, ['true', '1'], true);
     }
 
@@ -125,7 +123,7 @@ class EnvironmentService
     public static function getTestPrivateKey($non3ds = false): string
     {
         $variableName = $non3ds ? self::ENV_VAR_TEST_PRIVATE_KEY_NON_3DS : self::ENV_VAR_TEST_PRIVATE_KEY;
-        $key = $_SERVER[$variableName] ?? '';
+        $key = stripslashes($_SERVER[$variableName]) ?? '';
         return empty($key) ? '' : $key;
     }
 
@@ -141,7 +139,7 @@ class EnvironmentService
     public static function getTestPublicKey($non3ds = false): string
     {
         $variableName = $non3ds ? self::ENV_VAR_TEST_PUBLIC_KEY_NON_3DS : self::ENV_VAR_TEST_PUBLIC_KEY;
-        $key = $_SERVER[$variableName] ?? '';
+        $key = stripslashes($_SERVER[$variableName]) ?? '';
         return empty($key) ? '' : $key;
     }
 }
