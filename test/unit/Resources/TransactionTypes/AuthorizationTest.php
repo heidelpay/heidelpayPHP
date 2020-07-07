@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Authorization transaction type.
  *
@@ -24,7 +26,6 @@
  */
 namespace heidelpayPHP\test\unit\Resources\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\CustomerFactory;
 use heidelpayPHP\Resources\Payment;
@@ -33,8 +34,6 @@ use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use ReflectionException;
 use RuntimeException;
 
 class AuthorizationTest extends BasePaymentTest
@@ -43,8 +42,6 @@ class AuthorizationTest extends BasePaymentTest
      * Verify getters and setters.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -76,9 +73,6 @@ class AuthorizationTest extends BasePaymentTest
      * Verify that an Authorization can be updated on handle response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function anAuthorizationShouldBeUpdatedThroughResponseHandling(): void
     {
@@ -120,8 +114,6 @@ class AuthorizationTest extends BasePaymentTest
      * Verify getLinkedResources throws exception if the paymentType is not set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet(): void
     {
@@ -135,10 +127,6 @@ class AuthorizationTest extends BasePaymentTest
      * Verify linked resource.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getLinkedResourceShouldReturnResourcesBelongingToAuthorization(): void
     {
@@ -161,10 +149,6 @@ class AuthorizationTest extends BasePaymentTest
      * Verify cancel() calls cancelAuthorization() on heidelpay object with the given amount.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function cancelShouldCallCancelAuthorizationOnHeidelpayObject(): void
     {
@@ -193,9 +177,6 @@ class AuthorizationTest extends BasePaymentTest
      * @dataProvider chargeValueProvider
      *
      * @param float|null $value
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldThrowExceptionIfPaymentIsNotSet($value): void
     {
@@ -210,10 +191,6 @@ class AuthorizationTest extends BasePaymentTest
      * Verify charge() calls chargeAuthorization() on heidelpay object with the given amount.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function chargeShouldCallChargeAuthorizationOnHeidelpayObject(): void
     {
@@ -240,8 +217,6 @@ class AuthorizationTest extends BasePaymentTest
      * Verify getter for cancelled amount.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function getCancelledAmountReturnsTheCancelledAmount(): void
     {

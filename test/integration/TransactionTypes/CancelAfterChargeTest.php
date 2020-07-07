@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify cancellation of charges.
  *
@@ -24,11 +26,9 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class CancelAfterChargeTest extends BaseIntegrationTest
 {
@@ -38,9 +38,6 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      * @test
      *
      * @return Charge
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldBeFetchable(): Charge
     {
@@ -61,9 +58,6 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      * @depends chargeShouldBeFetchable
      *
      * @param Charge $charge
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldBeFullyRefundable(Charge $charge): void
     {
@@ -80,9 +74,6 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      * Verify full refund of a charge.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldBeFullyRefundableWithId(): void
     {
@@ -98,9 +89,6 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      * Verify partial refund of a charge.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldBePartlyRefundableWithId(): void
     {
@@ -125,9 +113,6 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      * Verify partial refund of a charge.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldBePartlyRefundable(): void
     {
@@ -152,9 +137,6 @@ class CancelAfterChargeTest extends BaseIntegrationTest
      * Verify payment reference can be set in cancel charge transaction aka refund.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cancelShouldAcceptPaymentReferenceParameter(): void
     {

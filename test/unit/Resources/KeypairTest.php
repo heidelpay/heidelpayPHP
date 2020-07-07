@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Keypair resource.
  *
@@ -26,9 +28,6 @@ namespace heidelpayPHP\test\unit\Resources;
 
 use heidelpayPHP\Resources\Keypair;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class KeypairTest extends BasePaymentTest
 {
@@ -36,9 +35,6 @@ class KeypairTest extends BasePaymentTest
      * Verify getters and setters work properly.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
      */
     public function gettersAndSettersWorkAsExpected(): void
     {
@@ -65,8 +61,6 @@ class KeypairTest extends BasePaymentTest
      * Verify that a key pair can be updated on handle response.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function aKeypairShouldBeUpdatedThroughResponseHandling(): void
     {
@@ -100,8 +94,6 @@ class KeypairTest extends BasePaymentTest
      * Verify that a key pair can be updated with details on handle response.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function aKeypairShouldBeUpdatedWithDetailsThroughResponseHandling(): void
     {

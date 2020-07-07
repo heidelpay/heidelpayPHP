@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the payment service.
  *
@@ -24,7 +26,6 @@
  */
 namespace heidelpayPHP\test\unit\Services;
 
-use Exception;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Constants\TransactionTypes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
@@ -50,12 +51,7 @@ use heidelpayPHP\Services\CancelService;
 use heidelpayPHP\Services\PaymentService;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception as PhpUnitException;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
-use ReflectionException;
-use RuntimeException;
 use function in_array;
 
 class PaymentServiceTest extends BasePaymentTest
@@ -66,8 +62,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify setters and getters work properly.
      *
      * @test
-     *
-     * @throws ExpectationFailedException
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -92,10 +86,6 @@ class PaymentServiceTest extends BasePaymentTest
      * @test
      *
      * @param $card3ds
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      * @dataProvider card3dsDataProvider
      */
     public function authorizeShouldCreateNewAuthorizationAndPayment($card3ds): void
@@ -139,10 +129,6 @@ class PaymentServiceTest extends BasePaymentTest
      * @test
      *
      * @param $card3ds
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      * @dataProvider card3dsDataProvider
      */
     public function chargeShouldCreateNewPaymentAndCharge($card3ds): void
@@ -182,10 +168,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify chargeAuthorization calls chargePayment with the given payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function chargeAuthorizationShouldCallChargePaymentWithTheGivenPaymentObject(): void
     {
@@ -203,10 +185,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify chargeAuthorization calls fetchPayment if the payment object is passed as id string.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function chargeAuthorizationShouldCallFetchPaymentIfThePaymentIsPassedAsIdString(): void
     {
@@ -225,10 +203,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify chargePayment will create a charge object and call create on ResourceService with it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function chargePaymentShouldCallCreateOnResourceServiceWithNewCharge(): void
     {
@@ -261,10 +235,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify chargePayment will set Ids if they are defined.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function chargePaymentShouldSetArgumentsInNewChargeObject(): void
     {
@@ -301,10 +271,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify cancelAuthorization will create a cancellation object and call create on ResourceService with it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function cancelAuthorizationShouldCallCreateOnResourceServiceWithNewCancellation(): void
     {
@@ -336,10 +302,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify cancelAuthorization will create a cancellation object and call create on ResourceService with it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function cancelAuthorizationShouldNotAddCancellationIfCancellationFails(): void
     {
@@ -367,10 +329,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify cancelAuthorizationByPayment will propagate to cancelAuthorization method.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function cancelAuthorizationByPaymentShouldCallCancelAuthorization(): void
     {
@@ -393,10 +351,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify cancelChargeById fetches Charge and propagates to cancelCharge method.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function cancelChargeByIdShouldFetchChargeAndPropagateToCancelCharge(): void
     {
@@ -421,10 +375,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify cancelCharge creates new Cancellation and calls create on resourceService with it.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function cancelChargeShouldCreateCancellationAndCallsCreate(): void
     {
@@ -457,10 +407,6 @@ class PaymentServiceTest extends BasePaymentTest
      * ResourceService with the shipment object.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shipShouldCreateShipmentAndCallCreateOnResourceServiceWithIt(): void
     {
@@ -493,10 +439,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify payout method calls payout with payment.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function payoutShouldCreatePaymentAndCallPayoutWithPayment(): void
     {
@@ -525,10 +467,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify payoutWithPayment calls create for a new payout using the passed values.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function payoutShouldCreateNewPayout(): void
     {
@@ -583,12 +521,6 @@ class PaymentServiceTest extends BasePaymentTest
      * @dataProvider paymentShouldBeCreatedByInitPayPageDP
      *
      * @param string $action
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PhpUnitException
-     * @throws MockObjectRuntimeException
      */
     public function paymentShouldBeCreatedByInitPayPage(string $action): void
     {
@@ -628,13 +560,6 @@ class PaymentServiceTest extends BasePaymentTest
      * Verify fetch hdd instalment plans.
      *
      * @test
-     *
-     * @throws PhpUnitException
-     * @throws ReflectionException
-     * @throws MockObjectRuntimeException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function fetchInstalmentPlansWillCallFetchOnResourceService(): void
     {

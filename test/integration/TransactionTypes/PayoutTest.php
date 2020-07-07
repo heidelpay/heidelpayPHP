@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify payout transactions.
  *
@@ -24,7 +26,6 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Card;
@@ -33,8 +34,6 @@ use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebitGuaranteed;
 use heidelpayPHP\Resources\TransactionTypes\Payout;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class PayoutTest extends BaseIntegrationTest
 {
@@ -42,9 +41,6 @@ class PayoutTest extends BaseIntegrationTest
      * Verify payout can be performed for card payment type.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function payoutCanBeCalledForCardType(): void
     {
@@ -69,9 +65,6 @@ class PayoutTest extends BaseIntegrationTest
      * Verify payout can be performed for sepa direct debit payment type.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function payoutCanBeCalledForSepaDirectDebitType(): void
     {
@@ -91,9 +84,6 @@ class PayoutTest extends BaseIntegrationTest
      * Verify payout can be performed for sepa direct debit guaranteed payment type.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function payoutCanBeCalledForSepaDirectDebitGuaranteedType(): void
     {
@@ -114,10 +104,6 @@ class PayoutTest extends BaseIntegrationTest
      * Verify Payout transaction is fetched with Payment resource.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function payoutShouldBeFetchedWhenItsPaymentResourceIsFetched(): void
     {
@@ -136,9 +122,6 @@ class PayoutTest extends BaseIntegrationTest
      * Verify Payout can be fetched via url.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function payoutShouldBeFetchableViaItsUrl(): void
     {
@@ -155,9 +138,6 @@ class PayoutTest extends BaseIntegrationTest
      * Verify payout accepts all parameters.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function payoutShouldAcceptAllParameters(): void
     {

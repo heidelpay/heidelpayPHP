@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method paypal.
  *
@@ -24,11 +26,9 @@
  */
 namespace heidelpayPHP\test\integration\PaymentTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class PaypalTest extends BaseIntegrationTest
 {
@@ -38,9 +38,6 @@ class PaypalTest extends BaseIntegrationTest
      * @test
      *
      * @return BasePaymentType
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paypalShouldBeCreatableAndFetchable(): BasePaymentType
     {
@@ -62,9 +59,6 @@ class PaypalTest extends BaseIntegrationTest
      * @test
      *
      * @return BasePaymentType
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paypalShouldBeCreatableAndFetchableWithEmail(): BasePaymentType
     {
@@ -87,9 +81,6 @@ class PaypalTest extends BaseIntegrationTest
      * @depends paypalShouldBeCreatableAndFetchable
      *
      * @param Paypal $paypal
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paypalShouldBeAuthorizable(Paypal $paypal): void
     {
@@ -110,9 +101,6 @@ class PaypalTest extends BaseIntegrationTest
      * @depends paypalShouldBeCreatableAndFetchable
      *
      * @param Paypal $paypal
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paypalShouldBeChargeable(Paypal $paypal): void
     {

@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the payment method hire purchase direct debit.
@@ -25,7 +27,6 @@
  */
 namespace heidelpayPHP\test\integration\PaymentTypes;
 
-use Exception;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Customer;
@@ -34,7 +35,6 @@ use heidelpayPHP\Resources\EmbeddedResources\Address;
 use heidelpayPHP\Resources\InstalmentPlan;
 use heidelpayPHP\Resources\PaymentTypes\HirePurchaseDirectDebit;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 use function count;
 
 class HirePurchaseDirectDebitTest extends BaseIntegrationTest
@@ -48,10 +48,6 @@ class HirePurchaseDirectDebitTest extends BaseIntegrationTest
      * 5 test update hp resource
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function instalmentPlanShouldBeSelectable(): void
     {
@@ -87,9 +83,6 @@ class HirePurchaseDirectDebitTest extends BaseIntegrationTest
      * @param $firstname
      * @param $lastname
      * @param $errorCode
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function hirePurchaseDirectDebitAuthorize($firstname, $lastname, $errorCode): void
     {
@@ -121,10 +114,6 @@ class HirePurchaseDirectDebitTest extends BaseIntegrationTest
      * Verify fetching instalment plans.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function instalmentPlanSelectionWithAllFieldsSet(): void
     {
@@ -144,10 +133,6 @@ class HirePurchaseDirectDebitTest extends BaseIntegrationTest
      * Verify charge.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function verifyChargingAnInitializedHirePurchase(): void
     {
@@ -172,10 +157,6 @@ class HirePurchaseDirectDebitTest extends BaseIntegrationTest
      * Verify charge and ship.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function verifyShippingAChargedHirePurchase(): void
     {
@@ -204,10 +185,6 @@ class HirePurchaseDirectDebitTest extends BaseIntegrationTest
      * @test
      *
      * @depends verifyChargingAnInitializedHirePurchase
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function verifyChargeAndFullCancelAnInitializedHirePurchase(): void
     {
@@ -233,10 +210,6 @@ class HirePurchaseDirectDebitTest extends BaseIntegrationTest
      * @test
      *
      * @depends verifyChargingAnInitializedHirePurchase
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function verifyPartlyCancelChargedHirePurchase(): void
     {

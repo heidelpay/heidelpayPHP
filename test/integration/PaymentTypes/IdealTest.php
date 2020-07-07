@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method Ideal.
  *
@@ -28,7 +30,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Ideal;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class IdealTest extends BaseIntegrationTest
 {
@@ -38,9 +39,6 @@ class IdealTest extends BaseIntegrationTest
      * @test
      *
      * @return Ideal
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function idealShouldBeCreatable(): Ideal
     {
@@ -58,9 +56,6 @@ class IdealTest extends BaseIntegrationTest
      * @test
      *
      * @param Ideal $ideal
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends idealShouldBeCreatable
      */
     public function idealShouldThrowExceptionOnAuthorize(Ideal $ideal): void
@@ -78,9 +73,6 @@ class IdealTest extends BaseIntegrationTest
      * @depends idealShouldBeCreatable
      *
      * @param Ideal $ideal
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function idealShouldBeChargeable(Ideal $ideal): void
     {
@@ -100,9 +92,6 @@ class IdealTest extends BaseIntegrationTest
      * @depends idealShouldBeCreatable
      *
      * @param Ideal $ideal
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function idealTypeCanBeFetched(Ideal $ideal): void
     {

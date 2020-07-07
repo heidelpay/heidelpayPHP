@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the payment method sepa direct debit.
@@ -29,7 +31,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class SepaDirectDebitTest extends BaseIntegrationTest
 {
@@ -37,9 +38,6 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      * Verify sepa direct debit can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function sepaDirectDebitShouldBeCreatableWithMandatoryFieldsOnly(): void
     {
@@ -58,9 +56,6 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      * Verify sepa direct debit can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function sepaDirectDebitShouldBeCreatable(): void
     {
@@ -79,9 +74,6 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      * Verify authorization is not allowed for sepa direct debit.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeShouldThrowException(): void
     {
@@ -96,9 +88,6 @@ class SepaDirectDebitTest extends BaseIntegrationTest
 
     /**
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function directDebitShouldBeChargeable(): void
     {
@@ -114,9 +103,6 @@ class SepaDirectDebitTest extends BaseIntegrationTest
      * Verify sdd charge is refundable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function directDebitChargeShouldBeRefundable(): void
     {

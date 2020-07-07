@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the AbstractTransactionType.
  *
@@ -25,18 +27,13 @@
 namespace heidelpayPHP\test\unit\Resources\TransactionTypes;
 
 use DateTime;
-use Exception;
 use heidelpayPHP\Adapter\HttpAdapterInterface;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\TransactionTypes\AbstractTransactionType;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception as PhpUnitException;
 use PHPUnit\Framework\MockObject\MockObject;
-use ReflectionException;
-use RuntimeException;
 use stdClass;
 
 class AbstractTransactionTypeTest extends BasePaymentTest
@@ -45,8 +42,6 @@ class AbstractTransactionTypeTest extends BasePaymentTest
      * Verify getters and setters work properly.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function theGettersAndSettersShouldWorkProperly(): void
     {
@@ -102,8 +97,6 @@ class AbstractTransactionTypeTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws Exception
-     *
      * Todo: Workaround to be removed when API sends TraceID in processing-group
      */
     public function checkTraceIdWorkaround(): void
@@ -123,10 +116,6 @@ class AbstractTransactionTypeTest extends BasePaymentTest
      * Verify getRedirectUrl() calls Payment::getRedirectUrl().
      *
      * @test
-     *
-     * @throws PhpUnitException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function getRedirectUrlShouldCallPaymentGetRedirectUrl(): void
     {
@@ -144,9 +133,6 @@ class AbstractTransactionTypeTest extends BasePaymentTest
      * Verify abstract transaction allows for updating.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateValuesOfAbstractTransaction(): void
     {
@@ -186,10 +172,6 @@ class AbstractTransactionTypeTest extends BasePaymentTest
      *
      * @param string  $method
      * @param integer $timesCalled
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function updatePaymentShouldOnlyBeCalledOnNotRequests($method, $timesCalled): void
     {
@@ -205,10 +187,6 @@ class AbstractTransactionTypeTest extends BasePaymentTest
      * Verify payment object is fetched on fetchPayment call using the heidelpays resource service object.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function fetchPaymentShouldFetchPaymentObject(): void
     {

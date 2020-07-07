@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the payment method Wechatpay.
@@ -29,7 +31,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Wechatpay;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class WechatpayTest extends BaseIntegrationTest
 {
@@ -37,9 +38,6 @@ class WechatpayTest extends BaseIntegrationTest
      * Verify wechatpay can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function wechatpayShouldBeCreatableAndFetchable(): void
     {
@@ -57,9 +55,6 @@ class WechatpayTest extends BaseIntegrationTest
      * Verify wechatpay is chargeable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function wechatpayShouldBeAbleToCharge(): void
     {
@@ -75,9 +70,6 @@ class WechatpayTest extends BaseIntegrationTest
      * Verify wechatpay is not authorizable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function wechatpayShouldNotBeAuthorizable(): void
     {

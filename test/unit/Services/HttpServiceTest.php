@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the HttpService.
  *
@@ -33,9 +35,6 @@ use heidelpayPHP\Services\EnvironmentService;
 use heidelpayPHP\Services\HttpService;
 use heidelpayPHP\test\BasePaymentTest;
 use heidelpayPHP\test\unit\DummyResource;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\ExpectationFailedException;
-use ReflectionException;
 use RuntimeException;
 
 use function array_key_exists;
@@ -48,8 +47,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify getAdapter will return a CurlAdapter if none has been set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function getAdapterShouldReturnDefaultAdapterIfNonHasBeenSet(): void
     {
@@ -61,8 +58,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify getAdapter will return custom adapter if it has been set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function getAdapterShouldReturnCustomAdapterIfItHasBeenSet(): void
     {
@@ -75,8 +70,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify an environment service can be injected.
      *
      * @test
-     *
-     * @throws ExpectationFailedException
      */
     public function environmentServiceShouldBeInjectable(): void
     {
@@ -91,9 +84,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify send will throw exception if resource is null.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function sendShouldThrowExceptionIfResourceIsNotSet(): void
     {
@@ -107,10 +97,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify send calls methods to setup and send request.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function sendShouldInitAndSendRequest(): void
     {
@@ -159,10 +145,6 @@ class HttpServiceTest extends BasePaymentTest
      * @dataProvider languageShouldOnlyBeSetIfSpecificallyDefinedDP
      *
      * @param $locale
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function languageShouldOnlyBeSetIfSpecificallyDefined($locale): void
     {
@@ -189,10 +171,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify debugLog logs to debug handler if debug mode and a handler are set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function sendShouldLogDebugMessagesIfDebugModeAndHandlerAreSet(): void
     {
@@ -254,10 +232,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify handleErrors will throw Exception if response string is null.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function handleErrorsShouldThrowExceptionIfResponseIsEmpty(): void
     {
@@ -286,10 +260,6 @@ class HttpServiceTest extends BasePaymentTest
      * @dataProvider responseCodeProvider
      *
      * @param string $responseCode
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function handleErrorsShouldThrowExceptionIfResponseCodeIsGoE400($responseCode): void
     {
@@ -316,9 +286,6 @@ class HttpServiceTest extends BasePaymentTest
      * Verify handleErrors will throw Exception if response contains errors field.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function handleErrorsShouldThrowExceptionIfResponseContainsErrorField(): void
     {
@@ -410,11 +377,6 @@ class HttpServiceTest extends BasePaymentTest
      *
      * @param $environment
      * @param $apiUrl
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function environmentUrlSwitchesWithEnvironmentVariable($environment, $apiUrl): void
     {

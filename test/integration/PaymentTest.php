@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the Payment resource.
@@ -32,7 +34,6 @@ use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class PaymentTest extends BaseIntegrationTest
 {
@@ -40,9 +41,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify fetching payment by authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentShouldBeFetchableById(): void
     {
@@ -62,9 +60,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify full charge on payment with authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullChargeShouldBePossibleOnPaymentObject(): void
     {
@@ -88,9 +83,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify payment can be fetched with charges.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentShouldBeFetchableWithCharges(): void
     {
@@ -118,9 +110,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify partial charge after authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partialChargeAfterAuthorization(): void
     {
@@ -136,9 +125,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify authorization on payment.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationShouldBePossibleOnHeidelpayObject(): void
     {
@@ -153,9 +139,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify heidelpay payment charge is possible using a paymentId.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentChargeOnAuthorizeShouldBePossibleUsingPaymentId(): void
     {
@@ -170,9 +153,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify heidelpay payment charge is possible using a paymentId and optional ids.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentChargeOnAuthorizeShouldTakeResourceIds(): void
     {
@@ -187,9 +167,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify heidelpay payment charge throws an error if the id does not belong to a payment.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargePaymentShouldThrowErrorOnNonPaymentId(): void
     {
@@ -202,9 +179,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify a payment is fetched by orderId if the id is not set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentShouldBeFetchedByOrderIdIfIdIsNotSet(): void
     {
@@ -222,9 +196,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify orderId does not need to be unique.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shouldAllowNonUniqueOrderId(): void
     {
@@ -248,9 +219,6 @@ class PaymentTest extends BaseIntegrationTest
      * Verify invoiceId does not need to be unique.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shouldAllowNonUniqueInvoiceId(): void
     {

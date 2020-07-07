@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Payout transaction type.
  *
@@ -24,13 +26,11 @@
  */
 namespace heidelpayPHP\test\unit\Resources\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\CustomerFactory;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\TransactionTypes\Payout;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
 use RuntimeException;
 use stdClass;
 
@@ -40,8 +40,6 @@ class PayoutTest extends BasePaymentTest
      * Verify getters and setters.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -70,9 +68,6 @@ class PayoutTest extends BasePaymentTest
      * Verify that an Payout can be updated on handle response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function aPayoutShouldBeUpdatedThroughResponseHandling(): void
     {
@@ -101,8 +96,6 @@ class PayoutTest extends BasePaymentTest
      * Verify getLinkedResources throws exception if the paymentType is not set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet(): void
     {
@@ -116,10 +109,6 @@ class PayoutTest extends BasePaymentTest
      * Verify linked resource.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getLinkedResourceShouldReturnResourcesBelongingToPayout(): void
     {

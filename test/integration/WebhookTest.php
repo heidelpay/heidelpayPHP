@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify Webhook features.
  *
@@ -29,8 +31,6 @@ use heidelpayPHP\Constants\WebhookEvents;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Webhook;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 use function count;
 use function in_array;
 
@@ -46,10 +46,6 @@ class WebhookTest extends BaseIntegrationTest
      * @dataProvider webhookResourceCanBeRegisteredAndFetchedDP
      *
      * @param string $event
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function webhookResourceCanBeRegisteredAndFetched($event): void
     {
@@ -66,10 +62,6 @@ class WebhookTest extends BaseIntegrationTest
      * Verify Webhook url can be updated.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function webhookUrlShouldBeUpdateable(): void
     {
@@ -90,10 +82,6 @@ class WebhookTest extends BaseIntegrationTest
      * Verify Webhook event can not be updated.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function webhookEventShouldNotBeUpdateable(): void
     {
@@ -112,10 +100,6 @@ class WebhookTest extends BaseIntegrationTest
      * Verify Webhook resource can be deleted.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function webhookResourceShouldBeDeletable(): void
     {
@@ -134,9 +118,6 @@ class WebhookTest extends BaseIntegrationTest
      * Verify webhook create will throw error when the event is already registered for the given URL.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function webhookCreateShouldThrowErrorWhenEventIsAlreadyRegistered(): void
     {
@@ -156,10 +137,6 @@ class WebhookTest extends BaseIntegrationTest
      * Verify fetching all registered webhooks will return an array of webhooks.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fetchWebhooksShouldReturnArrayOfRegisteredWebhooks(): void
     {
@@ -192,10 +169,6 @@ class WebhookTest extends BaseIntegrationTest
      * @test
      *
      * @depends webhookResourceCanBeRegisteredAndFetched
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function allWebhooksShouldBeRemovableAtOnce(): void
     {
@@ -214,9 +187,6 @@ class WebhookTest extends BaseIntegrationTest
      *
      * @test
      * @depends allWebhooksShouldBeRemovableAtOnce
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function bulkSettingWebhookEventsShouldBePossible(): void
     {
@@ -244,9 +214,6 @@ class WebhookTest extends BaseIntegrationTest
      * Verify setting one event with bulk setting.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function bulkSettingOnlyOneWebhookShouldBePossible(): void
     {

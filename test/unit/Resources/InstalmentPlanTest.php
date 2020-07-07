@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class verifies function of the instalment plan resources.
  *
@@ -28,8 +30,6 @@ use DateTime;
 use heidelpayPHP\Resources\InstalmentPlan;
 use heidelpayPHP\Resources\InstalmentPlans;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class InstalmentPlanTest extends BasePaymentTest
 {
@@ -42,9 +42,6 @@ class InstalmentPlanTest extends BasePaymentTest
      * @param float  $amount
      * @param string $currency
      * @param float  $effectiveInterest
-     *
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function verifyQueryString($amount, $currency, $effectiveInterest): void
     {
@@ -56,9 +53,6 @@ class InstalmentPlanTest extends BasePaymentTest
      * Verify getters and setters.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws \Exception
      */
     public function gettersAndSettersShouldWorkAsExpected(): void
     {
@@ -100,8 +94,6 @@ class InstalmentPlanTest extends BasePaymentTest
      * Verify plans can be retrieved.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function plansShouldBeRetrievable(): void
     {

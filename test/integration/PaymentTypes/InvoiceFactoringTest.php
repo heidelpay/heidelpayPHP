@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method Invoice Factoring.
  *
@@ -30,8 +32,6 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceFactoring;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\AssertionFailedError;
-use RuntimeException;
 
 class InvoiceFactoringTest extends BaseIntegrationTest
 {
@@ -41,9 +41,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @test
      *
      * @return InvoiceFactoring
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function invoiceFactoringTypeShouldBeCreatableAndFetchable(): InvoiceFactoring
     {
@@ -65,9 +62,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @test
      *
      * @param InvoiceFactoring $invoice
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends invoiceFactoringTypeShouldBeCreatableAndFetchable
      */
     public function verifyInvoiceIsNotAuthorizable(InvoiceFactoring $invoice): void
@@ -85,9 +79,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @depends invoiceFactoringTypeShouldBeCreatableAndFetchable
      *
      * @param InvoiceFactoring $invoiceFactoring
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function invoiceFactoringShouldRequiresCustomer(InvoiceFactoring $invoiceFactoring): void
     {
@@ -103,9 +94,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @depends invoiceFactoringTypeShouldBeCreatableAndFetchable
      *
      * @param InvoiceFactoring $invoiceFactoring
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function invoiceFactoringRequiresBasket(InvoiceFactoring $invoiceFactoring): void
     {
@@ -127,10 +115,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @param InvoiceFactoring $invoiceFactoring
      *
      * @return Charge
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws AssertionFailedError
      */
     public function invoiceFactoringShouldBeChargeable(InvoiceFactoring $invoiceFactoring): Charge
     {
@@ -153,9 +137,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * Verify Invoice Factoring is not shippable on heidelpay object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceFactoringIsNotShippableWoInvoiceIdOnHeidelpayObject(): void
     {
@@ -181,9 +162,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * Verify Invoice Factoring is not shippable on payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceFactoringIsNotShippableWoInvoiceIdOnPaymentObject(): void
     {
@@ -209,9 +187,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * Verify Invoice Factoring shipment with invoice id on heidelpay object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceFactoringShipmentWithInvoiceIdOnHeidelpayObject(): void
     {
@@ -238,9 +213,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * Verify Invoice Factoring shipment with invoice id on payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceFactoringShipmentWithInvoiceIdOnPaymentObject(): void
     {
@@ -266,9 +238,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * Verify Invoice Factoring shipment with pre set invoice id
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceFactoringShipmentWithPreSetInvoiceId(): void
     {
@@ -294,9 +263,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @test
      *
      * @param Charge $charge
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends invoiceFactoringShouldBeChargeable
      */
     public function verifyInvoiceChargeCanBeCanceled(Charge $charge): void
@@ -312,9 +278,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @test
      *
      * @param Charge $charge
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends invoiceFactoringShouldBeChargeable
      */
     public function verifyInvoiceChargeCanNotBeCancelledWoAmount(Charge $charge): void
@@ -330,9 +293,6 @@ class InvoiceFactoringTest extends BaseIntegrationTest
      * @test
      *
      * @param Charge $charge
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends invoiceFactoringShouldBeChargeable
      */
     public function verifyInvoiceChargeCanNotBeCancelledWoReasonCode(Charge $charge): void

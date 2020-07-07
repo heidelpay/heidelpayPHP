@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify charges in general.
  *
@@ -24,14 +26,12 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceGuaranteed;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class ChargeTest extends BaseIntegrationTest
 {
@@ -39,9 +39,6 @@ class ChargeTest extends BaseIntegrationTest
      * Verify charge can be performed using the id of a payment type.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldWorkWithTypeId(): void
     {
@@ -57,9 +54,6 @@ class ChargeTest extends BaseIntegrationTest
      * Verify charging with payment type.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldWorkWithTypeObject(): void
     {
@@ -75,9 +69,6 @@ class ChargeTest extends BaseIntegrationTest
      * Verify transaction status.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeStatusIsSetCorrectly(): void
     {
@@ -88,9 +79,6 @@ class ChargeTest extends BaseIntegrationTest
      * Verify charge accepts all parameters.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldAcceptAllParameters(): void
     {
@@ -137,9 +125,6 @@ class ChargeTest extends BaseIntegrationTest
      * Verify charge accepts all parameters.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeWithCustomerShouldAcceptAllParameters(): void
     {

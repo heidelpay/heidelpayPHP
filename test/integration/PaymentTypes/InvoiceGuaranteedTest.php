@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method invoice guaranteed.
  *
@@ -28,7 +30,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceGuaranteed;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class InvoiceGuaranteedTest extends BaseIntegrationTest
 {
@@ -36,9 +37,6 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verifies invoice guaranteed payment type can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function invoiceGuaranteedTypeShouldBeCreatable(): void
     {
@@ -52,9 +50,6 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify invoice guaranteed can be shipped.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceGuaranteedShipment(): void
     {
@@ -77,9 +72,6 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify invoice guaranteed can be charged and cancelled.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceGuaranteedCanBeChargedAndCancelled(): void
     {
@@ -97,9 +89,6 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify that an invoice guaranteed object can be fetched from the api.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function invoiceGuaranteedTypeCanBeFetched(): void
     {
@@ -114,9 +103,6 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify ivg will throw error if addresses do not match.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function ivgShouldThrowErrorIfAddressesDoNotMatch(): void
     {
@@ -133,9 +119,6 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify the invoiceId set during shipping overrides the previously set invoiceId.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceIdInShipmentWillOverrideTheOneFromCharge(): void
     {

@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify keypair functionalities.
  *
@@ -24,7 +26,6 @@
  */
 namespace heidelpayPHP\test\integration;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\test\BaseIntegrationTest;
 use RuntimeException;
@@ -38,8 +39,6 @@ class KeypairTest extends BaseIntegrationTest
      * @dataProvider validKeysDataProvider
      *
      * @param string $key
-     *
-     * @throws RuntimeException
      */
     public function validKeysShouldBeExcepted($key): void
     {
@@ -54,8 +53,6 @@ class KeypairTest extends BaseIntegrationTest
      * @dataProvider invalidKeysDataProvider
      *
      * @param string $key
-     *
-     * @throws RuntimeException
      */
     public function invalidKeysShouldResultInException($key): void
     {
@@ -67,9 +64,6 @@ class KeypairTest extends BaseIntegrationTest
      * Verify key pair config can be fetched.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function keypairShouldReturnExpectedValues(): void
     {
@@ -85,9 +79,6 @@ class KeypairTest extends BaseIntegrationTest
      * Verify key pair config can be fetched with details.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function keypairShouldBeFetchableWithDetails(): void
     {

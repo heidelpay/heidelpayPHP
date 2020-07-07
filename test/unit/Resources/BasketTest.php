@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Basket resource.
  *
@@ -27,9 +29,6 @@ namespace heidelpayPHP\test\unit\Resources;
 use heidelpayPHP\Resources\Basket;
 use heidelpayPHP\Resources\EmbeddedResources\BasketItem;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use ReflectionException;
-use RuntimeException;
 use stdClass;
 
 class BasketTest extends BasePaymentTest
@@ -38,9 +37,6 @@ class BasketTest extends BasePaymentTest
      * Verify getters and setters work properly.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -92,10 +88,6 @@ class BasketTest extends BasePaymentTest
      * Verify expose will call expose on all attached BasketItems.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function exposeShouldCallExposeOnAllAttachedBasketItems(): void
     {
@@ -115,8 +107,6 @@ class BasketTest extends BasePaymentTest
      * Verify handleResponse will create basket items for each basketitem in response.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function handleResponseShouldCreateBasketItemObjectsForAllBasketItemsInResponse(): void
     {
@@ -139,9 +129,6 @@ class BasketTest extends BasePaymentTest
      * Verify BasketItemReferenceId is set automatically to the items index within the basket array if it is not set.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function referenceIdShouldBeAutomaticallySetToTheArrayIndexIfItIsNotSet(): void
     {
@@ -173,8 +160,6 @@ class BasketTest extends BasePaymentTest
      * Verify amount total is replaced by amount total gross.
      *
      * @test
-     *
-     * @throws Exception
      *
      * @deprecated since 1.2.6.0
      */

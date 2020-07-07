@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify cancellation in general.
  *
@@ -24,9 +26,7 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class CancelTest extends BaseIntegrationTest
 {
@@ -34,9 +34,6 @@ class CancelTest extends BaseIntegrationTest
      * Verify reversal is fetchable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function reversalShouldBeFetchableViaHeidelpayObject(): void
     {
@@ -51,9 +48,6 @@ class CancelTest extends BaseIntegrationTest
      * Verify reversal is fetchable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function reversalShouldBeFetchableViaPaymentObject(): void
     {
@@ -68,9 +62,6 @@ class CancelTest extends BaseIntegrationTest
      * Verify refund is fetchable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function refundShouldBeFetchableViaHeidelpayObject(): void
     {
@@ -85,9 +76,6 @@ class CancelTest extends BaseIntegrationTest
      * Verify refund is fetchable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function refundShouldBeFetchableViaPaymentObject(): void
     {
@@ -102,9 +90,6 @@ class CancelTest extends BaseIntegrationTest
      * Verify reversal is fetchable via payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationCancellationsShouldBeFetchableViaPaymentObject(): void
     {
@@ -121,9 +106,6 @@ class CancelTest extends BaseIntegrationTest
      * Verify refund is fetchable via payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeCancellationsShouldBeFetchableViaPaymentObject(): void
     {
@@ -140,9 +122,6 @@ class CancelTest extends BaseIntegrationTest
      * Verify transaction status.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cancelStatusIsSetCorrectly(): void
     {

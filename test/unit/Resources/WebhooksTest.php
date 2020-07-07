@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Webhooks resource.
  *
@@ -29,8 +31,6 @@ use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\Webhook;
 use heidelpayPHP\Resources\Webhooks;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 use stdClass;
 
 class WebhooksTest extends BasePaymentTest
@@ -39,8 +39,6 @@ class WebhooksTest extends BasePaymentTest
      * Verify the constructor of the webhooks resource behaves as expected.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function mandatoryConstructorParametersShouldDefaultToEmptyString(): void
     {
@@ -54,8 +52,6 @@ class WebhooksTest extends BasePaymentTest
      * Verify the getters and setters of the webhooks resource.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function gettersAndSettersOfWebhookShouldBehaveAsExpected(): void
     {
@@ -73,8 +69,6 @@ class WebhooksTest extends BasePaymentTest
      * Verify the event adder of the webhooks resource does only allow valid webhook events.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function adderOfWebhookEventsOnlyAllowsValidEvents(): void
     {
@@ -91,9 +85,6 @@ class WebhooksTest extends BasePaymentTest
      * Verify response handling for more then one event in a webhooks request.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function responseHandlingForEventsShouldBehaveAsExpected(): void
     {
@@ -139,9 +130,6 @@ class WebhooksTest extends BasePaymentTest
      * Verify response handling of one event in a webhooks request.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function responseHandlingForOneEventShouldBehaveAsExpected(): void
     {

@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method EPS.
  *
@@ -28,7 +30,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\EPS;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class EPSTest extends BaseIntegrationTest
 {
@@ -40,9 +41,6 @@ class EPSTest extends BaseIntegrationTest
      * @test
      *
      * @return EPS
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function epsShouldBeCreatable(): EPS
     {
@@ -67,9 +65,6 @@ class EPSTest extends BaseIntegrationTest
      * @test
      *
      * @param EPS $eps
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends epsShouldBeCreatable
      */
     public function epsShouldThrowExceptionOnAuthorize(EPS $eps): void
@@ -87,9 +82,6 @@ class EPSTest extends BaseIntegrationTest
      * @depends epsShouldBeCreatable
      *
      * @param EPS $eps
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function epsShouldBeChargeable(EPS $eps): void
     {
@@ -111,9 +103,6 @@ class EPSTest extends BaseIntegrationTest
      * @depends epsShouldBeCreatable
      *
      * @param EPS $eps
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function epsTypeCanBeFetched(EPS $eps): void
     {

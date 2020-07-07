@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * Test cases to verify functionality and integration of recurring payments.
  *
@@ -41,9 +43,6 @@ class RecurringPaymentTest extends BaseIntegrationTest
      * Verify exception is thrown if it is called on a non resource object.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws HeidelpayApiException
      */
     public function exceptionShouldBeThrownIfTheObjectIsNotAResource(): void
     {
@@ -58,9 +57,6 @@ class RecurringPaymentTest extends BaseIntegrationTest
      * After recurring call the parameters are set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function recurringForCardWith3dsShouldReturnAttributes(): void
     {
@@ -80,9 +76,6 @@ class RecurringPaymentTest extends BaseIntegrationTest
      * Verify card without 3ds can activate recurring payments.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function recurringForCardWithout3dsShouldActivateRecurringAtOnce(): void
     {
@@ -110,9 +103,6 @@ class RecurringPaymentTest extends BaseIntegrationTest
      * Verify paypal can activate recurring payments.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paypalShouldBeAbleToActivateRecurringPayments(): void
     {
@@ -127,9 +117,6 @@ class RecurringPaymentTest extends BaseIntegrationTest
      * Verify sepa direct debit can activate recurring payments.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws HeidelpayApiException
      */
     public function sepaDirectDebitShouldBeAbleToActivateRecurringPayments(): void
     {
@@ -149,9 +136,6 @@ class RecurringPaymentTest extends BaseIntegrationTest
      * Verify sepa direct debit guaranteed can activate recurring payments.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws HeidelpayApiException
      */
     public function sepaDirectDebitGuaranteedShouldBeAbleToActivateRecurringPayments(): void
     {

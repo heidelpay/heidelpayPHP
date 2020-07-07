@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the payment method sepa direct debit guaranteed.
@@ -29,7 +31,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebitGuaranteed;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
 {
@@ -37,9 +38,6 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      * Verify sepa direct debit guaranteed can be created with mandatory fields only.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function sepaDirectDebitGuaranteedShouldBeCreatableWithMandatoryFieldsOnly(): void
     {
@@ -60,9 +58,6 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      * @test
      *
      * @return SepaDirectDebitGuaranteed
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function sepaDirectDebitGuaranteedShouldBeCreatable(): SepaDirectDebitGuaranteed
     {
@@ -85,9 +80,6 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      * @test
      *
      * @param SepaDirectDebitGuaranteed $directDebitGuaranteed
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends sepaDirectDebitGuaranteedShouldBeCreatable
      */
     public function directDebitGuaranteedShouldProhibitAuthorization(SepaDirectDebitGuaranteed $directDebitGuaranteed): void
@@ -102,9 +94,6 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      * Verify direct debit guaranteed can be charged.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function directDebitGuaranteedShouldAllowCharge(): void
     {
@@ -120,9 +109,6 @@ class SepaDirectDebitGuaranteedTest extends BaseIntegrationTest
      * Verify ddg will throw error if addresses do not match.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function ddgShouldThrowErrorIfAddressesDoNotMatch(): void
     {

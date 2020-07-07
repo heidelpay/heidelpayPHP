@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of shipment.
  *
@@ -24,10 +26,8 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceGuaranteed;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class ShipmentTest extends BaseIntegrationTest
 {
@@ -35,9 +35,6 @@ class ShipmentTest extends BaseIntegrationTest
      * Verify shipment transaction can be called.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shipmentShouldBeCreatableAndFetchable(): void
     {
@@ -61,9 +58,6 @@ class ShipmentTest extends BaseIntegrationTest
      * Verify shipment transaction can be called on the payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shipmentCanBeCalledOnThePaymentObject(): void
     {
@@ -91,9 +85,6 @@ class ShipmentTest extends BaseIntegrationTest
      * Verify shipment can be performed with payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shipmentShouldBePossibleWithPaymentObject(): void
     {
@@ -111,9 +102,6 @@ class ShipmentTest extends BaseIntegrationTest
      * Verify transaction status.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shipmentStatusIsSetCorrectly(): void
     {

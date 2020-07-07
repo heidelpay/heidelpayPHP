@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of FlexiPay Rate Direct Debit (Hire Purchase) payment type.
  *
@@ -26,15 +28,10 @@ namespace heidelpayPHP\test\unit\Resources\PaymentTypes;
 
 use DateInterval;
 use DateTime;
-use Exception;
 use heidelpayPHP\Resources\InstalmentPlan;
 use heidelpayPHP\Resources\PaymentTypes\HirePurchaseDirectDebit;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception as PhpUnitException;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\RuntimeException;
-use ReflectionException;
 
 class HirePurchaseDirectDebitTest extends BasePaymentTest
 {
@@ -42,9 +39,6 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
      * Verify setter and getter work.
      *
      * @test
-     *
-     * @throws PhpUnitException
-     * @throws Exception
      */
     public function getterAndSetterWorkAsExpected(): void
     {
@@ -171,10 +165,6 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
      * Verify handle response is called with the exposed data of the selected instalment plan.
      *
      * @test
-     *
-     * @throws PhpUnitException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function selectedInstalmentPlanDataIsUsedToUpdateInstalmentPlanInformation(): void
     {
@@ -197,9 +187,6 @@ class HirePurchaseDirectDebitTest extends BasePaymentTest
      * Verify instalment plan fetch can update instalment plan properties.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws PhpUnitException
      */
     public function instalmentPlanPropertiesShouldBeUpdateable(): void
     {

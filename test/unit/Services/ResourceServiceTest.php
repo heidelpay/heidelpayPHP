@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the resource service.
  *
@@ -25,7 +27,6 @@
 namespace heidelpayPHP\test\unit\Services;
 
 use DateTime;
-use Exception;
 use heidelpayPHP\Adapter\HttpAdapterInterface;
 use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
@@ -67,10 +68,7 @@ use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
 use heidelpayPHP\test\unit\DummyResource;
 use heidelpayPHP\test\unit\Traits\TraitDummyCanRecur;
-use PHPUnit\Framework\Exception as PhpUnitException;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
-use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -82,8 +80,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify setters and getters work properly.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -105,12 +101,6 @@ class ResourceServiceTest extends BasePaymentTest
      * @param string $method
      * @param string $uri
      * @param bool   $appendId
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PhpUnitException
-     * @throws MockObjectRuntimeException
      */
     public function sendShouldCallSendOnHttpService(string $method, string $uri, bool $appendId): void
     {
@@ -145,8 +135,6 @@ class ResourceServiceTest extends BasePaymentTest
      * @param string $expected
      * @param string $uri
      * @param string $idString
-     *
-     * @throws RuntimeException
      */
     public function getResourceIdFromUrlShouldIdentifyAndReturnTheIdStringFromAGivenString(
         $expected,
@@ -161,8 +149,6 @@ class ResourceServiceTest extends BasePaymentTest
      *
      * @test
      * @dataProvider failingUrlIdStringProvider
-     *
-     * @throws RuntimeException
      *
      * @param mixed $uri
      * @param mixed $idString
@@ -185,10 +171,6 @@ class ResourceServiceTest extends BasePaymentTest
      *
      * @param $resource
      * @param $timesFetchIsCalled
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchResourceIfTheResourcesIdIsSetAndItHasNotBeenFetchedBefore($resource, $timesFetchIsCalled): void
     {
@@ -203,10 +185,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify create method will call send method and call the resources handleResponse method with the response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function createShouldCallSendAndThenHandleResponseWithTheResponseData(): void
     {
@@ -231,10 +209,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify create does not handle response with error.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function createShouldNotHandleResponseWithError(): void
     {
@@ -259,10 +233,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify update method will call send method and call the resources handleResponse method with the response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function updateShouldCallSendAndThenHandleResponseWithTheResponseData(): void
     {
@@ -285,10 +255,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify update does not handle response with error.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function updateShouldNotHandleResponseWithError(): void
     {
@@ -308,10 +274,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify delete method will call send method and set resource null if successful.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function deleteShouldCallSendAndThenSetTheResourceNull(): void
     {
@@ -331,10 +293,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify delete does not delete resource object on error response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function deleteShouldNotDeleteObjectOnResponseWithError(): void
     {
@@ -356,11 +314,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetch method will call send with GET the resource and then call handleResponse.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws Exception
      */
     public function fetchShouldCallSendWithGetUpdateFetchedAtAndCallHandleResponse(): void
     {
@@ -394,11 +347,6 @@ class ResourceServiceTest extends BasePaymentTest
      * @param string $fetchMethod
      * @param mixed  $arguments
      * @param string $resourceUrl
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException      A RuntimeException is thrown when there is a error while using the SDK.
-     * @throws ReflectionException
      */
     public function fetchResourceByUrlShouldFetchTheDesiredResource($fetchMethod, $arguments, $resourceUrl): void
     {
@@ -416,18 +364,14 @@ class ResourceServiceTest extends BasePaymentTest
      * @test
      * @dataProvider fetchResourceByUrlForAPaymentTypeShouldCallFetchPaymentTypeDP
      *
-     * @param $paymentTypeId
+     * @param string $paymentTypeId
      * @param string $resourceUrl
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException      A RuntimeException is thrown when there is a error while using the SDK.
-     * @throws ReflectionException
      */
     public function fetchResourceByUrlForAPaymentTypeShouldCallFetchPaymentType($paymentTypeId, $resourceUrl): void
     {
         /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['fetchPaymentType'])->getMock();
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->once())->method('fetchPaymentType')->with($paymentTypeId);
 
         $resourceSrvMock->fetchResourceByUrl($resourceUrl);
@@ -437,11 +381,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify does not call fetchResourceByUrl and returns null if the resource type is unknown.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException      A RuntimeException is thrown when there is a error while using the SDK.
-     * @throws ReflectionException
      */
     public function fetchResourceByUrlForAPaymentTypeShouldReturnNullIfTheTypeIsUnknown(): void
     {
@@ -461,11 +400,6 @@ class ResourceServiceTest extends BasePaymentTest
      * @param string $fetchMethod
      * @param array  $arguments
      * @param mixed  $callback
-     *
-     * @throws ReflectionException
-     * @throws PhpUnitException
-     * @throws MockObjectRuntimeException
-     * @throws RuntimeException
      */
     public function fetchShouldCallFetchResource(string $fetchMethod, array $arguments, $callback): void
     {
@@ -495,10 +429,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createPaymentType method will set parentResource to heidelpay object and call create.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function createPaymentTypeShouldSetHeidelpayObjectAndCallCreate(): void
     {
@@ -525,10 +455,6 @@ class ResourceServiceTest extends BasePaymentTest
      * @dataProvider paymentTypeIdProviderInvalid
      *
      * @param string $typeId
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchPaymentTypeShouldThrowExceptionOnInvalidTypeId($typeId): void
     {
@@ -546,12 +472,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Update payment type should call update method.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PhpUnitException
-     * @throws MockObjectRuntimeException
      */
     public function updatePaymentTypeShouldCallUpdateMethod(): void
     {
@@ -575,10 +495,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createCustomer calls create with customer object and the heidelpay resource is set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function createCustomerShouldCallCreateWithCustomerObjectAndSetHeidelpayReference(): void
     {
@@ -602,10 +518,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createOrUpdateCustomer method tries to fetch and update the given customer.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function createOrUpdateCustomerShouldFetchAndUpdateCustomerIfItAlreadyExists(): void
     {
@@ -651,10 +563,6 @@ class ResourceServiceTest extends BasePaymentTest
      * to another reason then id already exists.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function createOrUpdateCustomerShouldThrowTheExceptionIfItIsNotCustomerIdAlreadyExists(): void
     {
@@ -679,10 +587,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchCustomer method calls fetch with the customer object provided.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchCustomerShouldCallFetchWithTheGivenCustomerAndSetHeidelpayReference(): void
     {
@@ -711,10 +615,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify updateCustomer calls update with customer object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function updateCustomerShouldCallUpdateWithCustomerObject(): void
     {
@@ -733,10 +633,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify deleteCustomer method calls delete with customer object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function deleteCustomerShouldCallDeleteWithTheGivenCustomer(): void
     {
@@ -754,10 +650,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify deleteCustomer calls fetchCustomer with id if the customer object is referenced by id.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function deleteCustomerShouldFetchCustomerByIdIfTheIdIsGiven(): void
     {
@@ -780,10 +672,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchAuthorization fetches payment object and returns its authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchAuthorizationShouldFetchPaymentAndReturnItsAuthorization(): void
     {
@@ -807,12 +695,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchAuthorization will throw runtime error if the given payment does not seem to have an authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PhpUnitException
-     * @throws MockObjectRuntimeException
      */
     public function fetchAuthorizationShouldThrowExceptionIfNoAuthorizationIsPresent(): void
     {
@@ -837,10 +719,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchPayout fetches payment object and returns its payout.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchPayoutShouldFetchPaymentAndReturnItsPayout(): void
     {
@@ -867,10 +745,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchChargeById fetches payment object and gets and returns the charge object from it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchChargeByIdShouldFetchPaymentAndReturnTheChargeOfThePayment(): void
     {
@@ -895,10 +769,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchCharge fetches payment object and gets and returns the charge object from it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchChargeShouldFetchPaymentAndReturnTheChargeOfThePayment(): void
     {
@@ -916,10 +786,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchChargeById throws exception if the charge can not be found.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchChargeByIdShouldThrowExceptionIfChargeDoesNotExist(): void
     {
@@ -946,10 +812,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchReversalByAuthorization fetches authorization and gets and returns the reversal object from it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchReversalByAuthorizationShouldFetchAuthorizeAndReturnTheReversalFromIt(): void
     {
@@ -972,10 +834,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchReversal will fetch payment by id and get and return the desired reversal from it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchReversalShouldFetchPaymentAndReturnDesiredReversalFromIt(): void
     {
@@ -997,10 +855,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchRefundById fetches charge object by id and fetches desired refund from it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchRefundByIdShouldFetchChargeByIdAndThenFetchTheDesiredRefundFromIt(): void
     {
@@ -1023,10 +877,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchRefund gets and fetches desired charge cancellation.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchRefundShouldGetAndFetchDesiredChargeCancellation(): void
     {
@@ -1052,10 +902,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify fetchShipment fetches payment object and returns the desired shipment from it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchShipmentShouldFetchPaymentAndReturnTheDesiredShipmentFromIt(): void
     {
@@ -1081,10 +927,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createMetadata calls create with the given metadata object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function createMetadataShouldCallCreateWithTheGivenMetadataObject(): void
     {
@@ -1105,10 +947,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createBasket will set parentResource and call create with the given basket.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function createBasketShouldSetTheParentResourceAndCallCreateWithTheGivenBasket(): void
     {
@@ -1133,10 +971,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify updateBasket calls update with the given basket and returns it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function updateBasketShouldCallUpdateAndReturnTheGivenBasket(): void
     {
@@ -1162,12 +996,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createRecurring calls fetch for the payment type if it is given the id.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PhpUnitException
-     * @throws MockObjectRuntimeException
      */
     public function createRecurringShouldFetchThePaymentTypeById(): void
     {
@@ -1190,12 +1018,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createRecurring does not call fetch for the payment type if it is given the object itself.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PhpUnitException
-     * @throws MockObjectRuntimeException
      */
     public function createRecurringShouldNotFetchThePaymentTypeByObject(): void
     {
@@ -1216,9 +1038,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Verify createRecurring throws exception if it is called with a payment type which does not support recurring payment.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function createRecurringShouldThrowExceptionWhenRecurringPaymentIsNotSupportedByType(): void
     {
@@ -1264,8 +1083,6 @@ class ResourceServiceTest extends BasePaymentTest
      * Data provider for getResourceShouldFetchIfTheResourcesIdIsSetAndItHasNotBeenFetchedBefore.
      *
      * @return array
-     *
-     * @throws Exception
      */
     public function fetchResourceFetchCallDP(): array
     {

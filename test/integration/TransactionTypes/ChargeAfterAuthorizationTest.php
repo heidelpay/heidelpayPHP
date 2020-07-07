@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify charge after authorization.
  *
@@ -24,9 +26,7 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class ChargeAfterAuthorizationTest extends BaseIntegrationTest
 {
@@ -34,9 +34,6 @@ class ChargeAfterAuthorizationTest extends BaseIntegrationTest
      * Validate full charge after authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationShouldBeFullyChargeable(): void
     {
@@ -57,9 +54,6 @@ class ChargeAfterAuthorizationTest extends BaseIntegrationTest
      * Validate full charge after authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationShouldBeFullyChargeableViaHeidelpayObject(): void
     {
@@ -80,9 +74,6 @@ class ChargeAfterAuthorizationTest extends BaseIntegrationTest
      * Verify authorization is partly chargeable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationShouldBePartlyChargeable(): void
     {
