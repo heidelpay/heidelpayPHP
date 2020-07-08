@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class is the base class for all integration tests of this SDK.
  *
@@ -27,14 +29,11 @@ namespace heidelpayPHP\test;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Services\EnvironmentService;
 use PHPUnit\Runner\BaseTestRunner;
-use RuntimeException;
 
 class BaseIntegrationTest extends BasePaymentTest
 {
     /**
      * {@inheritDoc}
-     *
-     * @throws RuntimeException
      */
     protected function setUp(): void
     {

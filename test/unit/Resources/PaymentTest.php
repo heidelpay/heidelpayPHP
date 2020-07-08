@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Payment resource.
  *
@@ -25,7 +27,6 @@
 namespace heidelpayPHP\test\unit\Resources;
 
 use heidelpayPHP\Constants\PaymentState;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\Basket;
 use heidelpayPHP\Resources\Customer;
@@ -41,9 +42,7 @@ use heidelpayPHP\Resources\TransactionTypes\Payout;
 use heidelpayPHP\Resources\TransactionTypes\Shipment;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
-use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -53,9 +52,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getters and setters work properly.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -85,9 +81,6 @@ class PaymentTest extends BasePaymentTest
     /**
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     *
      * Todo: Workaround to be removed when API sends TraceID in processing-group
      */
     public function checkTraceIdWorkaround(): void
@@ -107,10 +100,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getAuthorization should try to fetch resource if lazy loading is off and the authorization is not null.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getAuthorizationShouldFetchAuthorizeIfNotLazyAndAuthIsNotNull(): void
     {
@@ -134,10 +123,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getAuthorization should try to fetch resource if lazy loading is off and the authorization is not null.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getAuthorizationShouldNotFetchAuthorizeIfNotLazyAndAuthIsNull(): void
     {
@@ -158,9 +143,6 @@ class PaymentTest extends BasePaymentTest
      * Verify Charge array is handled properly.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargesShouldBeHandledProperly(): void
     {
@@ -189,10 +171,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getChargeById will fetch the Charge if lazy loading is off and the charge exists.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function getChargeByIdShouldFetchChargeIfItExistsAndLazyLoadingIsOff(): void
     {
@@ -221,10 +199,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getCharge will fetch the Charge if lazy loading is off and the charge exists.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function getChargeShouldFetchChargeIfItExistsAndLazyLoadingIsOff(): void
     {
@@ -253,9 +227,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getCharge and getChargeById will return null if the Charge does not exist.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getChargeMethodsShouldReturnNullIfTheChargeIdUnknown(): void
     {
@@ -278,10 +249,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getPayout should try to fetch resource if lazy loading is off and the authorization is not null.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getPayoutShouldFetchPayoutIfNotLazyAndPayoutIsNotNull(): void
     {
@@ -304,10 +271,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getPayout should try to fetch resource if lazy loading is off and the payout is not null.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getPayoutShouldNotFetchPayoutIfNotLazyAndPayoutIsNull(): void
     {
@@ -327,9 +290,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setCustomer does nothing if the passed customer is empty.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function setCustomerShouldDoNothingIfTheCustomerIsEmpty(): void
     {
@@ -351,10 +311,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setCustomer will try to fetch the customer if it is passed as string (i. e. id).
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function setCustomerShouldFetchCustomerIfItIsPassedAsIdString(): void
     {
@@ -376,10 +332,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setCustomer will create the resource if it is passed as object without id.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function setCustomerShouldCreateCustomerIfItIsPassedAsObjectWithoutId(): void
     {
@@ -402,9 +354,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setPaymentType will do nothing if the paymentType is empty.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function setPaymentTypeShouldDoNothingIfThePaymentTypeIsEmpty(): void
     {
@@ -426,10 +375,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setPaymentType will try to fetch the payment type if it is passed as string (i. e. id).
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function setPaymentTypeShouldFetchResourceIfItIsPassedAsIdString(): void
     {
@@ -451,10 +396,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setCustomer will create the resource if it is passed as object without id.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function setPaymentTypeShouldCreateResourceIfItIsPassedAsObjectWithoutId(): void
     {
@@ -477,10 +418,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getCancellations will call getCancellations on all Charge and Authorization objects to fetch its refunds.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function getCancellationsShouldCollectAllCancellationsOfCorrespondingTransactions(): void
     {
@@ -531,10 +468,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getCancellation calls getCancellations and returns null if cancellation does not exist.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function getCancellationShouldCallGetCancellationsAndReturnNullIfNoCancellationExists(): void
     {
@@ -549,10 +482,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getCancellation returns cancellation if it exists.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function getCancellationShouldReturnCancellationIfItExists(): void
     {
@@ -572,10 +501,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getCancellation fetches cancellation if it exists and lazy loading is false.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function getCancellationShouldReturnCancellationIfItExistsAndFetchItIfNotLazy(): void
     {
@@ -603,9 +528,6 @@ class PaymentTest extends BasePaymentTest
      * Verify Shipments are handled properly.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function shipmentsShouldBeHandledProperly(): void
     {
@@ -631,10 +553,6 @@ class PaymentTest extends BasePaymentTest
      * Verify getCancellation fetches cancellation if it exists and lazy loading is false.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function getShipmentByIdShouldReturnShipmentIfItExistsAndFetchItIfNotLazy(): void
     {
@@ -662,11 +580,6 @@ class PaymentTest extends BasePaymentTest
      * Verify the currency is fetched from the amount object.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function getAndSetCurrencyShouldPropagateToTheAmountObject(): void
     {
@@ -690,9 +603,6 @@ class PaymentTest extends BasePaymentTest
      * @dataProvider stateDataProvider
      *
      * @param integer $state
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateStateId($state): void
     {
@@ -710,9 +620,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates payment id.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdatePaymentId(): void
     {
@@ -730,10 +637,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse fetches Customer if it is not set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function handleResponseShouldFetchCustomerIfItIsNotSet(): void
     {
@@ -760,10 +663,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates customer if it set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function handleResponseShouldFetchAndUpdateCustomerIfItIsAlreadySet(): void
     {
@@ -790,10 +689,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates paymentType.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function handleResponseShouldFetchAndUpdatePaymentTypeIfTheIdIsSet(): void
     {
@@ -818,10 +713,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates metadata.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function handleResponseShouldFetchAndUpdateMetadataIfTheIdIsSet(): void
     {
@@ -842,10 +733,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates metadata.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function handleResponseShouldGetMetadataIfUnfetchedMetadataObjectWithIdIsGiven(): void
     {
@@ -867,9 +754,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse does nothing if transactions is empty.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateChargeTransactions(): void
     {
@@ -893,9 +777,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates existing authorization from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateAuthorizationFromResponse(): void
     {
@@ -925,9 +806,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse adds authorization from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldAddAuthorizationFromResponse(): void
     {
@@ -956,9 +834,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates existing charge from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateChargeFromResponseIfItExists(): void
     {
@@ -990,9 +865,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse adds non existing charge from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldAddChargeFromResponseIfItDoesNotExists(): void
     {
@@ -1023,9 +895,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates existing reversals from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateReversalFromResponseIfItExists(): void
     {
@@ -1058,9 +927,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse adds non existing reversal from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldAddReversalFromResponseIfItDoesNotExists(): void
     {
@@ -1094,9 +960,6 @@ class PaymentTest extends BasePaymentTest
      * Verify that handleResponse will throw an exception if the authorization to a reversal does not exist.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldThrowExceptionIfAnAuthorizeToAReversalDoesNotExist(): void
     {
@@ -1120,9 +983,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates existing refunds from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateRefundsFromResponseIfItExists(): void
     {
@@ -1155,9 +1015,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse adds non existing refund from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldAddRefundFromResponseIfItDoesNotExists(): void
     {
@@ -1191,9 +1048,6 @@ class PaymentTest extends BasePaymentTest
      * Verify that handleResponse will throw an exception if the charge to a refund does not exist.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldThrowExceptionIfAChargeToARefundDoesNotExist(): void
     {
@@ -1217,9 +1071,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates existing shipment from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdateShipmentFromResponseIfItExists(): void
     {
@@ -1248,9 +1099,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse adds non existing shipment from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldAddShipmentFromResponseIfItDoesNotExists(): void
     {
@@ -1278,9 +1126,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse updates existing payout from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldUpdatePayoutFromResponseIfItExists(): void
     {
@@ -1309,9 +1154,6 @@ class PaymentTest extends BasePaymentTest
      * Verify handleResponse adds non existing refund from response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function handleResponseShouldAddPayoutFromResponseIfItDoesNotExists(): void
     {
@@ -1339,10 +1181,6 @@ class PaymentTest extends BasePaymentTest
      * Verify charge will call chargePayment on heidelpay object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function chargeMethodShouldPropagateToHeidelpayChargePaymentMethod(): void
     {
@@ -1367,10 +1205,6 @@ class PaymentTest extends BasePaymentTest
      * Verify ship will call ship method on heidelpay object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function shipMethodShouldPropagateToHeidelpayChargePaymentMethod(): void
     {
@@ -1388,10 +1222,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setMetadata will set parent resource and call create with metadata object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function setMetaDataShouldSetParentResourceAndCreateMetaDataObject(): void
     {
@@ -1421,10 +1251,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setMetadata will not set the metadata property if it is not of type metadata.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function metadataMustBeOfTypeMetadata(): void
     {
@@ -1460,10 +1286,6 @@ class PaymentTest extends BasePaymentTest
      * Verify set Basket will call create if the given basket object does not exist yet.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function setBasketShouldCallCreateIfTheGivenBasketObjectDoesNotExistYet(): void
     {
@@ -1491,10 +1313,6 @@ class PaymentTest extends BasePaymentTest
      * Verify setBasket won't call resource service when the basket is null.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function setBasketWontCallResourceServiceWhenBasketIsNull(): void
     {
@@ -1519,10 +1337,6 @@ class PaymentTest extends BasePaymentTest
      * Verify updateResponseResources will fetch the basketId in response if it is set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function updateResponseResourcesShouldFetchBasketIdIfItIsSetInResponse(): void
     {
@@ -1547,8 +1361,6 @@ class PaymentTest extends BasePaymentTest
      * Verify a payment is fetched by orderId if the id is not set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function paymentShouldBeFetchedByOrderIdIfIdIsNotSet(): void
     {

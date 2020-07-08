@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the authorization transaction type.
@@ -25,7 +27,6 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\AbstractHeidelpayResource;
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
@@ -33,8 +34,6 @@ use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class AuthorizationTest extends BaseIntegrationTest
 {
@@ -42,9 +41,6 @@ class AuthorizationTest extends BaseIntegrationTest
      * Verify heidelpay object can perform an authorization based on the paymentTypeId.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeWithTypeId(): void
     {
@@ -64,9 +60,6 @@ class AuthorizationTest extends BaseIntegrationTest
      * Verify heidelpay object can perform an authorization based on the paymentType object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeWithType(): void
     {
@@ -80,9 +73,6 @@ class AuthorizationTest extends BaseIntegrationTest
      * Verify authorization produces Payment and Customer.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationProducesPaymentAndCustomer(): void
     {
@@ -106,9 +96,6 @@ class AuthorizationTest extends BaseIntegrationTest
      * @test
      *
      * @return Authorization
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationWithCustomerId(): Authorization
     {
@@ -134,10 +121,6 @@ class AuthorizationTest extends BaseIntegrationTest
      * @test
      *
      * @param Authorization $authorization
-     *
-     * @throws HeidelpayApiException
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function authorizationCanBeFetched(Authorization $authorization): void
     {
@@ -153,9 +136,6 @@ class AuthorizationTest extends BaseIntegrationTest
      *
      * @param BasePaymentType|AbstractHeidelpayResource $paymentType
      * @param string                                    $expectedState The state the transaction is expected to be in.
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeHasExpectedStates(BasePaymentType $paymentType, $expectedState): void
     {
@@ -170,9 +150,6 @@ class AuthorizationTest extends BaseIntegrationTest
      * Verify authorize accepts all parameters.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeShouldAcceptAllParameters(): void
     {
@@ -220,8 +197,6 @@ class AuthorizationTest extends BaseIntegrationTest
 
     /**
      * @return array
-     *
-     * @throws RuntimeException
      */
     public function authorizeHasExpectedStatesDP(): array
     {

@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the resource name service.
  *
@@ -26,7 +28,6 @@ namespace heidelpayPHP\test\unit\Services;
 
 use heidelpayPHP\Services\ResourceNameService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
 
 class ResourceNameServiceTest extends BasePaymentTest
 {
@@ -38,8 +39,6 @@ class ResourceNameServiceTest extends BasePaymentTest
      *
      * @param string $className
      * @param string $expected
-     *
-     * @throws Exception
      */
     public function shouldReturnTheCorrectShortName($className, $expected): void
     {

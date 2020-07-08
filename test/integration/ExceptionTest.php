@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the Customer resource.
@@ -29,7 +31,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Giropay;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class ExceptionTest extends BaseIntegrationTest
 {
@@ -38,9 +39,6 @@ class ExceptionTest extends BaseIntegrationTest
      * Verify that there are different messages for different languages.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function apiExceptionShouldHoldClientMessage(): void
     {

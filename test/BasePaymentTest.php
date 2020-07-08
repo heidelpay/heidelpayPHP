@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class is the base class for all tests of this SDK.
  *
@@ -26,7 +28,6 @@ namespace heidelpayPHP\test;
 
 use DateInterval;
 use DateTime;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\Basket;
 use heidelpayPHP\Resources\EmbeddedResources\BasketItem;
@@ -39,10 +40,7 @@ use heidelpayPHP\Resources\TransactionTypes\AbstractTransactionType;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\Fixtures\CustomerFixtureTrait;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 class BasePaymentTest extends TestCase
 {
@@ -67,8 +65,6 @@ class BasePaymentTest extends TestCase
      * This performs assertions to verify the tested value is an empty array.
      *
      * @param mixed $value
-     *
-     * @throws Exception
      */
     public function assertIsEmptyArray($value): void
     {
@@ -82,8 +78,6 @@ class BasePaymentTest extends TestCase
      * @param float   $expectedCharged
      * @param float   $expectedTotal
      * @param float   $expectedCanceled
-     *
-     * @throws Exception
      */
     protected function assertAmounts(
         $payment,
@@ -101,8 +95,6 @@ class BasePaymentTest extends TestCase
 
     /**
      * @param mixed $transactionType
-     *
-     * @throws AssertionFailedError
      */
     public function assertTransactionResourceHasBeenCreated($transactionType): void
     {
@@ -116,8 +108,6 @@ class BasePaymentTest extends TestCase
      * Asserts whether the given transaction was successful.
      *
      * @param AbstractTransactionType|Recurring $transaction
-     *
-     * @throws AssertionFailedError
      */
     protected function assertSuccess($transaction): void
     {
@@ -130,8 +120,6 @@ class BasePaymentTest extends TestCase
      * Asserts whether the given transaction was a failure.
      *
      * @param AbstractTransactionType|Recurring $transaction
-     *
-     * @throws AssertionFailedError
      */
     protected function assertError($transaction): void
     {
@@ -144,8 +132,6 @@ class BasePaymentTest extends TestCase
      * Asserts whether the given transaction is pending.
      *
      * @param AbstractTransactionType|Recurring $transaction
-     *
-     * @throws AssertionFailedError
      */
     protected function assertPending($transaction): void
     {
@@ -162,9 +148,6 @@ class BasePaymentTest extends TestCase
      * Creates a Basket resource and returns it.
      *
      * @return Basket
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function createBasket(): Basket
     {
@@ -188,9 +171,6 @@ class BasePaymentTest extends TestCase
      * @param string $cardNumber
      *
      * @return Card
-     *
-     * @throws RuntimeException
-     * @throws \Exception
      */
     protected function createCardObject(string $cardNumber = '5453010000059543'): Card
     {
@@ -206,9 +186,6 @@ class BasePaymentTest extends TestCase
      * @param float $amount
      *
      * @return Authorization
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function createCardAuthorization($amount = 100.0): Authorization
     {
@@ -221,9 +198,6 @@ class BasePaymentTest extends TestCase
      * Creates and returns an Authorization object with the API which can be used in test methods.
      *
      * @return Authorization
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function createPaypalAuthorization(): Authorization
     {
@@ -239,9 +213,6 @@ class BasePaymentTest extends TestCase
      * @param float $amount
      *
      * @return Charge
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function createCharge($amount = 100.0): Charge
     {
@@ -263,8 +234,6 @@ class BasePaymentTest extends TestCase
      * Returns the current date as string in the format Y-m-d.
      *
      * @return string
-     *
-     * @throws \Exception
      */
     public function getTodaysDateString(): string
     {
@@ -273,8 +242,6 @@ class BasePaymentTest extends TestCase
 
     /**
      * @return DateTime
-     *
-     * @throws \Exception
      */
     public function getYesterdaysTimestamp(): DateTime
     {
@@ -283,8 +250,6 @@ class BasePaymentTest extends TestCase
 
     /**
      * @return DateTime
-     *
-     * @throws \Exception
      */
     public function getTomorrowsTimestamp(): DateTime
     {
@@ -293,8 +258,6 @@ class BasePaymentTest extends TestCase
 
     /**
      * @return DateTime
-     *
-     * @throws \Exception
      */
     public function getNextYearsTimestamp(): DateTime
     {

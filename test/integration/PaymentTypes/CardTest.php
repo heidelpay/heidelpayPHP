@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality
  * of the card payment methods e.g. Credit Card and Debit Card.
@@ -32,8 +34,6 @@ use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Services\ValueService;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class CardTest extends BaseIntegrationTest
 {
@@ -50,10 +50,6 @@ class CardTest extends BaseIntegrationTest
      * @param CardDetails $expectedCardDetails
      *
      * @return BasePaymentType
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cardShouldBeCreatable(string $cardNumber, CardDetails $expectedCardDetails): BasePaymentType
     {
@@ -83,9 +79,6 @@ class CardTest extends BaseIntegrationTest
      * Verify card creation with 3ds flag set will provide the flag in transactions.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cardWith3dsFlagShouldSetItAlsoInTransactions(): void
     {
@@ -102,9 +95,6 @@ class CardTest extends BaseIntegrationTest
      * Verify that the card can perform an authorization with a card.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cardCanPerformAuthorizationAndCreatesPayment(): void
     {
@@ -135,9 +125,6 @@ class CardTest extends BaseIntegrationTest
      * Verify the card can perform charges and creates a payment object doing so.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cardCanPerformChargeAndCreatesPaymentObject(): void
     {
@@ -176,9 +163,6 @@ class CardTest extends BaseIntegrationTest
      * Verify that a card object can be fetched from the api using its id.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cardCanBeFetched(): void
     {
@@ -202,9 +186,6 @@ class CardTest extends BaseIntegrationTest
      *
      * @test
      *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     *
      * @deprecated since 1.2.7.2
      */
     public function cardCanBeFetchedOld(): void
@@ -227,9 +208,6 @@ class CardTest extends BaseIntegrationTest
      * Verify the card can charge the full amount of the authorization and the payment state is updated accordingly.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullChargeAfterAuthorize(): void
     {
@@ -256,9 +234,6 @@ class CardTest extends BaseIntegrationTest
      * Verify the card can charge part of the authorized amount and the payment state is updated accordingly.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partialChargeAfterAuthorization(): void
     {
@@ -301,9 +276,6 @@ class CardTest extends BaseIntegrationTest
      * Verify that an exception is thrown when trying to charge more than authorized.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function exceptionShouldBeThrownWhenChargingMoreThenAuthorized(): void
     {
@@ -329,9 +301,6 @@ class CardTest extends BaseIntegrationTest
      * Verify the card payment can be charged until it is fully charged and the payment is updated accordingly.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partialAndFullChargeAfterAuthorization(): void
     {
@@ -359,9 +328,6 @@ class CardTest extends BaseIntegrationTest
      * Authorization can be fetched.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizationShouldBeFetchable(): void
     {
@@ -377,9 +343,6 @@ class CardTest extends BaseIntegrationTest
 
     /**
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelAfterCharge(): void
     {
@@ -401,9 +364,6 @@ class CardTest extends BaseIntegrationTest
      * Verify a card payment can be cancelled after being fully charged.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnFullyChargedPayment(): void
     {
@@ -435,9 +395,6 @@ class CardTest extends BaseIntegrationTest
      * Full cancel on partly charged auth canceled charges.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnPartlyPaidAuthWithCanceledCharges(): void
     {
@@ -467,9 +424,6 @@ class CardTest extends BaseIntegrationTest
      * Verify card charge can be canceled.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cardChargeCanBeCanceled(): void
     {
@@ -486,9 +440,6 @@ class CardTest extends BaseIntegrationTest
      * Verify card authorize can be canceled.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cardAuthorizeCanBeCanceled(): void
     {

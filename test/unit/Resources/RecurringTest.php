@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Recurring resource.
  *
@@ -26,8 +28,6 @@ namespace heidelpayPHP\test\unit\Resources;
 
 use heidelpayPHP\Resources\Recurring;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class RecurringTest extends BasePaymentTest
 {
@@ -35,9 +35,6 @@ class RecurringTest extends BasePaymentTest
      * Verify getters and setters.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function gettersAndSettersShouldWorkAsExpected(): void
     {

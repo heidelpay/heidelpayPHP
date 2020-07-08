@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Authorization transaction type.
  *
@@ -24,7 +26,6 @@
  */
 namespace heidelpayPHP\test\unit\Resources\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\CustomerFactory;
 use heidelpayPHP\Resources\Payment;
@@ -32,11 +33,7 @@ use heidelpayPHP\Resources\PaymentTypes\Sofort;
 use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
-use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -46,8 +43,6 @@ class ChargeTest extends BasePaymentTest
      * Verify getters and setters.
      *
      * @test
-     *
-     * @throws ExpectationFailedException
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -81,9 +76,6 @@ class ChargeTest extends BasePaymentTest
      * Verify that a Charge can be updated on handle response.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function aChargeShouldBeUpdatedThroughResponseHandling(): void
     {
@@ -124,8 +116,6 @@ class ChargeTest extends BasePaymentTest
      * Verify getLinkedResources throws exception if the paymentType is not set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function getLinkedResourcesShouldThrowExceptionWhenThePaymentTypeIsNotSet(): void
     {
@@ -139,9 +129,6 @@ class ChargeTest extends BasePaymentTest
      * Verify linked resource.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function getLinkedResourceShouldReturnResourcesBelongingToCharge(): void
     {
@@ -164,10 +151,6 @@ class ChargeTest extends BasePaymentTest
      * Verify cancel() calls cancelCharge() on heidelpay object with the given amount.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function cancelShouldCallCancelChargeOnHeidelpayObject(): void
     {
@@ -193,8 +176,6 @@ class ChargeTest extends BasePaymentTest
      * Verify getter for cancelled amount.
      *
      * @test
-     *
-     * @throws
      */
     public function getCancelledAmountReturnsTheCancelledAmount(): void
     {
@@ -217,11 +198,6 @@ class ChargeTest extends BasePaymentTest
      * Verify getter for total amount.
      *
      * @test
-     *
-     * @throws ExpectationFailedException
-     * @throws ReflectionException
-     * @throws Exception
-     * @throws MockObjectRuntimeException
      */
     public function getTotalAmountReturnsAmountMinusCancelledAmount(): void
     {

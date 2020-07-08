@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify cancellation of authorizations.
  *
@@ -24,10 +26,8 @@
  */
 namespace heidelpayPHP\test\integration\TransactionTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class CancelAfterAuthorizationTest extends BaseIntegrationTest
 {
@@ -35,9 +35,6 @@ class CancelAfterAuthorizationTest extends BaseIntegrationTest
      * Verify that a full cancel on an authorization results in a cancelled payment.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnAuthorization(): void
     {
@@ -66,9 +63,6 @@ class CancelAfterAuthorizationTest extends BaseIntegrationTest
      * Verify part cancel on an authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partCancelOnPayment(): void
     {
@@ -87,9 +81,6 @@ class CancelAfterAuthorizationTest extends BaseIntegrationTest
      * Verify part cancel after authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partCancelOnAuthorize(): void
     {
@@ -112,9 +103,6 @@ class CancelAfterAuthorizationTest extends BaseIntegrationTest
      * Verify a cancel can be fetched.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function anAuthorizationsFullReversalShallBeFetchable(): void
     {
@@ -150,9 +138,6 @@ class CancelAfterAuthorizationTest extends BaseIntegrationTest
      * Verify cancels can be fetched.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function anAuthorizationsReversalsShouldBeFetchable(): void
     {

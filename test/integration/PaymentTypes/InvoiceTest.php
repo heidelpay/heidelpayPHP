@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method invoice.
  *
@@ -28,7 +30,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Invoice;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class InvoiceTest extends BaseIntegrationTest
 {
@@ -36,9 +37,6 @@ class InvoiceTest extends BaseIntegrationTest
      * Verifies invoice payment type can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function invoiceTypeShouldBeCreatable(): void
     {
@@ -52,9 +50,6 @@ class InvoiceTest extends BaseIntegrationTest
      * Verify invoice is not authorizable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceIsNotAuthorizable(): void
     {
@@ -70,9 +65,6 @@ class InvoiceTest extends BaseIntegrationTest
      * Verify invoice is chargeable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceIsChargeable(): void
     {
@@ -87,9 +79,6 @@ class InvoiceTest extends BaseIntegrationTest
      * Verify invoice is not shippable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceIsNotShippable(): void
     {
@@ -113,9 +102,6 @@ class InvoiceTest extends BaseIntegrationTest
      * Verify invoice charge can be canceled.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceChargeCanBeCanceled(): void
     {
@@ -133,9 +119,6 @@ class InvoiceTest extends BaseIntegrationTest
      * Verify invoice charge can be canceled.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function verifyInvoiceChargeCanBePartlyCanceled(): void
     {
@@ -159,9 +142,6 @@ class InvoiceTest extends BaseIntegrationTest
      * Verify that an invoice object can be fetched from the api.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function invoiceTypeCanBeFetched(): void
     {

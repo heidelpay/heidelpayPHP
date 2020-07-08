@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify functionality of the Payment charge method.
  *
@@ -25,12 +27,8 @@
 namespace heidelpayPHP\test\integration;
 
 use heidelpayPHP\Constants\CancelReasonCodes;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Invoice;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class PaymentCancelTest extends BaseIntegrationTest
 {
@@ -40,9 +38,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * Verify full cancel on cancelled authorize returns empty array.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function doubleCancelOnAuthorizeShouldReturnEmptyArray(): void
     {
@@ -67,9 +62,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 1 + double cancel
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cancelOnChargeAndDoubleCancel(): void
     {
@@ -95,9 +87,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 2
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnPaymentWithAuthorizeAndMultipleChargesShouldBePossible(): void
     {
@@ -131,9 +120,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 3
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partialCancelAndFullCancelOnSingleCharge(): void
     {
@@ -161,11 +147,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      *
      * @param float $amount
      * @param int   $numberCancels
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partialCancelOnMultipleChargedAuthorization($amount, $numberCancels): void
     {
@@ -196,11 +177,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * @dataProvider fullCancelDataProvider
      *
      * @param float $amount
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnAuthorize($amount): void
     {
@@ -219,9 +195,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 7
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnPartCanceledAuthorize(): void
     {
@@ -253,11 +226,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * @dataProvider fullCancelDataProvider
      *
      * @param float $amount The amount to be cancelled.
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnFullyChargedAuthorize($amount): void
     {
@@ -284,11 +252,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * @dataProvider fullCancelDataProvider
      *
      * @param $amount
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnPartlyChargedAuthorizeShouldBePossible($amount): void
     {
@@ -312,11 +275,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 10
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partCancelOnUnchargedAuthorize(): void
     {
@@ -335,11 +293,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 11
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partCancelOnPartlyChargedAuthorizeWithAmountLtCharged(): void
     {
@@ -363,11 +316,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 12
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partCancelOnPartlyChargedAuthorizeWithAmountGtCharged(): void
     {
@@ -394,11 +342,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * @dataProvider fullCancelDataProvider
      *
      * @param float $amount
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function fullCancelOnInitialInvoiceCharge($amount): void
     {
@@ -419,11 +362,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 14
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function partCancelOnInitialInvoiceChargeShouldBePossible(): void
     {
@@ -444,11 +382,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 15
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cancelMoreThanWasCharged(): void
     {
@@ -467,11 +400,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * PHPLIB-228 - Case 16
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function secondCancelExceedsRemainderOfPartlyCancelledCharge(): void
     {
@@ -504,9 +432,6 @@ class PaymentCancelTest extends BaseIntegrationTest
      * Verify cancellation with all parameters set.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function cancellationShouldWorkWithAllParametersSet(): void
     {

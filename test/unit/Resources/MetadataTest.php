@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify metadata functionalities.
  *
@@ -26,7 +28,6 @@ namespace heidelpayPHP\test\unit\Resources;
 
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
 use stdClass;
 
 class MetadataTest extends BasePaymentTest
@@ -35,8 +36,6 @@ class MetadataTest extends BasePaymentTest
      * Verify custom data can be set.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function metaDataShouldAllowForCustomDataToBeSet(): void
     {
@@ -51,8 +50,6 @@ class MetadataTest extends BasePaymentTest
      * Verify defined data can not be set.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function metadataShouldNotAllowForMagicAccessToSdkAndShopData(): void
     {
@@ -73,8 +70,6 @@ class MetadataTest extends BasePaymentTest
      * Verify expose contains all defined data.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function exposeShouldGatherAllDefinedDataInTheAnArray(): void
     {
@@ -99,8 +94,6 @@ class MetadataTest extends BasePaymentTest
      * Verify metadata can be updated.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function handleResponseShouldUpdateMetadata(): void
     {

@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the HasCancellations trait.
  *
@@ -24,12 +26,9 @@
  */
 namespace heidelpayPHP\test\unit\Traits;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\test\BasePaymentTest;
-use ReflectionException;
-use RuntimeException;
 
 class HasCancellationsTest extends BasePaymentTest
 {
@@ -37,9 +36,6 @@ class HasCancellationsTest extends BasePaymentTest
      * Verify getters setters.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function hasCancellationGettersAndSettersShouldWorkProperly(): void
     {
@@ -73,10 +69,6 @@ class HasCancellationsTest extends BasePaymentTest
      * Verify getCancellation will call getResource with the selected Cancellation if it is not lazy loaded.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function getCancellationShouldCallGetResourceIfItIsNotLazyLoaded(): void
     {

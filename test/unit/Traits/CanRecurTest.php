@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the CanRecur trait.
  *
@@ -24,14 +26,9 @@
  */
 namespace heidelpayPHP\test\unit\Traits;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\Recurring;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\MockObject\RuntimeException as PHPUnitRuntimeException;
-use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -41,8 +38,6 @@ class CanRecurTest extends BasePaymentTest
      * Verify setters and getters.
      *
      * @test
-     *
-     * @throws AssertionFailedError
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -58,9 +53,6 @@ class CanRecurTest extends BasePaymentTest
      * Verify recurring activation on a resource which is not an abstract resource will throw an exception.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function activateRecurringWillThrowExceptionIfTheObjectHasWrongType(): void
     {
@@ -74,12 +66,6 @@ class CanRecurTest extends BasePaymentTest
      * Verify activation on object will call heidelpay.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PHPUnitRuntimeException
      */
     public function activateRecurringWillCallHeidelpayMethod(): void
     {

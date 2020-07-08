@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the Paypage.
  *
@@ -24,14 +26,11 @@
  */
 namespace heidelpayPHP\test\integration\PaymentTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\CustomerFactory;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\PaymentTypes\Paypage;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\AssertionFailedError;
-use RuntimeException;
 
 class PaypageTest extends BaseIntegrationTest
 {
@@ -39,10 +38,6 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for charge can be created with the mandatory parameters only.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function minimalPaypageChargeShouldBeCreatableAndFetchable(): void
     {
@@ -56,10 +51,6 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for charge can be created with all parameters.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function maximumPaypageChargeShouldBeCreatable(): void
     {
@@ -96,10 +87,6 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for authorize can be created with the mandatory parameters only.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function minimalPaypageAuthorizeShouldBeCreatableAndFetchable(): void
     {
@@ -113,10 +100,6 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for authorize can be created with all parameters.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function maximumPaypageAuthorizeShouldBeCreatable(): void
     {

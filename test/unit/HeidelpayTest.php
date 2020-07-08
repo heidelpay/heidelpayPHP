@@ -1,5 +1,6 @@
-<?php /** @noinspection UnnecessaryAssertionInspection */
-
+<?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the heidelpay class.
  *
@@ -26,7 +27,6 @@
 namespace heidelpayPHP\test\unit;
 
 use DateTime;
-use Exception;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\Basket;
 use heidelpayPHP\Resources\Customer;
@@ -46,7 +46,6 @@ use heidelpayPHP\Services\WebhookService;
 use heidelpayPHP\test\BasePaymentTest;
 use heidelpayPHP\test\unit\Services\DummyDebugHandler;
 use PHPUnit\Framework\MockObject\MockObject;
-use ReflectionException;
 use RuntimeException;
 
 class HeidelpayTest extends BasePaymentTest
@@ -55,13 +54,10 @@ class HeidelpayTest extends BasePaymentTest
      * Verify constructor works properly.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function constructorShouldInitPropertiesProperly(): void
     {
         $heidelpay = new Heidelpay('s-priv-1234');
-        $this->assertInstanceOf(ResourceService::class, $heidelpay->getResourceService());
         $paymentService = $heidelpay->getPaymentService();
         $this->assertInstanceOf(PaymentService::class, $paymentService);
         $this->assertInstanceOf(WebhookService::class, $heidelpay->getWebhookService());
@@ -81,8 +77,6 @@ class HeidelpayTest extends BasePaymentTest
      * Verify getters and setters work properly.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -98,7 +92,6 @@ class HeidelpayTest extends BasePaymentTest
         }
 
         $httpService = new HttpService();
-        $this->assertInstanceOf(HttpService::class, $heidelpay->getHttpService());
         $this->assertNotSame($httpService, $heidelpay->getHttpService());
         $heidelpay->setHttpService($httpService);
         $this->assertSame($httpService, $heidelpay->getHttpService());
@@ -139,9 +132,6 @@ class HeidelpayTest extends BasePaymentTest
      * @param array  $heidelpayParams
      * @param string $serviceMethod
      * @param array  $serviceParams
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function heidelpayShouldForwardResourceActionCallsToTheResourceService(
         $heidelpayMethod,
@@ -167,9 +157,6 @@ class HeidelpayTest extends BasePaymentTest
      * @param array  $heidelpayParams
      * @param string $serviceMethod
      * @param array  $serviceParams
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function heidelpayShouldForwardPaymentActionCallsToThePaymentService(
         $heidelpayMethod,
@@ -195,9 +182,6 @@ class HeidelpayTest extends BasePaymentTest
      * @param array  $heidelpayParams
      * @param string $serviceMethod
      * @param array  $serviceParams
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function heidelpayShouldForwardWebhookActionCallsToTheWebhookService(
         $heidelpayMethod,
@@ -223,9 +207,6 @@ class HeidelpayTest extends BasePaymentTest
      * @param array  $heidelpayParams
      * @param string $serviceMethod
      * @param array  $serviceParams
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function heidelpayShouldForwardCancelActionCallsToTheCancelService(
         $heidelpayMethod,
@@ -247,8 +228,6 @@ class HeidelpayTest extends BasePaymentTest
      * Provide test data for heidelpayShouldForwardResourceActionCallsToTheResourceService.
      *
      * @return array
-     *
-     * @throws Exception
      */
     public static function resourceServiceDP(): array
     {
@@ -313,8 +292,6 @@ class HeidelpayTest extends BasePaymentTest
      * Provide test data for heidelpayShouldForwardPaymentActionCallsToThePaymentService.
      *
      * @return array
-     *
-     * @throws Exception
      */
     public static function paymentServiceDP(): array
     {

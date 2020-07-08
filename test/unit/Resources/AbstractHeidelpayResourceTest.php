@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the AbstractHeidelpayResource.
  *
@@ -29,7 +31,6 @@ use heidelpayPHP\Constants\CompanyCommercialSectorItems;
 use heidelpayPHP\Constants\CompanyRegistrationTypes;
 use heidelpayPHP\Constants\Salutations;
 use heidelpayPHP\Constants\TransactionTypes;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Resources\AbstractHeidelpayResource;
 use heidelpayPHP\Resources\Basket;
@@ -59,9 +60,6 @@ use heidelpayPHP\Resources\TransactionTypes\Shipment;
 use heidelpayPHP\Resources\Webhook;
 use heidelpayPHP\test\BasePaymentTest;
 use heidelpayPHP\test\unit\DummyResource;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\ExpectationFailedException;
-use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -71,9 +69,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify setter and getter functionality.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws \Exception
      */
     public function settersAndGettersShouldWork(): void
     {
@@ -92,8 +87,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify getParentResource throws exception if it is not set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function getParentResourceShouldThrowExceptionIfItIsNotSet(): void
     {
@@ -108,9 +101,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify getHeidelpayObject calls getParentResource.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function getHeidelpayObjectShouldCallGetParentResourceOnce(): void
     {
@@ -125,8 +115,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify getter/setter of ParentResource and Heidelpay object.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function parentResourceAndHeidelpayGetterSetterShouldWork(): void
     {
@@ -141,9 +129,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify getUri will call parentResource.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function getUriWillCallGetUriOnItsParentResource(): void
     {
@@ -167,9 +152,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      *
      * @param AbstractHeidelpayResource $resource
      * @param string                    $resourcePath
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function getUriWillAddIdToTheUriIfItIsSetAndAppendIdIsSet(AbstractHeidelpayResource$resource, $resourcePath): void
     {
@@ -186,9 +168,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify getUri with appendId == true will append the externalId if it is returned and the id is not set.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function getUriWillAddExternalIdToTheUriIfTheIdIsNotSetButAppendIdIs(): void
     {
@@ -212,8 +191,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify updateValues will update child objects.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function updateValuesShouldUpdateChildObjects(): void
     {
@@ -257,8 +234,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify updateValues will update resource fields with values from processing group in response.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function updateValuesShouldUpdateValuesFromProcessingInTheActualObject(): void
     {
@@ -280,8 +255,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify json_serialize translates a resource in valid json format and values are exposed correctly.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function jsonSerializeShouldTranslateResourceIntoJson(): void
     {
@@ -323,8 +296,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify that empty values are not set on expose.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function nullValuesShouldBeUnsetOnExpose(): void
     {
@@ -340,8 +311,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify that ids of linked resources are added.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function idsOfLinkedResourcesShouldBeAddedOnExpose(): void
     {
@@ -358,8 +327,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify null is returned as externalId if the class does not implement the getter any.
      *
      * @test
-     *
-     * @throws ExpectationFailedException
      */
     public function getExternalIdShouldReturnNullIfItIsNotImplementedInTheExtendingClass(): void
     {
@@ -374,8 +341,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * The object and the transmitted value will be updated.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function moreThenFourDecimalPlaces(): void
     {
@@ -399,10 +364,6 @@ class AbstractHeidelpayResourceTest extends BasePaymentTest
      * Verify additionalAttributes are set/get properly.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function additionalAttributesShouldBeSettable(): void
     {

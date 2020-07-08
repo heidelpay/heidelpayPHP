@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify metadata functionalities.
  *
@@ -29,7 +31,6 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class SetMetadataTest extends BaseIntegrationTest
 {
@@ -37,9 +38,6 @@ class SetMetadataTest extends BaseIntegrationTest
      * Verify Metadata can be created and fetched with the API.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function metadataShouldBeCreatableAndFetchableWithTheApi(): void
     {
@@ -71,9 +69,6 @@ class SetMetadataTest extends BaseIntegrationTest
      * Verify metadata will automatically created on authorize.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeShouldCreateMetadata(): void
     {
@@ -93,9 +88,6 @@ class SetMetadataTest extends BaseIntegrationTest
      * Verify metadata will automatically created on charge.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeShouldCreateMetadata(): void
     {
@@ -115,9 +107,6 @@ class SetMetadataTest extends BaseIntegrationTest
      * Verify Metadata is fetched when payment is fetched.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentShouldFetchMetadataResourceOnFetch(): void
     {
@@ -138,9 +127,6 @@ class SetMetadataTest extends BaseIntegrationTest
      * Verify error is thrown when metadata is empty.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function emptyMetaDataShouldLeadToError(): void
     {

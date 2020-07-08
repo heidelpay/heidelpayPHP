@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the PayPage feature.
  *
@@ -26,7 +28,6 @@ namespace heidelpayPHP\test\unit\Resources\PaymentTypes;
 
 use heidelpayPHP\Adapter\HttpAdapterInterface;
 use heidelpayPHP\Constants\TransactionTypes;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Basket;
 use heidelpayPHP\Resources\Customer;
 use heidelpayPHP\Resources\Metadata;
@@ -37,11 +38,7 @@ use heidelpayPHP\Resources\PaymentTypes\Paypage;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\MockObject;
-use ReflectionException;
-use RuntimeException;
 use stdClass;
 
 class PayPageTest extends BasePaymentTest
@@ -50,10 +47,6 @@ class PayPageTest extends BasePaymentTest
      * Verify setter and getter work.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ExpectationFailedException
      */
     public function getterAndSetterWorkAsExpected(): void
     {
@@ -151,9 +144,6 @@ class PayPageTest extends BasePaymentTest
      * Verify handling of response and property setters/getters.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function responseHandlingShouldWorkProperly(): void
     {
@@ -229,9 +219,6 @@ class PayPageTest extends BasePaymentTest
      * Verify handling of payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentObjectShouldBeUpdatedProperly(): void
     {
@@ -264,9 +251,6 @@ class PayPageTest extends BasePaymentTest
      * Verify handling of response in case of special fields.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function responseHandlingShouldMapSpecialFieldsProperly(): void
     {
@@ -290,10 +274,6 @@ class PayPageTest extends BasePaymentTest
      *
      * @param string $method
      * @param mixed  $fetchCallCount
-     *
-     *@throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function paymentShouldBeFetchedWhenItIsNoGetRequest($method, $fetchCallCount): void
     {
@@ -321,10 +301,6 @@ class PayPageTest extends BasePaymentTest
      * Verify expose behaves as expected.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function exposeShouldSetBasicParams(): void
     {
@@ -389,9 +365,6 @@ class PayPageTest extends BasePaymentTest
      * Verify resources are returned as null if no payment object exists.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function resourcesAreNullWithoutPaymentObject(): void
     {

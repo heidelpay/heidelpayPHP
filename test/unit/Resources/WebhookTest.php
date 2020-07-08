@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Webhook resource.
  *
@@ -26,7 +28,6 @@ namespace heidelpayPHP\test\unit\Resources;
 
 use heidelpayPHP\Resources\Webhook;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
 
 class WebhookTest extends BasePaymentTest
 {
@@ -34,8 +35,6 @@ class WebhookTest extends BasePaymentTest
      * Verify the constructor of the webhook resource behaves as expected.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function mandatoryConstructorParametersShouldDefaultToEmptyString(): void
     {
@@ -48,8 +47,6 @@ class WebhookTest extends BasePaymentTest
      * Verify the getters and setters of the webhook resource.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function gettersAndSettersOfWebhookShouldBehaveAsExpected(): void
     {

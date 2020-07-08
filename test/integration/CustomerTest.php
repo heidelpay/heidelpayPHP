@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the Customer resource.
@@ -31,7 +33,6 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\Customer;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 use function microtime;
 
 class CustomerTest extends BaseIntegrationTest
@@ -44,9 +45,6 @@ class CustomerTest extends BaseIntegrationTest
      * @test
      *
      * @return Customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function minCustomerCanBeCreatedAndFetched(): Customer
     {
@@ -77,9 +75,6 @@ class CustomerTest extends BaseIntegrationTest
      * @test
      *
      * @return Customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function maxCustomerCanBeCreatedAndFetched(): Customer
     {
@@ -96,9 +91,6 @@ class CustomerTest extends BaseIntegrationTest
 
     /**
      * @param Customer $customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
@@ -109,8 +101,6 @@ class CustomerTest extends BaseIntegrationTest
     }
 
     /**
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
@@ -126,9 +116,6 @@ class CustomerTest extends BaseIntegrationTest
 
     /**
      * @param Customer $customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
@@ -141,9 +128,6 @@ class CustomerTest extends BaseIntegrationTest
 
     /**
      * @param Customer $customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      * @depends maxCustomerCanBeCreatedAndFetched
      * @test
      */
@@ -160,9 +144,6 @@ class CustomerTest extends BaseIntegrationTest
      * Customer can be referenced by payment.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function transactionShouldCreateAndReferenceCustomerIfItDoesNotExistYet(): void
     {
@@ -185,9 +166,6 @@ class CustomerTest extends BaseIntegrationTest
      * Customer can be referenced by payment.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function transactionShouldReferenceCustomerIfItExist(): void
     {
@@ -210,9 +188,6 @@ class CustomerTest extends BaseIntegrationTest
      * Customer can be referenced by payment.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function transactionShouldReferenceCustomerIfItExistAndItsIdHasBeenPassed(): void
     {
@@ -238,9 +213,6 @@ class CustomerTest extends BaseIntegrationTest
      * @test
      *
      * @param Customer $customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function customerShouldBeUpdateable(Customer $customer): void
     {
@@ -261,9 +233,6 @@ class CustomerTest extends BaseIntegrationTest
      * @test
      *
      * @param Customer $customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function customerShouldBeDeletableById(Customer $customer): void
     {
@@ -281,9 +250,6 @@ class CustomerTest extends BaseIntegrationTest
      * Customer can be deleted.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function customerShouldBeDeletableByObject(): void
     {
@@ -304,9 +270,6 @@ class CustomerTest extends BaseIntegrationTest
      * Verify an Exception is thrown if the customerId already exists.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function apiShouldReturnErrorIfCustomerAlreadyExists(): void
     {
@@ -327,9 +290,6 @@ class CustomerTest extends BaseIntegrationTest
      * Verify a Customer is fetched and updated when its customerId already exist.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function customerShouldBeFetchedByCustomerIdAndUpdatedIfItAlreadyExists(): void
     {
@@ -362,9 +322,6 @@ class CustomerTest extends BaseIntegrationTest
      * Verify customer address can take a name as long as both first and lastname concatenated.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function addressNameCanHoldFirstAndLastNameConcatenated(): void
     {
@@ -392,9 +349,6 @@ class CustomerTest extends BaseIntegrationTest
      * @test
      *
      * @return Customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function minNotRegisteredB2bCustomerCanBeCreatedAndFetched(): Customer
     {
@@ -415,9 +369,6 @@ class CustomerTest extends BaseIntegrationTest
      * Max not registered customer should be creatable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function maxNotRegisteredB2bCustomerCanBeCreatedAndFetched(): void
     {
@@ -440,9 +391,6 @@ class CustomerTest extends BaseIntegrationTest
      * @test
      *
      * @return Customer
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function minRegisteredB2bCustomerCanBeCreatedAndFetched(): Customer
     {
@@ -463,9 +411,6 @@ class CustomerTest extends BaseIntegrationTest
      * Max registered customer should be creatable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function maxRegisteredB2bCustomerCanBeCreatedAndFetched(): void
     {

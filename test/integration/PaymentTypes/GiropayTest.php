@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method GiroPay.
  *
@@ -28,7 +30,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Giropay;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class GiropayTest extends BaseIntegrationTest
 {
@@ -36,9 +37,6 @@ class GiropayTest extends BaseIntegrationTest
      * Verify a GiroPay resource can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function giroPayShouldBeCreatable(): void
     {
@@ -53,9 +51,6 @@ class GiropayTest extends BaseIntegrationTest
      * Verify that an exception is thrown when giropay authorize is called.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function giroPayShouldThrowExceptionOnAuthorize(): void
     {
@@ -70,9 +65,6 @@ class GiropayTest extends BaseIntegrationTest
      * Verify that GiroPay is chargeable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function giroPayShouldBeChargeable(): void
     {
@@ -91,9 +83,6 @@ class GiropayTest extends BaseIntegrationTest
      * Verify a GiroPay object can be fetched from the api.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function giroPayCanBeFetched(): void
     {

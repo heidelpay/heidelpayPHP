@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify Basket functionalities.
  *
@@ -31,9 +33,6 @@ use heidelpayPHP\Resources\EmbeddedResources\BasketItem;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
-use RuntimeException;
 
 class BasketTest extends BaseIntegrationTest
 {
@@ -41,9 +40,6 @@ class BasketTest extends BaseIntegrationTest
      * Verify basket can be created and fetched.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function minBasketShouldBeCreatableAndFetchable(): void
     {
@@ -68,9 +64,6 @@ class BasketTest extends BaseIntegrationTest
      * Verify basket can be created and fetched.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function maxBasketShouldBeCreatableAndFetchableWorkAround(): void
     {
@@ -109,10 +102,6 @@ class BasketTest extends BaseIntegrationTest
      * @param $expectException
      * @param $imageUrl
      * @param null $exceptionCode
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
-     * @throws RuntimeException
      */
     public function basketItemWithInvalidUrlWillThrowAnError($expectException, $imageUrl, $exceptionCode = null): void
     {
@@ -137,9 +126,6 @@ class BasketTest extends BaseIntegrationTest
      * Verify the Basket can be updated.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function basketShouldBeUpdateable(): void
     {
@@ -169,9 +155,6 @@ class BasketTest extends BaseIntegrationTest
      * Verify basket can be passed to the payment on authorize.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeTransactionsShouldPassAlongTheBasketIdIfSet(): void
     {
@@ -195,9 +178,6 @@ class BasketTest extends BaseIntegrationTest
      * Verify basket can be passed to the payment on charge.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeTransactionsShouldPassAlongTheBasketIdIfSet(): void
     {
@@ -218,9 +198,6 @@ class BasketTest extends BaseIntegrationTest
      * Verify basket will be created and passed to the payment on authorize if it does not exist yet.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function authorizeTransactionsShouldCreateBasketIfItDoesNotExistYet(): void
     {
@@ -244,9 +221,6 @@ class BasketTest extends BaseIntegrationTest
      * Verify basket will be created and passed to the payment on charge if it does not exist yet.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      */
     public function chargeTransactionsShouldCreateBasketIfItDoesNotExistYet(): void
     {

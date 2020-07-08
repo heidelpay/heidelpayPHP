@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the webhook service.
  *
@@ -24,7 +26,6 @@
  */
 namespace heidelpayPHP\test\unit\Services;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Interfaces\ResourceServiceInterface;
 use heidelpayPHP\Resources\Webhook;
@@ -33,8 +34,6 @@ use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\Services\WebhookService;
 use heidelpayPHP\test\BasePaymentTest;
 use heidelpayPHP\test\unit\DummyResource;
-use PHPUnit\Framework\Exception;
-use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -46,8 +45,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify setters and getters work properly.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function gettersAndSettersShouldWorkProperly(): void
     {
@@ -76,10 +73,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify create webhook calls resource service with webhook object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function createWebhookShouldCallResourceServiceWithWebhookObject(): void
     {
@@ -106,10 +99,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify fetch webhook calls resource service with the given webhook object.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function fetchWebhookShouldCallResourceServiceWithTheGivenWebhookObject(): void
     {
@@ -134,10 +123,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify fetch webhook calls resource service with a new webhook object with the given id.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function fetchWebhookShouldCallResourceServiceWithANewWebhookObjectWithTheGivenId(): void
     {
@@ -163,10 +148,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify update webhook calls resource service with the given webhook object.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function updateWebhookShouldCallResourceServiceWithTheGivenWebhookObject(): void
     {
@@ -194,10 +175,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify delete webhook calls resource service with the given webhook object.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function deleteWebhookShouldCallResourceServiceWithTheGivenWebhookObject(): void
     {
@@ -224,10 +201,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify delete webhook calls resource service with the given webhook object.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function deleteWebhookShouldCallResourceServiceFetchingAndDeletingTheWebhookWithTheGivenId(): void
     {
@@ -266,10 +239,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * webhooks object as the fetch method is called.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function fetchWebhooksShouldCallResourceService(): void
     {
@@ -299,10 +268,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify delete webhooks calls resource service with a new webhooks object.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function deleteWebhooksShouldCallResourceServiceWithANewWebhooksObject(): void
     {
@@ -326,10 +291,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify create webhooks calls resource service with webhooks object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
-     * @throws ReflectionException
      */
     public function createWebhooksShouldCallResourceServiceWithNewWebhooksObject(): void
     {
@@ -367,11 +328,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify exception is thrown if the retrieveURL is empty.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws Exception
-     * @throws HeidelpayApiException
      */
     public function fetchResourceByEventWithEmptyRetrieveUrlShouldThrowException(): void
     {
@@ -391,11 +347,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify exception is thrown if the retrieveURL is empty.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws Exception
-     * @throws HeidelpayApiException
      */
     public function fetchResourceByEventShouldThrowExceptionIfResourceObjectCanNotBeRetrieved(): void
     {
@@ -425,11 +376,6 @@ class WebhooksServiceTest extends BasePaymentTest
      * Verify fetch resource by event.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws Exception
-     * @throws HeidelpayApiException
      */
     public function fetchResourceByEventShouldGetResourceServiceWithRetrieveUrl(): void
     {

@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of Card payment type.
  *
@@ -27,10 +29,6 @@ namespace heidelpayPHP\test\unit\Resources\PaymentTypes;
 use heidelpayPHP\Resources\EmbeddedResources\CardDetails;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
-use ReflectionException;
 use RuntimeException;
 use stdClass;
 
@@ -83,8 +81,6 @@ class CardTest extends BasePaymentTest
 
     /**
      * {@inheritDoc}
-     *
-     * @throws RuntimeException
      */
     protected function setUp(): void
     {
@@ -96,8 +92,6 @@ class CardTest extends BasePaymentTest
      * Verify the resource data is set properly.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function constructorShouldSetParameters(): void
     {
@@ -121,8 +115,6 @@ class CardTest extends BasePaymentTest
      *
      * @param string $testData
      * @param string $expected
-     *
-     * @throws RuntimeException
      */
     public function expiryDateShouldBeExtendedToLongVersion($testData, $expected): void
     {
@@ -137,8 +129,6 @@ class CardTest extends BasePaymentTest
      * @dataProvider invalidExpiryDateDataProvider
      *
      * @param string $testData
-     *
-     * @throws RuntimeException
      */
     public function yearOfExpiryDateShouldBeExtendedToLongVersion($testData): void
     {
@@ -152,8 +142,6 @@ class CardTest extends BasePaymentTest
      * it afterwards by just setting the id.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function verifySettingExpiryDateNullChangesNothing(): void
     {
@@ -169,8 +157,6 @@ class CardTest extends BasePaymentTest
      * Verify setting cvc.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function verifyCvcCanBeSetAndChanged(): void
     {
@@ -185,8 +171,6 @@ class CardTest extends BasePaymentTest
      * Verify setting holder.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function verifyHolderCanBeSetAndChanged(): void
     {
@@ -201,8 +185,6 @@ class CardTest extends BasePaymentTest
      * Verify setting holder.
      *
      * @test
-     *
-     * @throws Exception
      *
      * @deprecated since 1.2.7.2
      */
@@ -219,10 +201,6 @@ class CardTest extends BasePaymentTest
      * Verify setting holder.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws MockObjectRuntimeException
-     * @throws ReflectionException
      *
      * @deprecated since 1.2.7.2
      */
@@ -242,9 +220,6 @@ class CardTest extends BasePaymentTest
      * Verify card3ds flag.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws Exception
      */
     public function card3dsFlagShouldBeSettableInCardResource(): void
     {
@@ -267,8 +242,6 @@ class CardTest extends BasePaymentTest
      * Verify setting brand.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function verifyCardCanBeUpdated(): void
     {

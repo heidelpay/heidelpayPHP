@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the Customer resource.
  *
@@ -27,7 +29,6 @@ namespace heidelpayPHP\test\unit\Resources;
 use heidelpayPHP\Constants\CompanyCommercialSectorItems;
 use heidelpayPHP\Constants\CompanyRegistrationTypes;
 use heidelpayPHP\Constants\Salutations;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Interfaces\ResourceServiceInterface;
 use heidelpayPHP\Resources\Customer;
@@ -36,9 +37,6 @@ use heidelpayPHP\Resources\EmbeddedResources\CompanyInfo;
 use heidelpayPHP\Resources\EmbeddedResources\GeoLocation;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
-use ReflectionException;
-use RuntimeException;
 
 class CustomerTest extends BasePaymentTest
 {
@@ -48,9 +46,6 @@ class CustomerTest extends BasePaymentTest
      * Verify setter and getter functionality.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws \Exception
      */
     public function settersAndGettersShouldWork(): void
     {
@@ -96,8 +91,6 @@ class CustomerTest extends BasePaymentTest
      * Verify setter and getter of the billing address.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function settersAndGettersOfBillingAddressShouldWork(): void
     {
@@ -132,8 +125,6 @@ class CustomerTest extends BasePaymentTest
      * Verify setter and getter of the shipping address.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function settersAndGettersOfShippingAddressShouldWork(): void
     {
@@ -168,8 +159,6 @@ class CustomerTest extends BasePaymentTest
      * Verify getters and setters of CompanyInfo
      *
      * @test
-     *
-     * @throws Exception
      */
     public function gettersAndSettersOfCompanyInfoShouldWork(): void
     {
@@ -204,8 +193,6 @@ class CustomerTest extends BasePaymentTest
      *
      * @dataProvider removeRestrictedSymbolsMethodShouldReturnTheCorrectValueDP
      *
-     * @throws Exception
-     *
      * @param mixed $value
      * @param mixed $expected
      */
@@ -222,8 +209,6 @@ class CustomerTest extends BasePaymentTest
      * Verify salutation only uses the given values.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function salutationShouldOnlyTakeTheAllowedValues(): void
     {
@@ -241,8 +226,6 @@ class CustomerTest extends BasePaymentTest
      * Verify a Customer is fetched by customerId if the id is not set.
      *
      * @test
-     *
-     * @throws RuntimeException
      */
     public function customerShouldBeFetchedByCustomerIdIfIdIsNotSet(): void
     {
@@ -256,10 +239,6 @@ class CustomerTest extends BasePaymentTest
      * Verify fetchCustomerByExtCustomerId method will create a customer object set its customerId and call fetch with it.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function fetchCustomerByOrderIdShouldCreateCustomerObjectWithCustomerIdAndCallFetch(): void
     {
@@ -281,8 +260,6 @@ class CustomerTest extends BasePaymentTest
      * Verify customer can be updated.
      *
      * @test
-     *
-     * @throws Exception
      */
     public function customerShouldBeUpdateable(): void
     {

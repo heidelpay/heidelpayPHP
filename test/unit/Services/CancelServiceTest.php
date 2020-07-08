@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify cancel functionality of the CancelService.
  *
@@ -35,11 +37,7 @@ use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\Services\CancelService;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\RuntimeException as PHPUnitRuntimeException;
-use ReflectionException;
 use RuntimeException;
 
 class CancelServiceTest extends BasePaymentTest
@@ -51,10 +49,6 @@ class CancelServiceTest extends BasePaymentTest
      * object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      *
      * @deprecated since 1.2.3.0
      */
@@ -72,10 +66,6 @@ class CancelServiceTest extends BasePaymentTest
      * Verify payment:cancel throws Exception if no cancellation and no auth existed to be cancelled.
      *
      * @test
-     *
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
-     * @throws RuntimeException
      *
      * @deprecated since 1.2.3.0
      */
@@ -99,10 +89,6 @@ class CancelServiceTest extends BasePaymentTest
      * cancels and exceptions.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      *
      * @deprecated since 1.2.3.0
      */
@@ -150,9 +136,6 @@ class CancelServiceTest extends BasePaymentTest
      *
      * @test
      *
-     * @throws ReflectionException
-     * @throws RuntimeException
-     *
      * @deprecated since 1.2.3.0
      */
     public function cancelAllChargesShouldThrowChargeCancelExceptionsOtherThanAlreadyCharged(): void
@@ -188,12 +171,6 @@ class CancelServiceTest extends BasePaymentTest
      * Charge cancel will not be called if the amount to cancel has been cancelled on the authorization.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws Exception
-     * @throws PHPUnitRuntimeException
      */
     public function cancelAmountShouldCallCancelAuthorizationAmount(): void
     {
@@ -218,12 +195,6 @@ class CancelServiceTest extends BasePaymentTest
      * Verify that cancel amount will be cancelled on charges if auth does not exist.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PHPUnitRuntimeException
      */
     public function chargesShouldBeCancelledIfAuthDoesNotExist1(): void
     {
@@ -249,12 +220,6 @@ class CancelServiceTest extends BasePaymentTest
      * Verify that cancel amount will be cancelled on charges if auth does not exist.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PHPUnitRuntimeException
      */
     public function chargesShouldBeCancelledIfAuthDoesNotExist2(): void
     {
@@ -289,12 +254,6 @@ class CancelServiceTest extends BasePaymentTest
      *
      * @param string $allowedExceptionCode
      * @param bool   $shouldHaveThrownException
-     *
-     * @throws Exception
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws AssertionFailedError
-     * @throws PHPUnitRuntimeException
      */
     public function verifyAllowedErrorsWillBeIgnoredDuringChargeCancel($allowedExceptionCode, $shouldHaveThrownException): void
     {
@@ -321,10 +280,6 @@ class CancelServiceTest extends BasePaymentTest
      * Verify cancelAuthorizationAmount will call cancel on the authorization and will return a list of cancels.
      *
      * @test
-     *
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
      */
     public function cancelAuthorizationAmountShouldCallCancelOnTheAuthorization(): void
     {
@@ -346,12 +301,6 @@ class CancelServiceTest extends BasePaymentTest
      * Cancellation amount will be the remaining amount of the payment at max.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PHPUnitRuntimeException
      */
     public function cancelAuthorizationAmountShouldCallCancelWithTheRemainingAmountAtMax(): void
     {
@@ -384,12 +333,6 @@ class CancelServiceTest extends BasePaymentTest
      *
      * @param string $exceptionCode
      * @param bool   $shouldHaveThrownException
-     *
-     * @throws Exception
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws AssertionFailedError
-     * @throws PHPUnitRuntimeException
      */
     public function verifyAllowedErrorsWillBeIgnoredDuringAuthorizeCancel($exceptionCode, $shouldHaveThrownException): void
     {
@@ -417,10 +360,6 @@ class CancelServiceTest extends BasePaymentTest
      * Verify cancelAuthorizationAmount will stop processing if there is no amount to cancel.
      *
      * @test
-     *
-     * @throws RuntimeException
-     * @throws ReflectionException
-     * @throws HeidelpayApiException
      */
     public function cancelAuthorizationAmountWillNotCallCancelIfThereIsNoOpenAmount(): void
     {
@@ -442,12 +381,6 @@ class CancelServiceTest extends BasePaymentTest
      * Verify cancelPayment will fetch payment if the payment is referenced by paymentId.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws PHPUnitRuntimeException
      */
     public function paymentCancelShouldFetchPaymentIfPaymentIdIsPassed(): void
     {
