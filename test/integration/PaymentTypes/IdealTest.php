@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method Ideal.
  *
@@ -28,7 +30,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Ideal;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class IdealTest extends BaseIntegrationTest
 {
@@ -38,9 +39,6 @@ class IdealTest extends BaseIntegrationTest
      * @test
      *
      * @return Ideal
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function idealShouldBeCreatable(): Ideal
     {
@@ -58,12 +56,9 @@ class IdealTest extends BaseIntegrationTest
      * @test
      *
      * @param Ideal $ideal
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @depends idealShouldBeCreatable
      */
-    public function idealShouldThrowExceptionOnAuthorize(Ideal $ideal)
+    public function idealShouldThrowExceptionOnAuthorize(Ideal $ideal): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
@@ -78,11 +73,8 @@ class IdealTest extends BaseIntegrationTest
      * @depends idealShouldBeCreatable
      *
      * @param Ideal $ideal
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function idealShouldBeChargeable(Ideal $ideal)
+    public function idealShouldBeChargeable(Ideal $ideal): void
     {
         $charge = $ideal->charge(1.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge);
@@ -100,11 +92,8 @@ class IdealTest extends BaseIntegrationTest
      * @depends idealShouldBeCreatable
      *
      * @param Ideal $ideal
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function idealTypeCanBeFetched(Ideal $ideal)
+    public function idealTypeCanBeFetched(Ideal $ideal): void
     {
         $fetchedIdeal = $this->heidelpay->fetchPaymentType($ideal->getId());
         $this->assertInstanceOf(Ideal::class, $fetchedIdeal);

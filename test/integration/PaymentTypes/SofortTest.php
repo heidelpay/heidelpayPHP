@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the payment method sofort.
@@ -30,7 +32,6 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Sofort;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class SofortTest extends BaseIntegrationTest
 {
@@ -40,9 +41,6 @@ class SofortTest extends BaseIntegrationTest
      * @test
      *
      * @return Sofort
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function sofortShouldBeCreatableAndFetchable(): Sofort
     {
@@ -66,9 +64,6 @@ class SofortTest extends BaseIntegrationTest
      * @param Sofort $sofort
      *
      * @return Charge
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @depends sofortShouldBeCreatableAndFetchable
      */
     public function sofortShouldBeAbleToCharge(Sofort $sofort): Charge
@@ -87,12 +82,9 @@ class SofortTest extends BaseIntegrationTest
      * @test
      *
      * @param Sofort $sofort
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @depends sofortShouldBeCreatableAndFetchable
      */
-    public function sofortShouldNotBeAuthorizable(Sofort $sofort)
+    public function sofortShouldNotBeAuthorizable(Sofort $sofort): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);

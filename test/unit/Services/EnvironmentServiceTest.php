@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This test is verifying that the set environment variables will lead to the correct configuration.
  *
@@ -25,7 +27,6 @@
 namespace heidelpayPHP\test\unit\Services;
 
 use heidelpayPHP\Services\EnvironmentService;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
 class EnvironmentServiceTest extends TestCase
@@ -41,8 +42,6 @@ class EnvironmentServiceTest extends TestCase
      * @param mixed $logDisabled
      * @param mixed $verboseLog
      * @param bool  $expectedLogEnabled
-     *
-     * @throws ExpectationFailedException
      */
     public function envVarsShouldBeInterpretedAsExpected($logDisabled, $verboseLog, $expectedLogEnabled): void
     {
@@ -73,8 +72,6 @@ class EnvironmentServiceTest extends TestCase
      * @param string  $non3dsKeyEnvVar
      * @param boolean $non3ds
      * @param string  $expected
-     *
-     * @throws ExpectationFailedException
      */
     public function privateKeyStringIsReturnedCorrectly($keyEnvVar, $non3dsKeyEnvVar, $non3ds, $expected): void
     {
@@ -105,8 +102,6 @@ class EnvironmentServiceTest extends TestCase
      * @param string  $non3dsKeyEnvVar
      * @param boolean $non3ds
      * @param string  $expected
-     *
-     * @throws ExpectationFailedException
      */
     public function publicKeyStringIsReturnedCorrectly($keyEnvVar, $non3dsKeyEnvVar, $non3ds, $expected): void
     {
