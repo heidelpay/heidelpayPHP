@@ -51,6 +51,8 @@ class HttpService
      * If it is not set it will create a CurlRequest by default and return it.
      *
      * @return HttpAdapterInterface
+     *
+     * @throws RuntimeException
      */
     public function getAdapter(): HttpAdapterInterface
     {
@@ -144,6 +146,8 @@ class HttpService
      * @param string $payload
      * @param string $httpMethod
      * @param $httpHeaders
+     *
+     * @throws RuntimeException
      */
     private function initRequest($uri, $payload, $httpMethod, $httpHeaders): void
     {
