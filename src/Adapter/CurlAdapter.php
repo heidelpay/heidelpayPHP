@@ -51,7 +51,7 @@ class CurlAdapter implements HttpAdapterInterface
     /**
      * {@inheritDoc}
      */
-    public function init($url, $payload = null, $httpMethod = HttpAdapterInterface::REQUEST_GET)
+    public function init($url, $payload = null, $httpMethod = HttpAdapterInterface::REQUEST_GET): void
     {
         $timeout = EnvironmentService::getTimeout();
         $curlVerbose = EnvironmentService::getCurlVerbose();
@@ -67,7 +67,7 @@ class CurlAdapter implements HttpAdapterInterface
         $this->setOption(CURLOPT_SSL_VERIFYPEER, 1);
         $this->setOption(CURLOPT_SSL_VERIFYHOST, 2);
         $this->setOption(CURLOPT_VERBOSE, $curlVerbose);
-        $this->setOption(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);       // CURL_SSLVERSION_TLSv1_2
+        $this->setOption(CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 
         if (in_array($httpMethod, [HttpAdapterInterface::REQUEST_POST, HttpAdapterInterface::REQUEST_PUT], true)) {
             $this->setOption(CURLOPT_POSTFIELDS, $payload);
@@ -77,7 +77,7 @@ class CurlAdapter implements HttpAdapterInterface
     /**
      * {@inheritDoc}
      */
-    public function execute()
+    public function execute(): ?string
     {
         $response = curl_exec($this->request);
         $error    = curl_error($this->request);
@@ -108,7 +108,7 @@ class CurlAdapter implements HttpAdapterInterface
     /**
      * {@inheritDoc}
      */
-    public function close()
+    public function close(): void
     {
         curl_close($this->request);
     }
@@ -116,7 +116,7 @@ class CurlAdapter implements HttpAdapterInterface
     /**
      * {@inheritDoc}
      */
-    public function setHeaders(array $headers)
+    public function setHeaders(array $headers): void
     {
         array_walk($headers, static function (&$value, $key) {
             $value = $key . ': ' . $value;
@@ -128,7 +128,7 @@ class CurlAdapter implements HttpAdapterInterface
     /**
      * {@inheritDoc}
      */
-    public function setUserAgent($userAgent)
+    public function setUserAgent($userAgent): void
     {
         $this->setOption(CURLOPT_USERAGENT, Heidelpay::SDK_TYPE);
     }
@@ -139,7 +139,7 @@ class CurlAdapter implements HttpAdapterInterface
      * @param $name
      * @param $value
      */
-    private function setOption($name, $value)
+    private function setOption($name, $value): void
     {
         curl_setopt($this->request, $name, $value);
     }

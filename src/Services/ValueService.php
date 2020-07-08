@@ -25,6 +25,7 @@
 namespace heidelpayPHP\Services;
 
 use function is_float;
+use function strlen;
 
 class ValueService
 {

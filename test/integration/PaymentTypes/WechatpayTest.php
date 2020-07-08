@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the payment method Wechatpay.
@@ -29,7 +31,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\Wechatpay;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class WechatpayTest extends BaseIntegrationTest
 {
@@ -37,11 +38,8 @@ class WechatpayTest extends BaseIntegrationTest
      * Verify wechatpay can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function wechatpayShouldBeCreatableAndFetchable()
+    public function wechatpayShouldBeCreatableAndFetchable(): void
     {
         $wechatpay = $this->heidelpay->createPaymentType(new Wechatpay());
         $this->assertInstanceOf(Wechatpay::class, $wechatpay);
@@ -57,11 +55,8 @@ class WechatpayTest extends BaseIntegrationTest
      * Verify wechatpay is chargeable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function wechatpayShouldBeAbleToCharge()
+    public function wechatpayShouldBeAbleToCharge(): void
     {
         /** @var Wechatpay $wechatpay */
         $wechatpay = $this->heidelpay->createPaymentType(new Wechatpay());
@@ -75,11 +70,8 @@ class WechatpayTest extends BaseIntegrationTest
      * Verify wechatpay is not authorizable.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function wechatpayShouldNotBeAuthorizable()
+    public function wechatpayShouldNotBeAuthorizable(): void
     {
         $wechatpay = $this->heidelpay->createPaymentType(new Wechatpay());
         $this->expectException(HeidelpayApiException::class);

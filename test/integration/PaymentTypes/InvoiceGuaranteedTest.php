@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method invoice guaranteed.
  *
@@ -28,7 +30,6 @@ use heidelpayPHP\Constants\ApiResponseCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceGuaranteed;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class InvoiceGuaranteedTest extends BaseIntegrationTest
 {
@@ -36,11 +37,8 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verifies invoice guaranteed payment type can be created.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function invoiceGuaranteedTypeShouldBeCreatable()
+    public function invoiceGuaranteedTypeShouldBeCreatable(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -52,11 +50,8 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify invoice guaranteed can be shipped.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function verifyInvoiceGuaranteedShipment()
+    public function verifyInvoiceGuaranteedShipment(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -77,11 +72,8 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify invoice guaranteed can be charged and cancelled.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function verifyInvoiceGuaranteedCanBeChargedAndCancelled()
+    public function verifyInvoiceGuaranteedCanBeChargedAndCancelled(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -97,11 +89,8 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify that an invoice guaranteed object can be fetched from the api.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function invoiceGuaranteedTypeCanBeFetched()
+    public function invoiceGuaranteedTypeCanBeFetched(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -114,11 +103,8 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify ivg will throw error if addresses do not match.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function ivgShouldThrowErrorIfAddressesDoNotMatch()
+    public function ivgShouldThrowErrorIfAddressesDoNotMatch(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
@@ -133,11 +119,8 @@ class InvoiceGuaranteedTest extends BaseIntegrationTest
      * Verify the invoiceId set during shipping overrides the previously set invoiceId.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function verifyInvoiceIdInShipmentWillOverrideTheOneFromCharge()
+    public function verifyInvoiceIdInShipmentWillOverrideTheOneFromCharge(): void
     {
         /** @var InvoiceGuaranteed $invoiceGuaranteed */
         $invoiceGuaranteed = $this->heidelpay->createPaymentType(new InvoiceGuaranteed());
