@@ -74,4 +74,20 @@ class BancontactTest extends BasePaymentTest
         $this->assertNotNull($charge->getId());
         $this->assertNotEmpty($charge->getRedirectUrl());
     }
+
+    /**
+     * Holder parameter is correctly submitted.
+     *
+     * @test
+     */
+    public function holderShouldBeSubmittedCorrectly()
+    {
+        $bancontact = new Bancontact();
+        $bancontact->setHolder('test');
+        $bancontact = $this->heidelpay->createPaymentType($bancontact);
+        /** @var Bancontact $fetchedBancontact */
+        $fetchedBancontact = $this->heidelpay->fetchPaymentType($bancontact->getId());
+
+        $this->assertEquals('test', $fetchedBancontact->getHolder());
+    }
 }
