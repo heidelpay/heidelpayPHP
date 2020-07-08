@@ -31,4 +31,21 @@ use heidelpayPHP\Traits\CanDirectCharge;
 class Bancontact extends BasePaymentType
 {
     use CanDirectCharge;
+
+    /**
+     * Set the holder of the account.
+     *
+     * @param $string
+     */
+    public function setHolder($string)
+    {
+    }
+
+    /**
+     * Returns the holder of the account.
+     *
+     */
+    public function getHolder()
+    {
+    }
 }
