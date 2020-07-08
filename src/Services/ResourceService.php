@@ -275,7 +275,7 @@ class ResourceService implements ResourceServiceInterface
      * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
      * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function deleteResource(AbstractHeidelpayResource &$resource)
+    public function deleteResource(AbstractHeidelpayResource &$resource): ?AbstractHeidelpayResource
     {
         $response = $this->send($resource, HttpAdapterInterface::REQUEST_DELETE);
 
@@ -418,7 +418,6 @@ class ResourceService implements ResourceServiceInterface
      */
     public function fetchKeypair($detailed = false): Keypair
     {
-        /** @var Keypair $keyPair */
         $keyPair = (new Keypair())->setParentResource($this->heidelpay)->setDetailed($detailed);
         $this->fetchResource($keyPair);
         return $keyPair;
@@ -500,7 +499,6 @@ class ResourceService implements ResourceServiceInterface
      */
     public function createPaymentType(BasePaymentType $paymentType): BasePaymentType
     {
-        /** @var AbstractHeidelpayResource $paymentType */
         $paymentType->setParentResource($this->heidelpay);
         $this->createResource($paymentType);
         return $paymentType;
@@ -658,7 +656,7 @@ class ResourceService implements ResourceServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function deleteCustomer($customer)
+    public function deleteCustomer($customer): void
     {
         $customerObject = $customer;
 
@@ -667,7 +665,6 @@ class ResourceService implements ResourceServiceInterface
         }
 
         $this->deleteResource($customerObject);
-        return $customerObject;
     }
 
     //</editor-fold>
@@ -679,7 +676,6 @@ class ResourceService implements ResourceServiceInterface
      */
     public function fetchAuthorization($payment): Authorization
     {
-        /** @var Payment $paymentObject */
         $paymentObject = $this->fetchPayment($payment);
         /** @var Authorization $authorize */
         $authorize = $paymentObject->getAuthorization(true);
@@ -706,7 +702,6 @@ class ResourceService implements ResourceServiceInterface
      */
     public function fetchChargeById($payment, $chargeId): Charge
     {
-        /** @var Payment $paymentObject */
         $paymentObject = $this->fetchPayment($payment);
         $charge = $paymentObject->getCharge($chargeId, true);
 

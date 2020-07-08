@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines unit tests to verify functionality of the PayPage feature.
  *
@@ -26,8 +28,6 @@ namespace heidelpayPHP\test\unit\Resources\PaymentTypes;
 
 use heidelpayPHP\Adapter\HttpAdapterInterface;
 use heidelpayPHP\Constants\TransactionTypes;
-use heidelpayPHP\Exceptions\HeidelpayApiException;
-use heidelpayPHP\Interfaces\ResourceServiceInterface;
 use heidelpayPHP\Resources\Basket;
 use heidelpayPHP\Resources\Customer;
 use heidelpayPHP\Resources\Metadata;
@@ -38,10 +38,7 @@ use heidelpayPHP\Resources\PaymentTypes\Paypage;
 use heidelpayPHP\Resources\PaymentTypes\SepaDirectDebit;
 use heidelpayPHP\Services\ResourceService;
 use heidelpayPHP\test\BasePaymentTest;
-use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
-use ReflectionException;
-use RuntimeException;
 use stdClass;
 
 class PayPageTest extends BasePaymentTest
@@ -50,10 +47,8 @@ class PayPageTest extends BasePaymentTest
      * Verify setter and getter work.
      *
      * @test
-     *
-     * @throws Exception
      */
-    public function getterAndSetterWorkAsExpected()
+    public function getterAndSetterWorkAsExpected(): void
     {
         // ----------- SET initial values ------------
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -135,9 +130,9 @@ class PayPageTest extends BasePaymentTest
         $this->assertEquals('my tac url', $paypage->getTermsAndConditionUrl());
 
         // other
-        $this->assertArraySubset([SepaDirectDebit::getResourceName()], $paypage->getExcludeTypes());
+        $this->assertEquals([SepaDirectDebit::getResourceName()], $paypage->getExcludeTypes());
         $paypage->setExcludeTypes([Card::getResourceName(), Giropay::getResourceName()]);
-        $this->assertArraySubset([Card::getResourceName(), Giropay::getResourceName()], $paypage->getExcludeTypes());
+        $this->assertEquals([Card::getResourceName(), Giropay::getResourceName()], $paypage->getExcludeTypes());
         $this->assertTrue($paypage->isCard3ds());
 
         // SET test values 2
@@ -149,11 +144,8 @@ class PayPageTest extends BasePaymentTest
      * Verify handling of response and property setters/getters.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function responseHandlingShouldWorkProperly()
+    public function responseHandlingShouldWorkProperly(): void
     {
         // when
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -227,11 +219,8 @@ class PayPageTest extends BasePaymentTest
      * Verify handling of payment object.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function paymentObjectShouldBeUpdatedProperly()
+    public function paymentObjectShouldBeUpdatedProperly(): void
     {
         // when
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -262,11 +251,8 @@ class PayPageTest extends BasePaymentTest
      * Verify handling of response in case of special fields.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function responseHandlingShouldMapSpecialFieldsProperly()
+    public function responseHandlingShouldMapSpecialFieldsProperly(): void
     {
         // when
         $paypage = new Paypage(123.4, 'EUR', 'https://docs.heidelpay.com');
@@ -288,15 +274,11 @@ class PayPageTest extends BasePaymentTest
      *
      * @param string $method
      * @param mixed  $fetchCallCount
-     *
-     *@throws ReflectionException
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function paymentShouldBeFetchedWhenItIsNoGetRequest($method, $fetchCallCount)
+    public function paymentShouldBeFetchedWhenItIsNoGetRequest($method, $fetchCallCount): void
     {
         // mock resource service to check whether fetch is called on it with the payment object.
-        /** @var ResourceServiceInterface|MockObject $resourceSrvMock */
+        /** @var ResourceService|MockObject $resourceSrvMock */
         $resourceSrvMock = $this->getMockBuilder(ResourceService::class)->disableOriginalConstructor()->setMethods(['fetchResource'])->getMock();
 
         // when
@@ -305,6 +287,7 @@ class PayPageTest extends BasePaymentTest
         $paypage->setPayment($payment)->setParentResource($payment);
 
         // should
+        /** @noinspection PhpParamsInspection */
         $resourceSrvMock->expects($this->exactly($fetchCallCount))->method('fetchResource')->with($payment);
 
         // when
@@ -318,12 +301,8 @@ class PayPageTest extends BasePaymentTest
      * Verify expose behaves as expected.
      *
      * @test
-     *
-     * @throws Exception
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function exposeShouldSetBasicParams()
+    public function exposeShouldSetBasicParams(): void
     {
         // when
         $basket = (new Basket())->setId('basketId');
@@ -386,11 +365,8 @@ class PayPageTest extends BasePaymentTest
      * Verify resources are returned as null if no payment object exists.
      *
      * @test
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function resourcesAreNullWithoutPaymentObject()
+    public function resourcesAreNullWithoutPaymentObject(): void
     {
         // when
         $paypage = new Paypage(123.4567, 'EUR', self::RETURN_URL);

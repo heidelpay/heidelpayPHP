@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and
  * functionality of the payment method PIS.
@@ -30,7 +32,6 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\PaymentTypes\PIS;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class PISTest extends BaseIntegrationTest
 {
@@ -40,9 +41,6 @@ class PISTest extends BaseIntegrationTest
      * @test
      *
      * @return PIS
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function pisShouldBeCreatableAndFetchable(): PIS
     {
@@ -66,9 +64,6 @@ class PISTest extends BaseIntegrationTest
      * @param PIS $pis
      *
      * @return Charge
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @depends pisShouldBeCreatableAndFetchable
      */
     public function pisShouldBeAbleToCharge(PIS $pis): Charge
@@ -87,12 +82,9 @@ class PISTest extends BaseIntegrationTest
      * @test
      *
      * @param PIS $pis
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @depends pisShouldBeCreatableAndFetchable
      */
-    public function pisShouldNotBeAuthorizable(PIS $pis)
+    public function pisShouldNotBeAuthorizable(PIS $pis): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);

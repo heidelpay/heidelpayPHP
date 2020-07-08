@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class is the base class for all integration tests of this SDK.
  *
@@ -27,16 +29,13 @@ namespace heidelpayPHP\test;
 use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Services\EnvironmentService;
 use PHPUnit\Runner\BaseTestRunner;
-use RuntimeException;
 
 class BaseIntegrationTest extends BasePaymentTest
 {
     /**
      * {@inheritDoc}
-     *
-     * @throws RuntimeException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $privateKey = EnvironmentService::getTestPrivateKey();
         $this->heidelpay = (new Heidelpay($privateKey))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
@@ -47,7 +46,7 @@ class BaseIntegrationTest extends BasePaymentTest
      *
      * {@inheritDoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         /** @var TestDebugHandler $debugHandler */
         $debugHandler = $this->heidelpay->getDebugHandler();

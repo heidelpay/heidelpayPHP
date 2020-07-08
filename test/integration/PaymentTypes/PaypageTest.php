@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the Paypage.
  *
@@ -24,14 +26,11 @@
  */
 namespace heidelpayPHP\test\integration\PaymentTypes;
 
-use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\CustomerFactory;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Card;
 use heidelpayPHP\Resources\PaymentTypes\Paypage;
 use heidelpayPHP\test\BaseIntegrationTest;
-use PHPUnit\Framework\AssertionFailedError;
-use RuntimeException;
 
 class PaypageTest extends BaseIntegrationTest
 {
@@ -39,12 +38,8 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for charge can be created with the mandatory parameters only.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function minimalPaypageChargeShouldBeCreatableAndFetchable()
+    public function minimalPaypageChargeShouldBeCreatableAndFetchable(): void
     {
         $paypage = new Paypage(100.0, 'EUR', self::RETURN_URL);
         $this->assertEmpty($paypage->getId());
@@ -56,12 +51,8 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for charge can be created with all parameters.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function maximumPaypageChargeShouldBeCreatable()
+    public function maximumPaypageChargeShouldBeCreatable(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket = $this->createBasket();
@@ -96,12 +87,8 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for authorize can be created with the mandatory parameters only.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function minimalPaypageAuthorizeShouldBeCreatableAndFetchable()
+    public function minimalPaypageAuthorizeShouldBeCreatableAndFetchable(): void
     {
         $paypage = new Paypage(100.0, 'EUR', self::RETURN_URL);
         $this->assertEmpty($paypage->getId());
@@ -113,12 +100,8 @@ class PaypageTest extends BaseIntegrationTest
      * Verify the Paypage resource for authorize can be created with all parameters.
      *
      * @test
-     *
-     * @throws AssertionFailedError
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function maximumPaypageAuthorizeShouldBeCreatable()
+    public function maximumPaypageAuthorizeShouldBeCreatable(): void
     {
         $orderId = 'o'. self::generateRandomId();
         $basket = $this->createBasket();
@@ -144,7 +127,7 @@ class PaypageTest extends BaseIntegrationTest
         $paypage = $this->heidelpay->initPayPageAuthorize($paypage, $customer, $basket);
         $this->assertNotEmpty($paypage->getId());
         $this->assertEquals(4.99, $paypage->getEffectiveInterestRate());
-        $this->assertArraySubset([Card::getResourceName()], $paypage->getExcludeTypes());
+        $this->assertEquals([Card::getResourceName()], $paypage->getExcludeTypes());
         $payment = $paypage->getPayment();
         $this->assertInstanceOf(Payment::class, $payment);
         $this->assertNotNull($payment->getId());

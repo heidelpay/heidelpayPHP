@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method prepayment.
  *
@@ -30,7 +32,6 @@ use heidelpayPHP\Resources\AbstractHeidelpayResource;
 use heidelpayPHP\Resources\PaymentTypes\Prepayment;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\BaseIntegrationTest;
-use RuntimeException;
 
 class PrepaymentTest extends BaseIntegrationTest
 {
@@ -38,9 +39,6 @@ class PrepaymentTest extends BaseIntegrationTest
      * Verify Prepayment can be created and fetched.
      *
      * @return Prepayment
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      * @test
      */
     public function prepaymentShouldBeCreatableAndFetchable(): AbstractHeidelpayResource
@@ -66,9 +64,6 @@ class PrepaymentTest extends BaseIntegrationTest
      * @param Prepayment $prepayment
      *
      * @return Charge
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
     public function prepaymentTypeShouldBeChargeable(Prepayment $prepayment): Charge
     {
@@ -91,11 +86,8 @@ class PrepaymentTest extends BaseIntegrationTest
      * @depends prepaymentShouldBeCreatableAndFetchable
      *
      * @param Prepayment $prepayment
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function prepaymentTypeShouldNotBeAuthorizable(Prepayment $prepayment)
+    public function prepaymentTypeShouldNotBeAuthorizable(Prepayment $prepayment): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
@@ -111,11 +103,8 @@ class PrepaymentTest extends BaseIntegrationTest
      * @depends prepaymentTypeShouldBeChargeable
      *
      * @param Charge $charge
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function prepaymentTypeShouldNotBeShippable(Charge $charge)
+    public function prepaymentTypeShouldNotBeShippable(Charge $charge): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_SHIP_NOT_ALLOWED);
@@ -131,11 +120,8 @@ class PrepaymentTest extends BaseIntegrationTest
      * @depends prepaymentShouldBeCreatableAndFetchable
      *
      * @param Prepayment $prepayment
-     *
-     * @throws HeidelpayApiException A HeidelpayApiException is thrown if there is an error returned on API-request.
-     * @throws RuntimeException      A RuntimeException is thrown when there is an error while using the SDK.
      */
-    public function prepaymentChargeCanBeCanceled(Prepayment $prepayment)
+    public function prepaymentChargeCanBeCanceled(Prepayment $prepayment): void
     {
         $charge = $prepayment->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertPending($charge);
