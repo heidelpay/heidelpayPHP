@@ -18,5 +18,9 @@ class BancontactTest extends BasePaymentTest
     {
         $bancontact = new Bancontact();
         $this->heidelpay->createPaymentType($bancontact);
+        $this->assertNotNull($bancontact->getId());
+
+        $this->heidelpay->fetchPaymentType($bancontact->getId());
+        $this->assertInstanceOf(Bancontact::class, $bancontact);
     }
 }
