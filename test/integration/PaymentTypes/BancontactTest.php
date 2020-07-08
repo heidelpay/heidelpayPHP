@@ -13,8 +13,6 @@ class BancontactTest extends BasePaymentTest
      * Verify bancontact can be created and fetched.
      *
      * @test
-     *
-     * @throws \heidelpayPHP\Exceptions\HeidelpayApiException
      */
     public function bancontactShouldBeCreateableAndFetchable(): void
     {
