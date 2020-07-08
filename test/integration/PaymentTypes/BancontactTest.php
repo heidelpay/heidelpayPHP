@@ -34,9 +34,22 @@ class BancontactTest extends BasePaymentTest
     public function bancontactShouldThrowExceptionOnAuthorize()
     {
         $this->expectException(HeidelpayApiException::class);
-        $this->expectExceptionCod(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
+        $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
 
         $bancontact = $this->heidelpay->createPaymentType(new Bancontact());
         $this->heidelpay->authorize(100.0, 'EUR', $bancontact, self::RETURN_URL);
+    }
+    
+    /**
+     * Verify that Bancontact is chargable
+     *
+     * @test
+     */
+    public function bancontactShouldBeChargeable()
+    {
+        $bancontact = $this->heidelpay->createPaymentType(new Bancontact());
+        $charge = $bancontact->charge(100.0, 'EUR', self::RETURN_URL);
+        $this->assertNotNull($charge->getId());
+        $this->assertNotEmpty($charge->getRedirectUrl());
     }
 }
