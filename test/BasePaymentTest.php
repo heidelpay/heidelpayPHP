@@ -41,6 +41,7 @@ use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
 use heidelpayPHP\test\Fixtures\CustomerFixtureTrait;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class BasePaymentTest extends TestCase
 {
@@ -52,11 +53,31 @@ class BasePaymentTest extends TestCase
     protected $heidelpay;
 
     /**
+     * Creates and returns a Heidelpay object if it does not exist yet.
+     * Uses a invalid but well formed default key if no key is given.
+     *
+     * @param string $privateKey
+     *
+     * @return Heidelpay
+     *
+     * @throws RuntimeException
+     */
+    protected function getHeidelpayObject($privateKey = 's-priv-1234'): Heidelpay
+    {
+        if (!$this->heidelpay instanceof Heidelpay) {
+            $this->heidelpay = (new Heidelpay($privateKey))
+                ->setDebugHandler(new TestDebugHandler())
+                ->setDebugMode(true);
+        }
+        return $this->heidelpay;
+    }
+
+    /**
      * {@inheritDoc}
      */
     protected function setUp(): void
     {
-        $this->heidelpay = (new Heidelpay('s-priv-1234'))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
+        $this->getHeidelpayObject();
     }
 
     //<editor-fold desc="Custom asserts">
