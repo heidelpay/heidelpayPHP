@@ -54,7 +54,7 @@ class CurlAdapter implements HttpAdapterInterface
     public function init($url, $payload = null, $httpMethod = HttpAdapterInterface::REQUEST_GET): void
     {
         $timeout = EnvironmentService::getTimeout();
-        $curlVerbose = EnvironmentService::getCurlVerbose();
+        $curlVerbose = EnvironmentService::isCurlVerbose();
 
         $this->request = curl_init($url);
         $this->setOption(CURLOPT_HEADER, 0);
