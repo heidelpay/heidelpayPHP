@@ -51,7 +51,7 @@ For any issues or questions please get in touch with our support team.
 [support@heidelpay.com](mailto:support@heidelpay.com)
  
 ### Phone
-[+49 (0)6221/6471-100](tel:+4962216471100)
+[+49 (0)6221/6471-100](tel:+49-62216471-100)
 
 ### Twitter
 [@devHeidelpay](https://twitter.com/devHeidelpay)
