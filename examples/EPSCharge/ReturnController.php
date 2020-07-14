@@ -72,11 +72,14 @@ try {
         // You can create the order with status pending payment and show a success page to the customer if you want.
 
         // In cases of redirection to an external service (e.g. 3D secure, PayPal, etc) it sometimes takes time for
-        // the payment to update it's status. In this case it might be pending at first and change to cancel or success later.
-        // Use the webhooks feature to stay informed about changes of the payment (e.g. cancel, success)
+        // the payment to update it's status. In this case the payment and the transaction are pending at first after
+        // redirect back into the shop and change to cancel or success later.
+
+        // Use the webhooks feature to stay informed about changes of payment and transaction (e.g. cancel, success)
         // then you can cancel the order later or mark it paid as soon as the event is triggered.
 
-        // In any case, the payment is not done when the payment is pending and you should ship until it changes to success.
+        // In any case, the payment is not done when the payment is pending and you should only ship in case it is a pay
+        // later method or it changes to success.
         redirect(PENDING_URL);
     }
     // If the payment is neither success nor pending something went wrong.
