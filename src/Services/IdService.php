@@ -91,7 +91,6 @@ class IdService
      */
     public static function getResourceTypeFromIdString($typeId): ?string
     {
-        $paymentType  = null;
         $typeIdString = null;
 
         $typeIdParts = [];
