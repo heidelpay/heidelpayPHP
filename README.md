@@ -48,7 +48,7 @@ For any issues or questions please get in touch with our support team.
 [https://docs.heidelpay.com/](https://docs.heidelpay.com/)
  
 ### Email
-support@heidelpay.com
+<support@heidelpay.com>
  
 ### Phone
 +49 (0)6221/6471-100
