@@ -1,7 +1,10 @@
 <?php
+/** @noinspection MissingOrEmptyGroupStatementInspection */
+/** @noinspection PhpStatementHasEmptyBodyInspection */
 /**
- * This is the return controller for the PayPal example.
- * It is called when the client is redirected back to the shop from the external page.
+ * This is the return controller for example implementations.
+ * It is called when the client is redirected back to the shop from the external page or when the payment
+ * transaction has been sent.
  *
  * Copyright (C) 2019 heidelpay GmbH
  *
@@ -29,11 +32,12 @@ require_once __DIR__ . '/Constants.php';
 
 /** @noinspection PhpIncludeInspection */
 /** Require the composer autoloader file */
-require_once __DIR__ . '/../../../../autoload.php';
+require_once __DIR__ . '/../../../autoload.php';
 
 use heidelpayPHP\examples\ExampleDebugHandler;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
+use heidelpayPHP\Resources\TransactionTypes\AbstractTransactionType;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 
 $clientMessage = 'Something went wrong. Please try again later.';
@@ -63,41 +67,56 @@ try {
 
     // Redirect to success if the payment has been successfully completed.
     $payment   = $heidelpay->fetchPayment($paymentId);
+    $transaction = $payment->getInitialTransaction();
 
     if ($payment->isCompleted()) {
         // The payment process has been successful.
-        // You can create the order and show a success page.
+        // You show the success page.
+        // Goods can be shipped.
         redirect(SUCCESS_URL);
     } elseif ($payment->isPending()) {
-        // In case of authorization this is normal since you will later charge the payment.
-        // You can create the order with status pending payment and show a success page to the customer if you want.
+        if ($transaction->isSuccess()) {
+            if ($payment->getPaymentType()->isInvoiceType()) {
+                // Awaiting payment by the customer.
+                // Goods can be shipped immediately.
+            } elseif ($transaction instanceof Authorization) {
+                // Payment is ready to be captured.
+                // Goods can be shipped later AFTER charge.
+            } else {
+                // Payment is not done yet (e.g. Prepayment)
+                // Goods can be shipped later after incoming payment (event).
+            }
 
-        // In cases of redirection to an external service (e.g. 3D secure, PayPal, etc) it sometimes takes time for
-        // the payment to update it's status. In this case the payment and the transaction are pending at first after
-        // redirect back into the shop and change to cancel or success later.
+            // In any case:
+            // * You can show the success page.
+            // * You can set order status to pending payment
+            redirect(SUCCESS_URL);
+        } elseif ($transaction->isPending()) {
+            // In cases of a redirect to an external service (e.g. 3D secure, PayPal, etc) it sometimes takes time for
+            // the payment to update it's status after redirect into shop.
+            // In this case the payment and the transaction are pending at first and change to cancel or success later.
 
-        // Use the webhooks feature to stay informed about changes of payment and transaction (e.g. cancel, success)
-        // then you can cancel the order later or mark it paid as soon as the event is triggered.
-
-        // In any case, the payment is not done when the payment is pending and you should only ship in case it is a pay
-        // later method or it changes to success.
-        redirect(PENDING_URL);
+            // Use the webhooks feature to stay informed about changes of payment and transaction (e.g. cancel, success)
+            // then you can handle the states as shown above in transaction->isSuccess() branch.
+            redirect(PENDING_URL);
+        }
     }
     // If the payment is neither success nor pending something went wrong.
-    // In this case do not create the order.
+    // In this case do not create the order or cancel it if you already did.
     // Redirect to an error page in your shop and show an message if you want.
 
-    // Check the result message of the transaction to find out what went wrong.
-    $transaction = $payment->getAuthorization();
-    if (!$transaction instanceof Authorization) {
-        $transaction = $payment->getChargeByIndex(0);
+    // Check the result message of the initial transaction to find out what went wrong.
+    if ($transaction instanceof AbstractTransactionType) {
+        // For better debugging log the error message in your error log
+        $merchantMessage = $transaction->getMessage()->getMerchant();
+        $clientMessage = $transaction->getMessage()->getCustomer();
     }
-    $merchantMessage = $transaction->getMessage()->getCustomer();
 } catch (HeidelpayApiException $e) {
     $merchantMessage = $e->getMerchantMessage();
     $clientMessage = $e->getClientMessage();
 } catch (RuntimeException $e) {
     $merchantMessage = $e->getMessage();
 }
+// Write the merchant message to your log.
+// Show the client message to the customer (this is localized).
 redirect(FAILURE_URL, $merchantMessage, $clientMessage);
-
