@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This test is verifying that the set environment variables will lead to the correct configuration.
  *
@@ -25,11 +27,12 @@
 namespace heidelpayPHP\test\unit\Services;
 
 use heidelpayPHP\Services\EnvironmentService;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
 class EnvironmentServiceTest extends TestCase
 {
+    //<editor-fold desc="Tests">
+
     /**
      * Verify test logging environment vars are correctly interpreted.
      *
@@ -39,8 +42,6 @@ class EnvironmentServiceTest extends TestCase
      * @param mixed $logDisabled
      * @param mixed $verboseLog
      * @param bool  $expectedLogEnabled
-     *
-     * @throws ExpectationFailedException
      */
     public function envVarsShouldBeInterpretedAsExpected($logDisabled, $verboseLog, $expectedLogEnabled): void
     {
@@ -59,6 +60,70 @@ class EnvironmentServiceTest extends TestCase
 
         $this->assertEquals($expectedLogEnabled, EnvironmentService::isTestLoggingActive());
     }
+
+    /**
+     * Verify string is returned if the private test key environment variable is not set.
+     *
+     * @test
+     *
+     * @dataProvider keyStringIsReturnedCorrectlyDP
+     *
+     * @param string  $keyEnvVar
+     * @param string  $non3dsKeyEnvVar
+     * @param boolean $non3ds
+     * @param string  $expected
+     */
+    public function privateKeyStringIsReturnedCorrectly($keyEnvVar, $non3dsKeyEnvVar, $non3ds, $expected): void
+    {
+        unset(
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY],
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY_NON_3DS]
+        );
+
+        if ($keyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY] = $keyEnvVar;
+        }
+
+        if ($non3dsKeyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PRIVATE_KEY_NON_3DS] = $non3dsKeyEnvVar;
+        }
+
+        $this->assertEquals($expected, EnvironmentService::getTestPrivateKey($non3ds));
+    }
+
+    /**
+     * Verify string is returned if the public test key environment variable is not set.
+     *
+     * @test
+     *
+     * @dataProvider keyStringIsReturnedCorrectlyDP
+     *
+     * @param string  $keyEnvVar
+     * @param string  $non3dsKeyEnvVar
+     * @param boolean $non3ds
+     * @param string  $expected
+     */
+    public function publicKeyStringIsReturnedCorrectly($keyEnvVar, $non3dsKeyEnvVar, $non3ds, $expected): void
+    {
+        unset(
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY],
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY_NON_3DS]
+        );
+
+        if ($keyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY] = $keyEnvVar;
+        }
+
+        if ($non3dsKeyEnvVar !== null) {
+            $_SERVER[EnvironmentService::ENV_VAR_TEST_PUBLIC_KEY_NON_3DS] = $non3dsKeyEnvVar;
+        }
+
+        $this->assertEquals($expected, EnvironmentService::getTestPublicKey($non3ds));
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Data Providers">
 
     /**
      * Data provider for envVarsShouldBeInterpretedAsExpected.
@@ -111,4 +176,21 @@ class EnvironmentServiceTest extends TestCase
             '#40' => ['tru', 'true', true],
         ];
     }
+
+    /**
+     * Data provider for privateKeyStringIsReturnedCorrectly and publicKeyStringIsReturnedCorrectly.
+     *
+     * @return array
+     */
+    public function keyStringIsReturnedCorrectlyDP(): array
+    {
+        return [
+            'expect empty string for 3ds' => [null, null, false, ''],
+            'expect empty string for non 3ds' => [null, null, true, ''],
+            'expect string from 3ds Env Var' => ['I am the 3ds key', 'I am the non 3ds key', false, 'I am the 3ds key'],
+            'expect string from non 3ds Env Var' => ['I am the 3ds key', 'I am the non 3ds key', true, 'I am the non 3ds key']
+        ];
+    }
+
+    //</editor-fold>
 }

@@ -35,8 +35,8 @@ use const PHP_VERSION;
 
 class HttpService
 {
-    const URL_PART_STAGING_ENVIRONMENT = 'stg';
-    const URL_PART_DEVELOPMENT_ENVIRONMENT = 'dev';
+    private const URL_PART_STAGING_ENVIRONMENT = 'stg';
+    private const URL_PART_DEVELOPMENT_ENVIRONMENT = 'dev';
 
     /** @var HttpAdapterInterface $httpAdapter */
     private $httpAdapter;
@@ -149,7 +149,7 @@ class HttpService
      *
      * @throws RuntimeException
      */
-    private function initRequest($uri, $payload, $httpMethod, $httpHeaders)
+    private function initRequest($uri, $payload, $httpMethod, $httpHeaders): void
     {
         $httpAdapter = $this->getAdapter();
         $httpAdapter->init($uri, $payload, $httpMethod);
@@ -166,7 +166,7 @@ class HttpService
      *
      * @throws HeidelpayApiException
      */
-    private function handleErrors($responseCode, $response)
+    private function handleErrors($responseCode, $response): void
     {
         if ($response === null) {
             throw new HeidelpayApiException('The Request returned a null response!');
@@ -212,7 +212,7 @@ class HttpService
         $httpMethod,
         string $url,
         $response
-    ) {
+    ): void {
         // mask auth string
         $authHeader = explode(' ', $headers['Authorization']);
         $authHeader[1] = ValueService::maskValue($authHeader[1]);

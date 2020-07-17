@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This custom debug handler will echo out debug messages.
  *
@@ -35,7 +37,7 @@ class TestDebugHandler implements DebugHandlerInterface
     /**
      * {@inheritDoc}
      */
-    public function log(string $message)
+    public function log(string $message): void
     {
         $logMessage = 'heidelpay debug message: ' . $message . "\n";
 

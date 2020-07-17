@@ -25,27 +25,28 @@
 namespace heidelpayPHP\Services;
 
 use function in_array;
+use function is_bool;
 
 class EnvironmentService
 {
-    const ENV_VAR_NAME_ENVIRONMENT = 'HEIDELPAY_MGW_ENV';
-    const ENV_VAR_VALUE_STAGING_ENVIRONMENT = 'STG';
-    const ENV_VAR_VALUE_DEVELOPMENT_ENVIRONMENT = 'DEV';
-    const ENV_VAR_VALUE_PROD_ENVIRONMENT = 'PROD';
+    private const ENV_VAR_NAME_ENVIRONMENT = 'HEIDELPAY_MGW_ENV';
+    public const ENV_VAR_VALUE_STAGING_ENVIRONMENT = 'STG';
+    public const ENV_VAR_VALUE_DEVELOPMENT_ENVIRONMENT = 'DEV';
+    public const ENV_VAR_VALUE_PROD_ENVIRONMENT = 'PROD';
 
     /** @deprecated ENV_VAR_NAME_DISABLE_TEST_LOGGING since 1.2.7.3 replaced by ENV_VAR_NAME_VERBOSE_TEST_LOGGING */
-    const ENV_VAR_NAME_DISABLE_TEST_LOGGING = 'HEIDELPAY_MGW_DISABLE_TEST_LOGGING';
-    const ENV_VAR_NAME_VERBOSE_TEST_LOGGING = 'HEIDELPAY_MGW_VERBOSE_TEST_LOGGING';
+    public const ENV_VAR_NAME_DISABLE_TEST_LOGGING = 'HEIDELPAY_MGW_DISABLE_TEST_LOGGING';
+    public const ENV_VAR_NAME_VERBOSE_TEST_LOGGING = 'HEIDELPAY_MGW_VERBOSE_TEST_LOGGING';
 
-    const ENV_VAR_TEST_PRIVATE_KEY = 'HEIDELPAY_MGW_TEST_PRIVATE_KEY';
-    const ENV_VAR_TEST_PUBLIC_KEY = 'HEIDELPAY_MGW_TEST_PUBLIC_KEY';
-    const DEFAULT_TEST_PRIVATE_KEY = 's-priv-2a102ZMq3gV4I3zJ888J7RR6u75oqK3n';
-    const DEFAULT_TEST_PUBLIC_KEY  = 's-pub-2a10ifVINFAjpQJ9qW8jBe5OJPBx6Gxa';
+    public const ENV_VAR_TEST_PRIVATE_KEY = 'HEIDELPAY_MGW_TEST_PRIVATE_KEY';
+    public const ENV_VAR_TEST_PUBLIC_KEY = 'HEIDELPAY_MGW_TEST_PUBLIC_KEY';
+    public const ENV_VAR_TEST_PRIVATE_KEY_NON_3DS = 'HEIDELPAY_MGW_TEST_PRIVATE_KEY_NON_3DS';
+    public const ENV_VAR_TEST_PUBLIC_KEY_NON_3DS = 'HEIDELPAY_MGW_TEST_PUBLIC_KEY_NON_3DS';
 
-    const ENV_VAR_NAME_TIMEOUT = 'HEIDELPAY_MGW_TIMEOUT';
-    const DEFAULT_TIMEOUT = 60;
+    private const ENV_VAR_NAME_TIMEOUT = 'HEIDELPAY_MGW_TIMEOUT';
+    private const DEFAULT_TIMEOUT = 60;
 
-    const ENV_VAR_NAME_CURL_VERBOSE = 'HEIDELPAY_MGW_CURL_VERBOSE';
+    private const ENV_VAR_NAME_CURL_VERBOSE = 'HEIDELPAY_MGW_CURL_VERBOSE';
 
     /**
      * Returns the value of the given env var as bool.
@@ -59,7 +60,7 @@ class EnvironmentService
         /** @noinspection ProperNullCoalescingOperatorUsageInspection */
         $envVar = $_SERVER[$varName] ?? false;
         if (!is_bool($envVar)) {
-            $envVar = in_array(strtolower($envVar), [true, 'true', '1'], true);
+            $envVar = in_array(strtolower(stripslashes($envVar)), [true, 'true', '1'], true);
         }
         return $envVar;
     }
@@ -71,7 +72,7 @@ class EnvironmentService
      */
     public function getMgwEnvironment(): string
     {
-        return $_SERVER[self::ENV_VAR_NAME_ENVIRONMENT] ?? self::ENV_VAR_VALUE_PROD_ENVIRONMENT;
+        return stripslashes($_SERVER[self::ENV_VAR_NAME_ENVIRONMENT] ?? self::ENV_VAR_VALUE_PROD_ENVIRONMENT);
     }
 
     /**
@@ -82,11 +83,9 @@ class EnvironmentService
     public static function isTestLoggingActive(): bool
     {
         if (isset($_SERVER[self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING])) {
-            $verboseLogging = self::getBoolEnvValue(self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING);
-        } else {
-            $verboseLogging = !self::getBoolEnvValue(self::ENV_VAR_NAME_DISABLE_TEST_LOGGING);
+            return self::getBoolEnvValue(self::ENV_VAR_NAME_VERBOSE_TEST_LOGGING);
         }
-        return $verboseLogging;
+        return !self::getBoolEnvValue(self::ENV_VAR_NAME_DISABLE_TEST_LOGGING);
     }
 
     /**
@@ -97,7 +96,7 @@ class EnvironmentService
      */
     public static function getTimeout(): int
     {
-        $timeout = $_SERVER[self::ENV_VAR_NAME_TIMEOUT] ?? '';
+        $timeout = stripslashes($_SERVER[self::ENV_VAR_NAME_TIMEOUT] ?? '');
         return is_numeric($timeout) ? (int)$timeout : self::DEFAULT_TIMEOUT;
     }
 
@@ -106,39 +105,41 @@ class EnvironmentService
      *
      * @return bool
      */
-    public static function getCurlVerbose(): bool
+    public static function isCurlVerbose(): bool
     {
-        $curlVerbose = strtolower($_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE] ?? 'false');
+        $curlVerbose = strtolower(stripslashes($_SERVER[self::ENV_VAR_NAME_CURL_VERBOSE] ?? 'false'));
         return in_array($curlVerbose, ['true', '1'], true);
     }
 
     /**
      * Returns the private key string set via environment variable.
-     * Returns the default key if the environment variable is not set.
+     * Returns the non 3ds version of the key if the non3ds flag is set.
+     * Returns an empty string if the environment variable is not set.
      *
      * @param bool $non3ds
      *
      * @return string
      */
-    public function getTestPrivateKey($non3ds = false): string
+    public static function getTestPrivateKey($non3ds = false): string
     {
-        $variableName = self::ENV_VAR_TEST_PRIVATE_KEY . ($non3ds ? '_NON_3DS' : '');
-        $key = $_SERVER[$variableName] ?? '';
-        return empty($key) && !$non3ds ? self::DEFAULT_TEST_PRIVATE_KEY : $key;
+        $variableName = $non3ds ? self::ENV_VAR_TEST_PRIVATE_KEY_NON_3DS : self::ENV_VAR_TEST_PRIVATE_KEY;
+        $key = stripslashes($_SERVER[$variableName] ?? '');
+        return empty($key) ? '' : $key;
     }
 
     /**
      * Returns the public key string set via environment variable.
-     * Returns the default key if the environment variable is not set.
+     * Returns the non 3ds version of the key if the non3ds flag is set.
+     * Returns an empty string if the environment variable is not set.
      *
      * @param bool $non3ds
      *
      * @return string
      */
-    public function getTestPublicKey($non3ds = false): string
+    public static function getTestPublicKey($non3ds = false): string
     {
-        $variableName = self::ENV_VAR_TEST_PUBLIC_KEY . ($non3ds ? '_NON_3DS' : '');
-        $key = $_SERVER[$variableName] ?? '';
-        return empty($key) && !$non3ds ? self::DEFAULT_TEST_PUBLIC_KEY : $key;
+        $variableName = $non3ds ? self::ENV_VAR_TEST_PUBLIC_KEY_NON_3DS : self::ENV_VAR_TEST_PUBLIC_KEY;
+        $key = stripslashes($_SERVER[$variableName] ?? '');
+        return empty($key) ? '' : $key;
     }
 }
