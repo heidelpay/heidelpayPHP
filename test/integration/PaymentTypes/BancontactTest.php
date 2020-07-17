@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
 /**
  * This class defines integration tests to verify interface and functionality of the payment method Bancontact.
  *
@@ -38,7 +40,7 @@ class BancontactTest extends BaseIntegrationTest
      *
      * @test
      */
-    public function bancontactShouldBeCreateableAndFetchable(): void
+    public function bancontactShouldBeCreatableAndFetchable(): void
     {
         $bancontact = new Bancontact();
         $this->heidelpay->createPaymentType($bancontact);
@@ -49,11 +51,11 @@ class BancontactTest extends BaseIntegrationTest
     }
 
     /**
-     * Verify that an exception is thrown when giropay authorize is called.
+     * Verify that an exception is thrown when bancontact authorize is called.
      *
      * @test
      */
-    public function bancontactShouldThrowExceptionOnAuthorize()
+    public function bancontactShouldThrowExceptionOnAuthorize(): void
     {
         $this->expectException(HeidelpayApiException::class);
         $this->expectExceptionCode(ApiResponseCodes::API_ERROR_TRANSACTION_AUTHORIZE_NOT_ALLOWED);
@@ -63,12 +65,13 @@ class BancontactTest extends BaseIntegrationTest
     }
     
     /**
-     * Verify that Bancontact is chargable
+     * Verify that Bancontact is chargeable
      *
      * @test
      */
-    public function bancontactShouldBeChargeable()
+    public function bancontactShouldBeChargeable(): void
     {
+        /** @var Bancontact $bancontact */
         $bancontact = $this->heidelpay->createPaymentType(new Bancontact());
         $charge = $bancontact->charge(100.0, 'EUR', self::RETURN_URL);
         $this->assertNotNull($charge->getId());
@@ -80,7 +83,7 @@ class BancontactTest extends BaseIntegrationTest
      *
      * @test
      */
-    public function holderShouldBeSubmittedCorrectly()
+    public function holderShouldBeSubmittedCorrectly(): void
     {
         $bancontact = new Bancontact();
         $bancontact->setHolder('test');
