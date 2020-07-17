@@ -32,20 +32,29 @@ class Bancontact extends BasePaymentType
 {
     use CanDirectCharge;
 
+    /** @var string $holder */
+    protected $holder = '';
+
     /**
      * Set the holder of the account.
      *
-     * @param $string
+     * @param $holder
+     *
+     * @return Bancontact
      */
-    public function setHolder($string)
+    public function setHolder($holder): Bancontact
     {
+        $this->holder = $holder;
+        return $this;
     }
 
     /**
      * Returns the holder of the account.
      *
+     * @return string
      */
-    public function getHolder()
+    public function getHolder(): string
     {
+        return $this->holder;
     }
 }
