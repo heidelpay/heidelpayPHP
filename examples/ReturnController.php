@@ -93,7 +93,7 @@ try {
             // The initial transaction of invoice types will not change to success but stay pending.
             if ($payment->getPaymentType()->isInvoiceType()) {
                 // Awaiting payment by the customer.
-                // Goods can be shipped immediately.
+                // Goods can be shipped immediately except for Prepayment type.
                 redirect(SUCCESS_URL);
             }
 

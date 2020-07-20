@@ -28,6 +28,9 @@ trait IsInvoiceType
 {
     /**
      * Return true for invoice types.
+     * This enables you to handle the invoice workflow correctly.
+     * Special to these payment types is that the initial charge transaction never changes from pending to success.
+     * Pending can be viewed as successful and can be handled as such.
      */
     public function isInvoiceType(): bool
     {
