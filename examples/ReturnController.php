@@ -89,6 +89,8 @@ try {
             // * You can set order status to pending payment
             redirect(SUCCESS_URL);
         } elseif ($transaction->isPending()) {
+
+            // The initial transaction of invoice types will not change to success but stay pending.
             if ($payment->getPaymentType()->isInvoiceType()) {
                 // Awaiting payment by the customer.
                 // Goods can be shipped immediately.
