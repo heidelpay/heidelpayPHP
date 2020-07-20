@@ -118,5 +118,5 @@ try {
     $merchantMessage = $e->getMessage();
 }
 // Write the merchant message to your log.
-// Show the client message to the customer (this is localized).
+// Show the client message to the customer (it is localized).
 redirect(FAILURE_URL, $merchantMessage, $clientMessage);

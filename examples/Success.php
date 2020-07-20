@@ -31,7 +31,7 @@ session_start();
     <body>
         <h1 id="result">Success</h1>
         <p>
-            The payment has been successfully completed.
+            The payment has been completed successfully.
             <?php
             if (isset($_SESSION['ShortId']) && !empty($_SESSION['ShortId'])) {
                 echo '<p>Please look for ShortId ' . $_SESSION['ShortId'] . ' in hIP (heidelpay Intelligence Platform) to see the transaction.</p>';
