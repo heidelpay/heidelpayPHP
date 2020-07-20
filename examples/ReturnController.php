@@ -76,10 +76,7 @@ try {
         redirect(SUCCESS_URL);
     } elseif ($payment->isPending()) {
         if ($transaction->isSuccess()) {
-            if ($payment->getPaymentType()->isInvoiceType()) {
-                // Awaiting payment by the customer.
-                // Goods can be shipped immediately.
-            } elseif ($transaction instanceof Authorization) {
+            if ($transaction instanceof Authorization) {
                 // Payment is ready to be captured.
                 // Goods can be shipped later AFTER charge.
             } else {
@@ -92,6 +89,12 @@ try {
             // * You can set order status to pending payment
             redirect(SUCCESS_URL);
         } elseif ($transaction->isPending()) {
+            if ($payment->getPaymentType()->isInvoiceType()) {
+                // Awaiting payment by the customer.
+                // Goods can be shipped immediately.
+                redirect(SUCCESS_URL);
+            }
+
             // In cases of a redirect to an external service (e.g. 3D secure, PayPal, etc) it sometimes takes time for
             // the payment to update it's status after redirect into shop.
             // In this case the payment and the transaction are pending at first and change to cancel or success later.
