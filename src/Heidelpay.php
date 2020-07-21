@@ -26,6 +26,7 @@
 namespace heidelpayPHP;
 
 use DateTime;
+use heidelpayPHP\Adapter\HttpAdapterInterface;
 use heidelpayPHP\Constants\CancelReasonCodes;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Interfaces\CancelServiceInterface;
@@ -310,6 +311,31 @@ class Heidelpay implements HeidelpayParentInterface, PaymentServiceInterface, Re
     {
         $this->httpService = $httpService;
         return $this;
+    }
+
+    /**
+     * Set custom http adapter.
+     *
+     * @param HttpAdapterInterface $adapter
+     *
+     * @return $this
+     */
+    public function setAdapter(HttpAdapterInterface $adapter): Heidelpay
+    {
+        $this->httpService->setHttpAdapter($adapter);
+        return $this;
+    }
+
+    /**
+     * Get custom http adapter.
+     *
+     * @return HttpAdapterInterface
+     *
+     * @throws RuntimeException
+     */
+    public function getAdapter(): ?HttpAdapterInterface
+    {
+        return $this->httpService->getAdapter();
     }
 
     //</editor-fold>
