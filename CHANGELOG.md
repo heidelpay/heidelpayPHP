@@ -19,7 +19,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   Refactor all files to reflect PHP 7.1 standards.
 *   Replace `codacy/coverage` with `codacy/codacy-coverage-reporter`.
 *   Update examples.
-*   Prepayment now identifies as invoice type to handle its workflow correctly.
 
 ### Fix
 *   Change TravisCI config to use default linux distribution in VM to fix certificate errors during integration tests.

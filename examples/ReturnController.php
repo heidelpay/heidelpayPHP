@@ -37,6 +37,7 @@ require_once __DIR__ . '/../../../autoload.php';
 use heidelpayPHP\examples\ExampleDebugHandler;
 use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Heidelpay;
+use heidelpayPHP\Resources\PaymentTypes\Prepayment;
 use heidelpayPHP\Resources\TransactionTypes\AbstractTransactionType;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 
@@ -91,7 +92,8 @@ try {
         } elseif ($transaction->isPending()) {
 
             // The initial transaction of invoice types will not change to success but stay pending.
-            if ($payment->getPaymentType()->isInvoiceType()) {
+            $paymentType = $payment->getPaymentType();
+            if ($paymentType instanceof Prepayment || $paymentType->isInvoiceType()) {
                 // Awaiting payment by the customer.
                 // Goods can be shipped immediately except for Prepayment type.
                 redirect(SUCCESS_URL);

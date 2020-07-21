@@ -25,10 +25,8 @@
 namespace heidelpayPHP\Resources\PaymentTypes;
 
 use heidelpayPHP\Traits\CanDirectCharge;
-use heidelpayPHP\Traits\IsInvoiceType;
 
 class Prepayment extends BasePaymentType
 {
     use CanDirectCharge;
-    use IsInvoiceType;
 }
