@@ -32,13 +32,18 @@ session_start();
         <h1 id="result">Success</h1>
         <p>
             The order has been successfully placed.
+
             <?php
-            if (isset($_SESSION['ShortId']) && !empty($_SESSION['ShortId'])) {
-                echo '<p>Please look for ShortId ' . $_SESSION['ShortId'] . ' in hIP (heidelpay Intelligence Platform) to see the transaction.</p>';
-            }
-            if (isset($_SESSION['PaymentId']) && !empty($_SESSION['PaymentId'])) {
-                echo '<p>The PaymentId of your transaction is \'' . $_SESSION['PaymentId'] . '\'.</p>';
-            }
+                if (isset($_SESSION['additionalPaymentInformation'])) {
+                    echo $_SESSION['additionalPaymentInformation'];
+                }
+
+                if (isset($_SESSION['ShortId']) && !empty($_SESSION['ShortId'])) {
+                    echo '<p>Please look for ShortId ' . $_SESSION['ShortId'] . ' in hIP (heidelpay Intelligence Platform) to see the transaction.</p>';
+                }
+                if (isset($_SESSION['PaymentId']) && !empty($_SESSION['PaymentId'])) {
+                    echo '<p>The PaymentId of your transaction is \'' . $_SESSION['PaymentId'] . '\'.</p>';
+                }
             ?>
         </p>
         <p><a href=".">start again</a></p>

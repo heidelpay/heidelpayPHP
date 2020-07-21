@@ -75,6 +75,21 @@ try {
     // You'll need to remember the shortId to show it on the success or failure page
     $_SESSION['ShortId'] = $transaction->getShortId();
     $_SESSION['PaymentId'] = $transaction->getPaymentId();
+    $_SESSION['additionalPaymentInformation'] =
+        sprintf(
+            "Please transfer the amount of %f %s to the following account:<br /><br />"
+            . "Holder: %s<br/>"
+            . "IBAN: %s<br/>"
+            . "BIC: %s<br/><br/>"
+            . "<i>Please use only this identification number as the descriptor: </i><br/>"
+            . "%s",
+            $transaction->getAmount(),
+            $transaction->getCurrency(),
+            $transaction->getHolder(),
+            $transaction->getIban(),
+            $transaction->getBic(),
+            $transaction->getDescriptor()
+        );
 
     // To avoid redundant code this example redirects to the general ReturnController which contains the code example to handle payment results.
     redirect(RETURN_CONTROLLER_URL);
