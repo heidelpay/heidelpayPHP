@@ -128,15 +128,4 @@ class PrepaymentTest extends BaseIntegrationTest
         $cancellation = $charge->cancel();
         $this->assertTransactionResourceHasBeenCreated($cancellation);
     }
-
-
-    /**
-     *
-     *
-     * @test
-     */
-    public function dfgegr()
-    {
-        $payment = $this->heidelpay->fetchPayment('s-pay-1540');
-    }
 }
