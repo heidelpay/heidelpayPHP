@@ -26,7 +26,6 @@
  */
 namespace heidelpayPHP\test;
 
-use heidelpayPHP\Heidelpay;
 use heidelpayPHP\Services\EnvironmentService;
 use PHPUnit\Runner\BaseTestRunner;
 
@@ -37,8 +36,7 @@ class BaseIntegrationTest extends BasePaymentTest
      */
     protected function setUp(): void
     {
-        $privateKey = EnvironmentService::getTestPrivateKey();
-        $this->heidelpay = (new Heidelpay($privateKey))->setDebugHandler(new TestDebugHandler())->setDebugMode(true);
+        $this->getHeidelpayObject(EnvironmentService::getTestPrivateKey());
     }
 
     /**

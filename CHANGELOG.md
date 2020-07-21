@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Add
 *   Add curl error string to debug log.
 *   Add environment variable to enable/disable verbose curl output.
+*   Method to get the initial transaction from a payment.
 
 ### Change
 *   Mask auth header in debug log.
@@ -17,7 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   Refactor tests due to disabled default keypair.
 *   Refactor all files to reflect PHP 7.1 standards.
 *   Replace `codacy/coverage` with `codacy/codacy-coverage-reporter`.
-*   Update examples to always show the sandbox banner when sandbox keys are used.
+*   Update examples.
 
 ### Fix
 *   Change TravisCI config to use default linux distribution in VM to fix certificate errors during integration tests.

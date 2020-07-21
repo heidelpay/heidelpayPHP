@@ -33,6 +33,7 @@ use heidelpayPHP\Exceptions\HeidelpayApiException;
 use heidelpayPHP\Resources\EmbeddedResources\Amount;
 use heidelpayPHP\Resources\PaymentTypes\BasePaymentType;
 use heidelpayPHP\Resources\PaymentTypes\Paypage;
+use heidelpayPHP\Resources\TransactionTypes\AbstractTransactionType;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
@@ -563,6 +564,21 @@ class Payment extends AbstractHeidelpayResource
     public function getCurrency(): string
     {
         return $this->amount->getCurrency();
+    }
+
+    /**
+     * Returns the initial transaction (Authorize or Charge) of the payment.
+     *
+     * @param bool $lazy
+     *
+     * @return AbstractTransactionType|null
+     *
+     * @throws HeidelpayApiException
+     * @throws RuntimeException
+     */
+    public function getInitialTransaction($lazy = false): ?AbstractTransactionType
+    {
+        return $this->getAuthorization($lazy) ?? $this->getChargeByIndex(0, $lazy);
     }
 
     /**
