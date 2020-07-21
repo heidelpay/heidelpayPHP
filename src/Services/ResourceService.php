@@ -48,6 +48,7 @@ use heidelpayPHP\Resources\PaymentTypes\Ideal;
 use heidelpayPHP\Resources\PaymentTypes\Invoice;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceFactoring;
 use heidelpayPHP\Resources\PaymentTypes\InvoiceGuaranteed;
+use heidelpayPHP\Resources\PaymentTypes\InvoiceSecured;
 use heidelpayPHP\Resources\PaymentTypes\Paypal;
 use heidelpayPHP\Resources\PaymentTypes\PIS;
 use heidelpayPHP\Resources\PaymentTypes\Prepayment;
@@ -512,11 +513,20 @@ class ResourceService implements ResourceServiceInterface
     {
         $resourceType = IdService::getResourceTypeFromIdString($typeId);
         switch ($resourceType) {
+            case IdStrings::ALIPAY:
+                $paymentType = new Alipay();
+                break;
             case IdStrings::CARD:
                 $paymentType = new Card(null, null);
                 break;
+            case IdStrings::EPS:
+                $paymentType = new EPS();
+                break;
             case IdStrings::GIROPAY:
                 $paymentType = new Giropay();
+                break;
+            case IdStrings::HIRE_PURCHASE_DIRECT_DEBIT:
+                $paymentType = new HirePurchaseDirectDebit();
                 break;
             case IdStrings::IDEAL:
                 $paymentType = new Ideal();
@@ -524,11 +534,20 @@ class ResourceService implements ResourceServiceInterface
             case IdStrings::INVOICE:
                 $paymentType = new Invoice();
                 break;
+            case IdStrings::INVOICE_FACTORING:
+                $paymentType = new InvoiceFactoring();
+                break;
             case IdStrings::INVOICE_GUARANTEED:
                 $paymentType = new InvoiceGuaranteed();
                 break;
+            case IdStrings::INVOICE_SECURED:
+                $paymentType = new InvoiceSecured();
+                break;
             case IdStrings::PAYPAL:
                 $paymentType = new Paypal();
+                break;
+            case IdStrings::PIS:
+                $paymentType = new PIS();
                 break;
             case IdStrings::PREPAYMENT:
                 $paymentType = new Prepayment();
@@ -536,32 +555,17 @@ class ResourceService implements ResourceServiceInterface
             case IdStrings::PRZELEWY24:
                 $paymentType = new Przelewy24();
                 break;
-            case IdStrings::SEPA_DIRECT_DEBIT_GUARANTEED:
-                $paymentType = new SepaDirectDebitGuaranteed(null);
-                break;
             case IdStrings::SEPA_DIRECT_DEBIT:
                 $paymentType = new SepaDirectDebit(null);
+                break;
+            case IdStrings::SEPA_DIRECT_DEBIT_GUARANTEED:
+                $paymentType = new SepaDirectDebitGuaranteed(null);
                 break;
             case IdStrings::SOFORT:
                 $paymentType = new Sofort();
                 break;
-            case IdStrings::PIS:
-                $paymentType = new PIS();
-                break;
-            case IdStrings::EPS:
-                $paymentType = new EPS();
-                break;
-            case IdStrings::ALIPAY:
-                $paymentType = new Alipay();
-                break;
             case IdStrings::WECHATPAY:
                 $paymentType = new Wechatpay();
-                break;
-            case IdStrings::INVOICE_FACTORING:
-                $paymentType = new InvoiceFactoring();
-                break;
-            case IdStrings::HIRE_PURCHASE_DIRECT_DEBIT:
-                $paymentType = new HirePurchaseDirectDebit();
                 break;
             default:
                 throw new RuntimeException('Invalid payment type!');
