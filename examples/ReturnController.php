@@ -110,7 +110,7 @@ try {
     }
     // If the payment is neither success nor pending something went wrong.
     // In this case do not create the order or cancel it if you already did.
-    // Redirect to an error page in your shop and show an message if you want.
+    // Redirect to an error page in your shop and show a message if you want.
 
     // Check the result message of the initial transaction to find out what went wrong.
     if ($transaction instanceof AbstractTransactionType) {
