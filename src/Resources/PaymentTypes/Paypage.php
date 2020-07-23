@@ -540,6 +540,25 @@ class Paypage extends BasePaymentType
     }
 
     /**
+     * @return array|null
+     */
+    public function getCss(): ?array
+    {
+        return $this->css;
+    }
+
+    /**
+     * @param array|null $styles
+     *
+     * @return Paypage
+     */
+    public function setCss($styles): Paypage
+    {
+        $this->css = empty($styles) ? null : $styles;
+        return $this;
+    }
+
+    /**
      * @param float|null $effectiveInterestRate
      *
      * @return Paypage
