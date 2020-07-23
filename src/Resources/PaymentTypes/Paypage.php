@@ -549,6 +549,7 @@ class Paypage extends BasePaymentType
 
     /**
      * @param array|null $styles
+     *
      * @return Paypage
      */
     public function setCss($styles): Paypage
