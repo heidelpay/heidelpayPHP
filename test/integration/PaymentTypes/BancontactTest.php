@@ -48,6 +48,7 @@ class BancontactTest extends BaseIntegrationTest
 
         $this->heidelpay->fetchPaymentType($bancontact->getId());
         $this->assertInstanceOf(Bancontact::class, $bancontact);
+        $this->assertNull($bancontact->getHolder());
     }
 
     /**
