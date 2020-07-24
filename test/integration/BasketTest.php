@@ -81,6 +81,8 @@ class BasketTest extends BaseIntegrationTest
         $basket->addBasketItem($basketItem);
         $this->assertEmpty($basket->getId());
 
+
+
         $this->heidelpay->createBasket($basket);
         $this->assertNotEmpty($basket->getId());
 
