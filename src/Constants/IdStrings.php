@@ -79,6 +79,7 @@ class IdStrings
         self::WECHATPAY,
         self::INVOICE_FACTORING,
         self::PAYMENT_PAGE,
-        self::HIRE_PURCHASE_DIRECT_DEBIT
+        self::HIRE_PURCHASE_DIRECT_DEBIT,
+        self::BANCONTACT
     ];
 }
