@@ -35,6 +35,7 @@ use heidelpayPHP\Resources\EmbeddedResources\Amount;
 use heidelpayPHP\Resources\Metadata;
 use heidelpayPHP\Resources\Payment;
 use heidelpayPHP\Resources\PaymentTypes\Sofort;
+use heidelpayPHP\Resources\TransactionTypes\AbstractTransactionType;
 use heidelpayPHP\Resources\TransactionTypes\Authorization;
 use heidelpayPHP\Resources\TransactionTypes\Cancellation;
 use heidelpayPHP\Resources\TransactionTypes\Charge;
@@ -1370,6 +1371,21 @@ class PaymentTest extends BasePaymentTest
         $this->assertEquals($orderId, end($lastElement));
     }
 
+    /**
+     * Verify getInitialTransaction method returns the initial transaction.
+     * Autofetch is disabled due to missing transactionIds.
+     *
+     * @test
+     * @dataProvider initialTransactionDP
+     *
+     * @param AbstractTransactionType $expected
+     * @param Payment                 $payment
+     */
+    public function initialTransactionShouldBeAuthIfExistsElseFirstCharge($expected, Payment $payment): void
+    {
+        $this->assertSame($expected, $payment->getInitialTransaction());
+    }
+
     //<editor-fold desc="Data Providers">
 
     /**
@@ -1386,6 +1402,21 @@ class PaymentTest extends BasePaymentTest
             PaymentState::STATE_NAME_PARTLY         => [PaymentState::STATE_PARTLY],
             PaymentState::STATE_NAME_PAYMENT_REVIEW => [PaymentState::STATE_PAYMENT_REVIEW],
             PaymentState::STATE_NAME_CHARGEBACK     => [PaymentState::STATE_CHARGEBACK]
+        ];
+    }
+
+    /**
+     * Data provider to initialTransactionShouldBeAuthIfExistsElseFirstCharge
+     */
+    public function initialTransactionDP(): array
+    {
+        $authorize = new Authorization();
+        $charge = new Charge();
+
+        return [
+            'charge' => [$charge, (new Payment($this->getHeidelpayObject()))->addCharge($charge)],
+            'authorize' => [$authorize, (new Payment($this->getHeidelpayObject()))->setAuthorization($authorize)],
+            'authorize and charge' => [$authorize, (new Payment($this->getHeidelpayObject()))->addCharge($charge)->setAuthorization($authorize)]
         ];
     }
 
