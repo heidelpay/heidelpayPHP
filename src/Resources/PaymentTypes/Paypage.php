@@ -99,8 +99,8 @@ class Paypage extends BasePaymentType
     /** @var bool $card3ds */
     protected $card3ds;
 
-    /** @var array $css */
-    protected $css = [];
+    /** @var array|null $css */
+    protected $css;
 
     /**
      * Paypage constructor.
@@ -548,14 +548,13 @@ class Paypage extends BasePaymentType
     }
 
     /**
-     * @param array $styles
+     * @param array|null $styles
+     *
      * @return Paypage
      */
     public function setCss($styles): Paypage
     {
-        foreach ($styles as $element => $css) {
-            $this->css[$element] = $css;
-        }
+        $this->css = empty($styles) ? null : $styles;
         return $this;
     }
 
