@@ -348,7 +348,7 @@ function printMessage($type, $title, $text)
                         <div class="description">
                         </div>
                     </div>
-                    <div id="tryFlexiPayDirectExample" class="ui bottom attached green button" onclick="location.href='Bancontact/';">
+                    <div id="tryBancontactExample" class="ui bottom attached green button" onclick="location.href='Bancontact/';">
                         Try
                     </div>
                 </div>
