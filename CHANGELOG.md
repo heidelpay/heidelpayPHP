@@ -11,9 +11,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [1.2.8.0][1.2.8.0]
 
 ### Add
-*   Add curl error string to debug log.
-*   Add environment variable to enable/disable verbose curl output.
+*   Curl error string to debug log.
+*   Environment variable to enable/disable verbose curl output.
 *   Method to get the initial transaction from a payment.
+*   Parameter `css` to `Paypage` to enable custom styling. Special thanks to github user [bleenders](https://github.com/bleenders).
 
 ### Change
 *   Mask auth header in debug log.
@@ -51,6 +52,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 *   Description to zgReferenceId setter/getter.
 *   Added geolocation to Card resource.
 *   Payout webhook events.
+
+### Changed
+*   Fixed some minor issues.
 
 ## [1.2.7.1][1.2.7.1]
 

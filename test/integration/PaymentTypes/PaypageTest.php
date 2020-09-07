@@ -133,4 +133,17 @@ class PaypageTest extends BaseIntegrationTest
         $this->assertNotNull($payment->getId());
         $this->assertNotEmpty($paypage->getRedirectUrl());
     }
+
+    /**
+     * Validate paypage css can be set empty array.
+     *
+     * @test
+     */
+    public function cssShouldAllowForEmptyArray(): void
+    {
+        $paypage = new Paypage(100.0, 'EUR', self::RETURN_URL);
+        $this->assertEmpty($paypage->getId());
+        $paypage = $this->heidelpay->initPayPageAuthorize($paypage->setCss([]));
+        $this->assertNotEmpty($paypage->getId());
+    }
 }

@@ -70,6 +70,7 @@ class PayPageTest extends BasePaymentTest
         $this->assertNull($paypage->getShopDescription());
         $this->assertNull($paypage->getShopName());
         $this->assertNull($paypage->getTagline());
+        $this->assertNull($paypage->getCss());
 
         // link urls
         $this->assertNull($paypage->getContactUrl());
@@ -102,7 +103,13 @@ class PayPageTest extends BasePaymentTest
             ->setPayment($payment)
             ->setRedirectUrl('https://redirect.url')
             ->addExcludeType(SepaDirectDebit::getResourceName())
-            ->setCard3ds(true);
+            ->setCard3ds(true)
+            ->setCss([
+                         'shopDescription' => 'color: purple',
+                         'header' => 'background-color: red',
+                         'helpUrl' => 'color: blue',
+                         'contactUrl' => 'color: green',
+                     ]);
 
         // ----------- VERIFY test values ------------
         $this->assertEquals(321.0, $paypage->getAmount());
@@ -121,6 +128,12 @@ class PayPageTest extends BasePaymentTest
         $this->assertEquals('my shop description', $paypage->getShopDescription());
         $this->assertEquals('my shop name', $paypage->getShopName());
         $this->assertEquals('my shops tag line', $paypage->getTagline());
+        $this->assertEquals([
+                                'shopDescription' => 'color: purple',
+                                'header' => 'background-color: red',
+                                'helpUrl' => 'color: blue',
+                                'contactUrl' => 'color: green',
+                            ], $paypage->getCss());
 
         // link urls
         $this->assertEquals('my contact url', $paypage->getContactUrl());
@@ -167,6 +180,7 @@ class PayPageTest extends BasePaymentTest
         $this->assertNull($paypage->getShopDescription());
         $this->assertNull($paypage->getShopName());
         $this->assertNull($paypage->getTagline());
+        $this->assertNull($paypage->getCss());
 
         $this->assertNull($paypage->getContactUrl());
         $this->assertNull($paypage->getHelpUrl());
@@ -191,6 +205,7 @@ class PayPageTest extends BasePaymentTest
         $response->imprintUrl = 'imprint url';
         $response->privacyPolicyUrl = 'privacy policy url';
         $response->termsAndConditionUrl = 'tac url';
+        $response->css = ['my'=> 'styles'];
         $paypage->handleResponse($response);
 
         // then
@@ -207,6 +222,7 @@ class PayPageTest extends BasePaymentTest
         $this->assertEquals('shop description', $paypage->getShopDescription());
         $this->assertEquals('shop name', $paypage->getShopName());
         $this->assertEquals('tagline', $paypage->getTagline());
+        $this->assertEquals(['my' => 'styles'], $paypage->getCss());
 
         $this->assertEquals('contact url', $paypage->getContactUrl());
         $this->assertEquals('help url', $paypage->getHelpUrl());
@@ -330,7 +346,8 @@ class PayPageTest extends BasePaymentTest
             ->setRedirectUrl('https://redirect.url')
             ->setOrderId('my order id')
             ->setInvoiceId('my invoice id')
-            ->setEffectiveInterestRate(4.99);
+            ->setEffectiveInterestRate(4.99)
+            ->setCss(['my' => 'style']);
 
         // then
         $expected = [
@@ -356,7 +373,8 @@ class PayPageTest extends BasePaymentTest
             'orderId' => 'my order id',
             'invoiceId' => 'my invoice id',
             'excludeTypes' => [],
-            'additionalAttributes' => ['effectiveInterestRate' => 4.99]
+            'additionalAttributes' => ['effectiveInterestRate' => 4.99],
+            'css' => ['my' => 'style']
         ];
         $this->assertEquals($expected, $paypage->expose());
     }
