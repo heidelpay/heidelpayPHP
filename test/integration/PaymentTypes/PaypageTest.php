@@ -72,7 +72,13 @@ class PaypageTest extends BaseIntegrationTest
             ->setContactUrl('https://www.heidelpay.com/en/about-us/about-heidelpay/')
             ->setInvoiceId($invoiceId)
             ->setCard3ds(true)
-            ->setEffectiveInterestRate(4.99);
+            ->setEffectiveInterestRate(4.99)
+            ->setCss([
+                'shopDescription' => 'color: purple',
+                'header' => 'background-color: red',
+                'helpUrl' => 'color: blue',
+                'contactUrl' => 'color: green',
+            ]);
         $this->assertEmpty($paypage->getId());
         $paypage = $this->heidelpay->initPayPageCharge($paypage, $customer, $basket);
         $this->assertNotEmpty($paypage->getId());
@@ -121,7 +127,13 @@ class PaypageTest extends BaseIntegrationTest
             ->setContactUrl('https://www.heidelpay.com/en/about-us/about-heidelpay/')
             ->setInvoiceId($invoiceId)
             ->setCard3ds(true)
-            ->setEffectiveInterestRate(4.99);
+            ->setEffectiveInterestRate(4.99)
+            ->setCss([
+                'shopDescription' => 'color: purple',
+                'header' => 'background-color: red',
+                'helpUrl' => 'color: blue',
+                'contactUrl' => 'color: green',
+            ]);
         $paypage->addExcludeType(Card::getResourceName());
         $this->assertEmpty($paypage->getId());
         $paypage = $this->heidelpay->initPayPageAuthorize($paypage, $customer, $basket);
