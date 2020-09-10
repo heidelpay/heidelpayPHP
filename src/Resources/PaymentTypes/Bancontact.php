@@ -19,7 +19,7 @@
  * @link  https://docs.heidelpay.com/
  *
  * @author  David Owusu <development@heidelpay.com>
- * @author  Florian Everts <development@heidelpay.com>
+ * @author  Florian Evertz <development@heidelpay.com>
  * @author  Simon Gabriel <development@heidelpay.com>
  *
  * @package  heidelpayPHP\PaymentTypes
