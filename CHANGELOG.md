@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [1.2.9.0][1.2.9.0]
 
 ### Add
-*   Added Bancontact payment type and example.
+*   Bancontact payment type and example.
 
 ## [1.2.8.0][1.2.8.0]
 
