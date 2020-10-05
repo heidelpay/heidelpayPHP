@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Add
 *   Bancontact payment type and example.
 
+### Fix
+*   Example for hosted payment page.
+
 ## [1.2.8.0][1.2.8.0]
 
 ### Add

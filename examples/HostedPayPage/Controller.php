@@ -89,6 +89,7 @@ try {
 
     // ... a Basket is mandatory for HirePurchase
     $basketItem = new BasketItem('Hat', 100.0, 119.0, 1);
+    $basketItem->setAmountGross('119.0');
     $basket = new Basket($orderId, 119.0, 'EUR', [$basketItem]);
 
     if ($transactionType === 'charge') {
