@@ -52,7 +52,7 @@ class IdStrings
     public const INVOICE_FACTORING = 'ivf';
     public const HIRE_PURCHASE_DIRECT_DEBIT = 'hdd';
     public const PAYMENT_PAGE = 'ppg';
-    const BANCONTACT = 'bct';
+    public const BANCONTACT = 'bct';
 
     // Resources
     public const BASKET = 'bsk';
