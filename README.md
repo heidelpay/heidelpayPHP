@@ -7,6 +7,8 @@
 [![PHP 7.4](https://img.shields.io/badge/php-7.4-blue.svg)](http://www.php.net)
 
 ![Logo](https://dev.heidelpay.com/devHeidelpay_400_180.jpg)
+## Deprecated Repository
+**This repository will be replaced by [unzerdev/php-sdk](https://github.com/unzerdev/php-sdk) please refer to the [migration guide](https://docs.unzer.com/docs/migration-to-unzer-php-sdk) to migrate to the new SDK.**
 
 # heidelpay php-sdk
 This SDK provides for an easy way to connect to the heidelpay Rest API.
